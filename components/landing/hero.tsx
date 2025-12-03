@@ -6,7 +6,7 @@ import { ArrowRight, Sparkles } from "lucide-react"
 import Link from "next/link"
 
 export function Hero() {
-  const { t } = useAppContext()
+  const { t, user, locale } = useAppContext()
 
   return (
     <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
@@ -34,14 +34,24 @@ export function Hero() {
           {t.hero.description}
         </p>
 
+
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link href="/login?mode=register">
-            <Button size="lg" className="gap-2 px-8">
-              {t.hero.cta}
-              <ArrowRight className="w-4 h-4" />
-            </Button>
-          </Link>
+          {user ? (
+            <Link href="/dashboard">
+              <Button size="lg" className="gap-2 px-8">
+                {locale === 'zh' ? '进入控制台' : 'Go to Dashboard'}
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
+          ) : (
+            <Link href="/login?mode=register">
+              <Button size="lg" className="gap-2 px-8">
+                {t.hero.cta}
+                <ArrowRight className="w-4 h-4" />
+              </Button>
+            </Link>
+          )}
           <a href="#features">
             <Button variant="outline" size="lg" className="px-8 bg-transparent">
               {t.hero.secondaryCta}

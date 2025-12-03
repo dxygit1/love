@@ -1,14 +1,37 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { AI_CONFIG, KNOWN_SITES } from "@/lib/ai-config"
+import { supabase } from "@/lib/supabase"
 
 interface ClassifyResponse {
   category: string
   site_info: string
 }
 
-export async function POST(request: NextRequest) {
+// Helper function to log AI usage
+async function logAiUsage(userId: string, endpoint: string, success: boolean, errorMessage?: string) {
   try {
-    const { url } = await request.json()
+    await supabase
+      .from('ai_usage_logs')
+      .insert({
+        user_id: userId,
+        endpoint,
+        success: success ? 'true' : 'false',
+        error_message: errorMessage || null,
+        tokens_used: null, // Can be populated if API returns token count
+      })
+  } catch (error) {
+    console.error('Failed to log AI usage:', error)
+  }
+}
+
+export async function POST(request: NextRequest) {
+  let userId: string | null = null
+
+  try {
+    const { url, locale = 'zh', userId: userIdFromBody } = await request.json()
+
+    // Get userId (from request body for now)
+    userId = userIdFromBody
 
     if (!url) {
       return NextResponse.json({ error: "URL is required" }, { status: 400 })
@@ -16,11 +39,45 @@ export async function POST(request: NextRequest) {
 
     const hostname = new URL(url).hostname
 
+    // Known sites don't consume AI quota
     if (KNOWN_SITES[hostname]) {
       return NextResponse.json({
         category: KNOWN_SITES[hostname],
         site_info: hostname,
       })
+    }
+
+    // Check quota
+    if (userId) {
+      // Get user profile for limit
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('usage_limit')
+        .eq('id', userId)
+        .single()
+
+      const limit = profile?.usage_limit ?? 30 // Default to 30 if not set
+
+      // Count usage this month
+      const startOfMonth = new Date()
+      startOfMonth.setDate(1)
+      startOfMonth.setHours(0, 0, 0, 0)
+
+      const { count } = await supabase
+        .from('ai_usage_logs')
+        .select('*', { count: 'exact', head: true })
+        .eq('user_id', userId)
+        .eq('success', 'true') // Only count successful usage
+        .gte('created_at', startOfMonth.toISOString())
+
+      if (count !== null && count >= limit) {
+        return NextResponse.json({
+          error: "Monthly AI quota exceeded. Please upgrade your plan.",
+          code: "QUOTA_EXCEEDED",
+          limit,
+          usage: count
+        }, { status: 403 })
+      }
     }
 
     // Step 1: Fetch the webpage with timeout
@@ -55,15 +112,24 @@ export async function POST(request: NextRequest) {
     }
 
     // Step 2: Call LLM API for classification using config
-    const systemPrompt = `你是一个网页分类专员。你的任务是根据网页信息判断其类型。
+    console.log('Received locale:', locale, 'isChinese:', locale === 'zh')
+    const isChinese = locale === 'zh'
 
+    const systemPrompt = isChinese
+      ? `看一下这个是什么网站，我需要做一个归类。例如：视频、搜索、翻译、新闻等等。只返回一个简短的分类名称（1-4个字），不要输出任何解释。`
+      : `I need to classify this website. For example: Video, Search, Translation, News, etc. You MUST respond in English only. Return only a concise category name (1-2 words), do not output any explanation.`
 
-仅输出一个分类名称，不要输出任何解释。`
-
-    const userPrompt = `网页标题: ${title || "未知"}
+    const userPrompt = isChinese
+      ? `网页标题: ${title || "未知"}
 网页描述: ${description || "无描述"}
 网址: ${url}
-看一下这个是 什么网站 我需要做一个归类。例如： 视频 搜索引擎。等等`
+
+请对这个网页进行分类。`
+      : `Title: ${title || "Unknown"}
+Description: ${description || "No description"}
+URL: ${url}
+
+Classify this webpage.`
 
     const llmResponse = await fetch(`${AI_CONFIG.baseUrl}/chat/completions`, {
       method: "POST",
@@ -85,11 +151,22 @@ export async function POST(request: NextRequest) {
     if (!llmResponse.ok) {
       const errorData = await llmResponse.text()
       console.error("LLM API error:", errorData)
+
+      // Log failed AI usage
+      if (userId) {
+        await logAiUsage(userId, 'classify', false, 'LLM API error')
+      }
+
       throw new Error("AI classification failed")
     }
 
     const llmData = await llmResponse.json()
     const category = llmData.choices?.[0]?.message?.content?.trim() || "其他"
+
+    // Log successful AI usage
+    if (userId) {
+      await logAiUsage(userId, 'classify', true)
+    }
 
     const response: ClassifyResponse = {
       category,
@@ -99,6 +176,12 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(response)
   } catch (error) {
     console.error("Classification error:", error)
+
+    // Log failed AI usage
+    if (userId) {
+      await logAiUsage(userId, 'classify', false, String(error))
+    }
+
     return NextResponse.json({ error: "分类失败，请稍后重试" }, { status: 500 })
   }
 }

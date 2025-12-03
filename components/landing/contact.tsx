@@ -26,70 +26,44 @@ export function Contact() {
 
   return (
     <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-12">
+      <div className="max-w-3xl mx-auto text-center">
+        <div className="mb-12">
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4">{t.contact.title}</h2>
           <p className="text-lg text-muted-foreground">{t.contact.subtitle}</p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">{t.contact.form.name}</label>
-              <Input placeholder={t.contact.form.name} required />
+        <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          {/* Email Card */}
+          <a
+            href="mailto:dxysy1@gmail.com"
+            className="group flex items-center gap-4 p-8 rounded-3xl bg-muted/30 border border-border hover:bg-muted/50 transition-all duration-300 hover:scale-105"
+          >
+            <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+              <Mail className="w-8 h-8 text-primary" />
             </div>
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">{t.contact.form.email}</label>
-              <Input type="email" placeholder={t.contact.form.email} required />
+            <div className="text-left">
+              <div className="text-sm text-muted-foreground font-medium mb-1">Email us</div>
+              <div className="text-lg font-bold text-foreground break-all">dxysy1@gmail.com</div>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-foreground mb-2">{t.contact.form.message}</label>
-              <Textarea placeholder={t.contact.form.message} rows={5} required />
-            </div>
-            <Button type="submit" className="w-full" disabled={sending || sent}>
-              {sending ? t.contact.form.sending : sent ? t.contact.form.success : t.contact.form.submit}
-            </Button>
-          </form>
+          </a>
 
-          {/* Contact Info */}
-          <div className="space-y-6">
-            <div className="p-6 rounded-2xl bg-muted/30 border border-border">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <Mail className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <div className="font-medium text-foreground">Email</div>
-                  <div className="text-muted-foreground">{t.contact.info.email}</div>
-                </div>
-              </div>
+          {/* Twitter Card */}
+          <a
+            href="https://x.com/OwenDong_sy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex items-center gap-4 p-8 rounded-3xl bg-muted/30 border border-border hover:bg-muted/50 transition-all duration-300 hover:scale-105"
+          >
+            <div className="w-16 h-16 rounded-2xl bg-black text-white flex items-center justify-center group-hover:bg-primary transition-colors">
+              <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current" aria-hidden="true">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+              </svg>
             </div>
-
-            <div className="p-6 rounded-2xl bg-muted/30 border border-border">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <MessageCircle className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <div className="font-medium text-foreground">WeChat</div>
-                  <div className="text-muted-foreground">{t.contact.info.wechat}</div>
-                </div>
-              </div>
+            <div className="text-left">
+              <div className="text-sm text-muted-foreground font-medium mb-1">Follow us on X</div>
+              <div className="text-lg font-bold text-foreground">@OwenDong_sy</div>
             </div>
-
-            <div className="p-6 rounded-2xl bg-muted/30 border border-border">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <MapPin className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <div className="font-medium text-foreground">Address</div>
-                  <div className="text-muted-foreground">{t.contact.info.address}</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          </a>
         </div>
       </div>
     </section>

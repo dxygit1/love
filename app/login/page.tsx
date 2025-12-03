@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Bookmark, Mail, Lock, User, ArrowLeft } from "lucide-react"
 import { AUTH_CONFIG } from "@/lib/auth-config"
+import { supabase } from "@/lib/supabase"
 
 function LoginContent() {
   const router = useRouter()
@@ -26,33 +27,85 @@ function LoginContent() {
   // Redirect if already logged in
   useEffect(() => {
     if (user) {
-      router.push("/dashboard")
+      const redirect = searchParams.get("redirect")
+      router.push(redirect || "/dashboard")
     }
-  }, [user, router])
+  }, [user, router, searchParams])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setError("")
 
-    // Simulate authentication
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    try {
+      if (mode === "register") {
+        // Register: Insert new user into profiles table
+        const userId = crypto.randomUUID()
 
-    // Mock successful login/register
-    const mockUser = {
-      id: crypto.randomUUID(),
-      email,
-      name: mode === "register" ? name : email.split("@")[0],
-      provider: "email" as const,
+        const { error } = await supabase
+          .from("profiles")
+          .insert({
+            id: userId,
+            email,
+            full_name: name,
+            password_hash: password, // In production, use bcrypt
+          })
+
+        if (error) {
+          if (error.code === '23505') { // Unique violation
+            throw new Error("Email already exists")
+          }
+          throw error
+        }
+
+        // Set user in context
+        const newUser = {
+          id: userId,
+          email,
+          name,
+          provider: "email" as const,
+        }
+        setUser(newUser)
+        const redirect = searchParams.get("redirect")
+        router.push(redirect || "/dashboard")
+      } else {
+        // Login: Verify credentials from database
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("id, email, full_name, password_hash")
+          .eq("email", email)
+          .single()
+
+        if (error || !data) {
+          throw new Error("Invalid email or password")
+        }
+
+        // In production, use bcrypt.compare()
+        if (data.password_hash !== password) {
+          throw new Error("Invalid email or password")
+        }
+
+        // Set user in context
+        const newUser = {
+          id: data.id,
+          email: data.email,
+          name: data.full_name || email.split("@")[0],
+          provider: "email" as const,
+        }
+        setUser(newUser)
+        const redirect = searchParams.get("redirect")
+        router.push(redirect || "/dashboard")
+      }
+    } catch (err: any) {
+      console.error("Auth error:", err)
+      setError(err.message || "Authentication failed")
+    } finally {
+      setLoading(false)
     }
-
-    setUser(mockUser)
-    setLoading(false)
-    router.push("/dashboard")
   }
 
   const handleGoogleLogin = () => {
-    // Build Google OAuth URL
+    // Use original Google OAuth flow
     const redirectUri = typeof window !== "undefined" ? `${window.location.origin}/api/auth/google/callback` : ""
 
     const params = new URLSearchParams({
@@ -111,17 +164,15 @@ function LoginContent() {
             <div className="flex items-center border border-border rounded-lg p-0.5">
               <button
                 onClick={() => setLocale("zh")}
-                className={`px-2 py-1 text-xs font-medium rounded-md transition-colors ${
-                  locale === "zh" ? "bg-muted text-foreground" : "text-muted-foreground"
-                }`}
+                className={`px-2 py-1 text-xs font-medium rounded-md transition-colors ${locale === "zh" ? "bg-muted text-foreground" : "text-muted-foreground"
+                  }`}
               >
                 中文
               </button>
               <button
                 onClick={() => setLocale("en")}
-                className={`px-2 py-1 text-xs font-medium rounded-md transition-colors ${
-                  locale === "en" ? "bg-muted text-foreground" : "text-muted-foreground"
-                }`}
+                className={`px-2 py-1 text-xs font-medium rounded-md transition-colors ${locale === "en" ? "bg-muted text-foreground" : "text-muted-foreground"
+                  }`}
               >
                 EN
               </button>

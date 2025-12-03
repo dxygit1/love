@@ -27,17 +27,12 @@ export function Footer() {
             <h4 className="font-semibold text-foreground mb-4">{t.footer.product}</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a href="#features" className="hover:text-foreground transition-colors">
+                <a href="/#features" className="hover:text-foreground transition-colors">
                   {t.nav.features}
                 </a>
               </li>
               <li>
-                <a href="#pricing" className="hover:text-foreground transition-colors">
-                  {t.nav.pricing}
-                </a>
-              </li>
-              <li>
-                <a href="#faq" className="hover:text-foreground transition-colors">
+                <a href="/#faq" className="hover:text-foreground transition-colors">
                   {t.nav.faq}
                 </a>
               </li>
@@ -49,18 +44,13 @@ export function Footer() {
             <h4 className="font-semibold text-foreground mb-4">{t.footer.company}</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a href="#" className="hover:text-foreground transition-colors">
+                <Link href="/about" className="hover:text-foreground transition-colors">
                   {t.footer.about}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-foreground transition-colors">
-                  {t.footer.blog}
-                </a>
-              </li>
-              <li>
-                <a href="#" className="hover:text-foreground transition-colors">
-                  {t.footer.careers}
+                <a href="/#contact" className="hover:text-foreground transition-colors">
+                  {t.footer.contact}
                 </a>
               </li>
             </ul>
@@ -71,14 +61,14 @@ export function Footer() {
             <h4 className="font-semibold text-foreground mb-4">{t.footer.legal}</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a href="#" className="hover:text-foreground transition-colors">
+                <Link href="/terms" className="hover:text-foreground transition-colors">
                   {t.footer.terms}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-foreground transition-colors">
+                <Link href="/privacy" className="hover:text-foreground transition-colors">
                   {t.footer.privacy}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

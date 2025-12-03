@@ -1,13 +1,17 @@
 "use client"
 
 import type React from "react"
-import { createContext, useContext, useState, useEffect } from "react"
+import { createContext, useContext, useState, useEffect, useCallback } from "react"
 import { type Locale, translations } from "@/lib/i18n"
+import { supabase } from "@/lib/supabase"
+import type { User as SupabaseUser } from "@supabase/supabase-js"
 
 // Theme types
 type Theme = "light" | "dark" | "system"
 
-// User type
+// User type (extending Supabase user or just using it)
+// We'll use a simplified interface that matches what the app expects, 
+// but mapped from Supabase
 interface User {
   id: string
   email: string
@@ -27,7 +31,7 @@ interface AppContextType {
   t: typeof translations.zh
   // Auth
   user: User | null
-  setUser: (user: User | null) => void
+  setUser: (user: User | null) => void // Kept for compatibility, but mostly managed by Supabase
   isAuthenticated: boolean
   logout: () => void
 }
@@ -37,7 +41,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined)
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("system")
   const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("dark")
-  const [locale, setLocaleState] = useState<Locale>("zh")
+  const [locale, setLocaleState] = useState<Locale>("en")
   const [user, setUserState] = useState<User | null>(null)
   const [mounted, setMounted] = useState(false)
 
@@ -45,19 +49,33 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") as Theme | null
     const savedLocale = localStorage.getItem("locale") as Locale | null
-    const savedUser = localStorage.getItem("user")
 
     if (savedTheme) setThemeState(savedTheme)
     if (savedLocale) setLocaleState(savedLocale)
+
+    setMounted(true)
+  }, [])
+
+  // Load user from localStorage on mount
+  useEffect(() => {
+    const savedUser = localStorage.getItem("user")
     if (savedUser) {
       try {
         setUserState(JSON.parse(savedUser))
-      } catch {
+      } catch (e) {
         localStorage.removeItem("user")
       }
     }
-    setMounted(true)
   }, [])
+
+  // Save user to localStorage when it changes
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user))
+    } else {
+      localStorage.removeItem("user")
+    }
+  }, [user])
 
   // Handle theme changes
   useEffect(() => {
@@ -86,28 +104,25 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
   }, [theme, mounted])
 
-  const setTheme = (newTheme: Theme) => {
+  const setTheme = useCallback((newTheme: Theme) => {
     setThemeState(newTheme)
     localStorage.setItem("theme", newTheme)
-  }
+  }, [])
 
-  const setLocale = (newLocale: Locale) => {
+  const setLocale = useCallback((newLocale: Locale) => {
     setLocaleState(newLocale)
     localStorage.setItem("locale", newLocale)
-  }
+  }, [])
 
-  const setUser = (newUser: User | null) => {
+  // Manual setUser is mostly for optimistic updates or legacy support
+  const setUser = useCallback((newUser: User | null) => {
     setUserState(newUser)
-    if (newUser) {
-      localStorage.setItem("user", JSON.stringify(newUser))
-    } else {
-      localStorage.removeItem("user")
-    }
-  }
+  }, [])
 
-  const logout = () => {
-    setUser(null)
-  }
+  const logout = useCallback(async () => {
+    await supabase.auth.signOut()
+    setUserState(null)
+  }, [])
 
   const t = translations[locale]
 

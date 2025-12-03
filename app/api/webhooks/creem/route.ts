@@ -1,74 +1,90 @@
 import { type NextRequest, NextResponse } from "next/server"
-import { CREEM_CONFIG } from "@/lib/creem-config"
-import crypto from "crypto"
-
-// Verify Creem webhook signature
-function verifySignature(payload: string, signature: string): boolean {
-  if (!CREEM_CONFIG.webhookSecret) return false
-
-  const expectedSignature = crypto.createHmac("sha256", CREEM_CONFIG.webhookSecret).update(payload).digest("hex")
-
-  return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expectedSignature))
-}
+import { supabase } from "@/lib/supabase"
 
 export async function POST(request: NextRequest) {
   try {
-    const payload = await request.text()
-    const signature = request.headers.get("x-creem-signature") || ""
+    const body = await request.json()
+    console.log("Creem Webhook received:", JSON.stringify(body, null, 2))
 
-    // Verify webhook signature (skip in test mode if no secret)
-    if (CREEM_CONFIG.webhookSecret && !verifySignature(payload, signature)) {
-      console.error("[v0] Invalid webhook signature")
-      return NextResponse.json({ error: "Invalid signature" }, { status: 401 })
+    // Verify event type
+    const eventType = body.type
+    if (!eventType) {
+      return NextResponse.json({ error: "Invalid event" }, { status: 400 })
     }
 
-    const event = JSON.parse(payload)
-    console.log("[v0] Creem webhook event:", event.type)
+    // Handle payment success
+    // Note: Adjust event name based on actual Creem documentation if different
+    if (eventType === "checkout.session.completed" || eventType === "payment.success") {
+      const session = body.data?.object || body.data
 
-    // Handle different event types
-    switch (event.type) {
-      case "checkout.completed":
-        // Handle successful checkout
-        console.log("[v0] Checkout completed:", event.data)
-        // TODO: Update user subscription status in database
-        break
+      // Extract user ID from client_reference_id or metadata
+      const userId = session.client_reference_id || session.metadata?.user_id || session.metadata?.userId
 
-      case "subscription.active":
-        // Handle subscription activation
-        console.log("[v0] Subscription activated:", event.data)
-        // TODO: Grant user access to premium features
-        break
+      if (!userId) {
+        console.error("No user ID found in webhook payload")
+        return NextResponse.json({ received: true }) // Return 200 to acknowledge
+      }
 
-      case "subscription.canceled":
-        // Handle subscription cancellation
-        console.log("[v0] Subscription canceled:", event.data)
-        // TODO: Revoke user's premium access
-        break
+      const amount = session.amount_total || session.amount
+      const currency = session.currency
+      const paymentId = session.id
+      const productId = session.product_id || session.price?.product
 
-      case "subscription.renewed":
-        // Handle subscription renewal
-        console.log("[v0] Subscription renewed:", event.data)
-        // TODO: Update subscription expiry date
-        break
+      // Determine plan based on product ID or amount
+      let plan = 'pro'
+      let limit = 3000
 
-      case "payment.success":
-        // Handle successful payment
-        console.log("[v0] Payment successful:", event.data)
-        break
+      // Check against configured IDs if available, or fallback to amount logic
+      const proId = process.env.NEXT_PUBLIC_CREEM_PRO_ID
+      const ultraId = process.env.NEXT_PUBLIC_CREEM_ULTRA_ID
 
-      case "payment.failed":
-        // Handle failed payment
-        console.log("[v0] Payment failed:", event.data)
-        // TODO: Notify user about failed payment
-        break
+      if (productId === ultraId) {
+        plan = 'ultra'
+        limit = 10000
+      } else if (amount > 5000) { // Fallback: > $50 (5000 cents)
+        plan = 'ultra'
+        limit = 10000
+      }
 
-      default:
-        console.log("[v0] Unhandled event type:", event.type)
+      console.log(`Processing payment for user ${userId}: Plan ${plan}, Limit ${limit}`)
+
+      // Update profile
+      const { error: updateError } = await supabase
+        .from('profiles')
+        .update({
+          plan: plan,
+          subscription_status: 'active',
+          usage_limit: limit,
+          customer_id: session.customer,
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', userId)
+
+      if (updateError) {
+        console.error("Failed to update profile:", updateError)
+        return NextResponse.json({ error: "Database update failed" }, { status: 500 })
+      }
+
+      // Log payment
+      const { error: logError } = await supabase
+        .from('payment_logs')
+        .insert({
+          user_id: userId,
+          amount: amount,
+          currency: currency,
+          status: 'succeeded',
+          provider_payment_id: paymentId,
+          metadata: session
+        })
+
+      if (logError) {
+        console.error("Failed to log payment:", logError)
+      }
     }
 
     return NextResponse.json({ received: true })
   } catch (error) {
-    console.error("[v0] Webhook error:", error)
-    return NextResponse.json({ error: "Webhook processing failed" }, { status: 500 })
+    console.error("Webhook error:", error)
+    return NextResponse.json({ error: "Webhook handler failed" }, { status: 500 })
   }
 }

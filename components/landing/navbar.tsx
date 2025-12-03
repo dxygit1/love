@@ -7,15 +7,14 @@ import { Bookmark, Menu, X, Sun, Moon, Monitor } from "lucide-react"
 import { useState } from "react"
 
 export function Navbar() {
-  const { t, locale, setLocale, theme, setTheme } = useAppContext()
+  const { t, locale, setLocale, theme, setTheme, user } = useAppContext()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const navItems = [
-    { href: "#features", label: t.nav.features },
-    { href: "#pricing", label: t.nav.pricing },
-    { href: "#testimonials", label: t.nav.testimonials },
-    { href: "#faq", label: t.nav.faq },
-    { href: "#contact", label: t.nav.contact },
+    { href: "/#features", label: t.nav.features },
+    { href: "/#testimonials", label: t.nav.testimonials },
+    { href: "/#faq", label: t.nav.faq },
+    { href: "/#contact", label: t.nav.contact },
   ]
 
   return (
@@ -49,25 +48,22 @@ export function Navbar() {
             <div className="flex items-center border border-border rounded-lg p-0.5">
               <button
                 onClick={() => setTheme("light")}
-                className={`p-1.5 rounded-md transition-colors ${
-                  theme === "light" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
-                }`}
+                className={`p-1.5 rounded-md transition-colors ${theme === "light" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
+                  }`}
               >
                 <Sun className="w-4 h-4" />
               </button>
               <button
                 onClick={() => setTheme("dark")}
-                className={`p-1.5 rounded-md transition-colors ${
-                  theme === "dark" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
-                }`}
+                className={`p-1.5 rounded-md transition-colors ${theme === "dark" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
+                  }`}
               >
                 <Moon className="w-4 h-4" />
               </button>
               <button
                 onClick={() => setTheme("system")}
-                className={`p-1.5 rounded-md transition-colors ${
-                  theme === "system" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
-                }`}
+                className={`p-1.5 rounded-md transition-colors ${theme === "system" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
+                  }`}
               >
                 <Monitor className="w-4 h-4" />
               </button>
@@ -77,30 +73,36 @@ export function Navbar() {
             <div className="flex items-center border border-border rounded-lg p-0.5">
               <button
                 onClick={() => setLocale("zh")}
-                className={`px-2 py-1 text-xs font-medium rounded-md transition-colors ${
-                  locale === "zh" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
-                }`}
+                className={`px-2 py-1 text-xs font-medium rounded-md transition-colors ${locale === "zh" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
+                  }`}
               >
                 中文
               </button>
               <button
                 onClick={() => setLocale("en")}
-                className={`px-2 py-1 text-xs font-medium rounded-md transition-colors ${
-                  locale === "en" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
-                }`}
+                className={`px-2 py-1 text-xs font-medium rounded-md transition-colors ${locale === "en" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
+                  }`}
               >
                 EN
               </button>
             </div>
 
-            <Link href="/login">
-              <Button variant="ghost" size="sm">
-                {t.nav.login}
-              </Button>
-            </Link>
-            <Link href="/login?mode=register">
-              <Button size="sm">{t.nav.getStarted}</Button>
-            </Link>
+            {user ? (
+              <Link href="/dashboard">
+                <Button size="sm">{locale === 'zh' ? '进入控制台' : 'Dashboard'}</Button>
+              </Link>
+            ) : (
+              <>
+                <Link href="/login">
+                  <Button variant="ghost" size="sm">
+                    {t.nav.login}
+                  </Button>
+                </Link>
+                <Link href="/login?mode=register">
+                  <Button size="sm">{t.nav.getStarted}</Button>
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}

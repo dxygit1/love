@@ -13,23 +13,19 @@ export const CREEM_CONFIG = {
   testMode: process.env.NODE_ENV !== "production",
 
   // Product IDs (to be configured in Creem dashboard)
+  // Product IDs (to be configured in Creem dashboard)
   products: {
-    free: {
-      id: "prod_free",
-      name: "Free",
-      priceId: "",
-    },
     pro: {
-      id: "prod_pro",
-      name: "Pro",
-      priceId: "price_pro_monthly", // Replace with actual Creem price ID
-      priceIdYearly: "price_pro_yearly",
+      id: process.env.NEXT_PUBLIC_CREEM_PRO_ID || "prod_6Bevs0KePDoVtuFPlQfzmA",
+      name: "Lifetime Pro",
+      priceId: "price_pro_lifetime",
+      url: "https://www.creem.io/test/payment/prod_6Bevs0KePDoVtuFPlQfzmA",
     },
-    team: {
-      id: "prod_team",
-      name: "Team",
-      priceId: "price_team_monthly", // Replace with actual Creem price ID
-      priceIdYearly: "price_team_yearly",
+    ultra: {
+      id: process.env.NEXT_PUBLIC_CREEM_ULTRA_ID || "prod_61op67wtYtK3ZrHwDPqYUu",
+      name: "Lifetime Ultra",
+      priceId: "price_ultra_lifetime",
+      url: "https://www.creem.io/test/payment/prod_61op67wtYtK3ZrHwDPqYUu",
     },
   },
 

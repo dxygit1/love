@@ -13,7 +13,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-export function DashboardHeader() {
+export function DashboardHeader({ activeTab, onTabChange }: {
+  activeTab?: "bookmarks" | "usage" | "admin"
+  onTabChange?: (tab: "bookmarks" | "usage" | "admin") => void
+}) {
   const router = useRouter()
   const { t, locale, setLocale, theme, setTheme, user, logout } = useAppContext()
 
@@ -38,14 +41,48 @@ export function DashboardHeader() {
 
   return (
     <header className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
-      <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div className="max-w-[1440px] mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/dashboard" className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-            <Bookmark className="w-5 h-5 text-primary-foreground" />
-          </div>
-          <span className="font-semibold text-lg text-foreground">AI Bookmark</span>
-        </Link>
+        <div className="flex items-center gap-6">
+          <Link href="/" className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
+              <Bookmark className="w-5 h-5 text-primary-foreground" />
+            </div>
+            <span className="font-semibold text-lg text-foreground">AI Bookmark</span>
+          </Link>
+
+          <nav className="hidden md:flex items-center gap-1">
+            <button
+              onClick={() => onTabChange?.("bookmarks")}
+              className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${activeTab === "bookmarks"
+                ? "bg-primary/10 text-primary"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                }`}
+            >
+              {t?.myBookmarks || "Bookmarks"}
+            </button>
+            <button
+              onClick={() => onTabChange?.("usage")}
+              className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${activeTab === "usage"
+                ? "bg-primary/10 text-primary"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                }`}
+            >
+              {locale === 'zh' ? 'AI 使用统计' : 'AI Usage'}
+            </button>
+            {user?.email === 'dxysy1@gmail.com' && (
+              <button
+                onClick={() => onTabChange?.("admin")}
+                className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${activeTab === "admin"
+                  ? "bg-primary/10 text-primary"
+                  : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                  }`}
+              >
+                {locale === 'zh' ? '管理后台' : 'Admin'}
+              </button>
+            )}
+          </nav>
+        </div>
 
         {/* Right Actions */}
         <div className="flex items-center gap-2">
@@ -53,27 +90,24 @@ export function DashboardHeader() {
           <div className="flex items-center border border-border rounded-lg p-0.5">
             <button
               onClick={() => setTheme("light")}
-              className={`p-1.5 rounded-md transition-colors ${
-                theme === "light" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
-              }`}
+              className={`p-1.5 rounded-md transition-colors ${theme === "light" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
+                }`}
               title={t.light}
             >
               <Sun className="w-4 h-4" />
             </button>
             <button
               onClick={() => setTheme("dark")}
-              className={`p-1.5 rounded-md transition-colors ${
-                theme === "dark" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
-              }`}
+              className={`p-1.5 rounded-md transition-colors ${theme === "dark" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
+                }`}
               title={t.dark}
             >
               <Moon className="w-4 h-4" />
             </button>
             <button
               onClick={() => setTheme("system")}
-              className={`p-1.5 rounded-md transition-colors ${
-                theme === "system" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
-              }`}
+              className={`p-1.5 rounded-md transition-colors ${theme === "system" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
+                }`}
               title={t.system}
             >
               <Monitor className="w-4 h-4" />
@@ -84,17 +118,15 @@ export function DashboardHeader() {
           <div className="flex items-center border border-border rounded-lg p-0.5">
             <button
               onClick={() => setLocale("zh")}
-              className={`px-2 py-1 text-xs font-medium rounded-md transition-colors ${
-                locale === "zh" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
-              }`}
+              className={`px-2 py-1 text-xs font-medium rounded-md transition-colors ${locale === "zh" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
+                }`}
             >
               中文
             </button>
             <button
               onClick={() => setLocale("en")}
-              className={`px-2 py-1 text-xs font-medium rounded-md transition-colors ${
-                locale === "en" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
-              }`}
+              className={`px-2 py-1 text-xs font-medium rounded-md transition-colors ${locale === "en" ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground"
+                }`}
             >
               EN
             </button>
@@ -104,13 +136,11 @@ export function DashboardHeader() {
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="rounded-full">
-                {user?.avatar ? (
-                  <img src={user.avatar || "/placeholder.svg"} alt={user.name} className="w-8 h-8 rounded-full" />
-                ) : (
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                    <User className="w-4 h-4 text-primary" />
-                  </div>
-                )}
+                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                  <span className="text-xs font-medium text-primary">
+                    {user?.name ? user.name.charAt(0).toUpperCase() : <User className="w-4 h-4 text-primary" />}
+                  </span>
+                </div>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">

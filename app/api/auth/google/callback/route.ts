@@ -46,12 +46,48 @@ export async function GET(request: NextRequest) {
 
     const userData = await userResponse.json()
 
+    // Check if user exists in database (by email)
+    const { createClient } = await import("@supabase/supabase-js")
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+    )
+
+    const { data: existingUser } = await supabase
+      .from("profiles")
+      .select("id, email, full_name, avatar_url")
+      .eq("email", userData.email)
+      .single()
+
+    let userId: string
+    let userName: string
+    let userAvatar: string | null
+
+    if (existingUser) {
+      // User exists, use existing data
+      userId = existingUser.id
+      userName = existingUser.full_name || userData.name
+      userAvatar = existingUser.avatar_url || userData.picture
+    } else {
+      // New user, create UUID and insert
+      userId = crypto.randomUUID()
+      userName = userData.name
+      userAvatar = userData.picture
+
+      await supabase.from("profiles").insert({
+        id: userId,
+        email: userData.email,
+        full_name: userName,
+        avatar_url: userAvatar,
+      })
+    }
+
     // Create user object and encode it for the client
     const user = {
-      id: userData.id,
+      id: userId,
       email: userData.email,
-      name: userData.name,
-      avatar: userData.picture,
+      name: userName,
+      avatar: userAvatar,
       provider: "google",
     }
 
