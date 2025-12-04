@@ -24,6 +24,8 @@ export function AddBookmarkDialog({ onAdd }: AddBookmarkDialogProps) {
   const [isClassifying, setIsClassifying] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [error, setError] = useState("")
+  const [smartGrouping, setSmartGrouping] = useState(false) // Restore: Smart grouping toggle
+  const [generatedSummary, setGeneratedSummary] = useState("") // NEW: Store generated summary
 
   if (!t || typeof t.addBookmark !== "string") {
     return null
@@ -39,13 +41,37 @@ export function AddBookmarkDialog({ onAdd }: AddBookmarkDialogProps) {
     setError("")
 
     try {
+      let summary = ""
+
+      // Step 1: Always generate summary
+      const summarizeResponse = await fetch("/api/summarize", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          url: url.trim(),
+          title: title.trim(),
+          description: "",
+          locale: locale,
+        }),
+      })
+
+      if (summarizeResponse.ok) {
+        const summarizeData = await summarizeResponse.json()
+        summary = summarizeData.summary || ""
+        setGeneratedSummary(summary) // Store for display
+      }
+
+      // Step 2: Classify
+      // Only enable smart grouping (similarity matching) if checkbox is checked
       const response = await fetch("/api/classify", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           url: url.trim(),
-          locale: locale, // Pass current locale
-          userId: user?.id, // Pass userId for analytics tracking
+          locale: locale,
+          userId: user?.id,
+          smartGrouping: smartGrouping, // Controlled by checkbox
+          summary: summary,
         }),
       })
 
@@ -57,7 +83,8 @@ export function AddBookmarkDialog({ onAdd }: AddBookmarkDialogProps) {
 
       setGroup(data.category)
 
-      if (!title.trim() && data.site_info) {
+      // Always use AI's concise site name
+      if (data.site_info) {
         setTitle(data.site_info)
       }
     } catch (err) {
@@ -157,7 +184,7 @@ export function AddBookmarkDialog({ onAdd }: AddBookmarkDialogProps) {
           title: finalTitle,
           url: finalUrl,
           user_id: user.id,
-          description: "", // Optional description
+          description: generatedSummary || "", // Save AI-generated summary
           favicon_url: faviconUrl || null,
         })
         .select()
@@ -175,8 +202,8 @@ export function AddBookmarkDialog({ onAdd }: AddBookmarkDialogProps) {
           .order("sort_order", { ascending: false })
           .limit(1)
 
-        const maxSortOrder = existingTags?.[0]?.sort_order ? parseInt(existingTags[0].sort_order) : -1
-        const newSortOrder = String(maxSortOrder + 1)
+        const maxSortOrder = existingTags?.[0]?.sort_order ?? -1  // Already integer
+        const newSortOrder = maxSortOrder + 1  // Use integer directly
 
         // Upsert tag
         const { data: tagData, error: tagError } = await supabase
@@ -230,6 +257,8 @@ export function AddBookmarkDialog({ onAdd }: AddBookmarkDialogProps) {
     setUrl("")
     setGroup("")
     setError("")
+    setGeneratedSummary("") // Clear summary
+    setSmartGrouping(false) // Reset checkbox
   }
 
   return (
@@ -310,6 +339,42 @@ export function AddBookmarkDialog({ onAdd }: AddBookmarkDialogProps) {
                   </>
                 )}
               </Button>
+            </div>
+
+            {/* Smart Grouping Checkbox - Restored */}
+            <div className="flex items-center space-x-2 pt-1">
+              <input
+                type="checkbox"
+                id="smart-grouping"
+                checked={smartGrouping}
+                onChange={(e) => setSmartGrouping(e.target.checked)}
+                className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+              />
+              <label
+                htmlFor="smart-grouping"
+                className="text-sm text-muted-foreground cursor-pointer select-none"
+              >
+                🤖 {locale === 'zh' ? '智能分组 (基于相似度匹配)' : 'Smart Grouping (Similarity Match)'}
+              </label>
+            </div>
+
+            {/* Display generated summary - Always visible */}
+            <div className="mt-3 space-y-2">
+              <Label className="text-sm font-medium">
+                {locale === 'zh' ? '网站摘要' : 'Website Summary'}
+              </Label>
+              <textarea
+                value={generatedSummary}
+                onChange={(e) => setGeneratedSummary(e.target.value)}
+                rows={2}
+                disabled={isClassifying}
+                className="w-full px-3 py-2 text-sm border rounded-md bg-background text-foreground resize-none focus:outline-none focus:ring-2 focus:ring-ring"
+                placeholder={
+                  isClassifying
+                    ? (locale === 'zh' ? '正在生成摘要...' : 'Generating summary...')
+                    : (locale === 'zh' ? 'AI 将自动生成摘要，您也可以手动编辑' : 'AI will generate summary, or you can edit manually')
+                }
+              />
             </div>
           </div>
 

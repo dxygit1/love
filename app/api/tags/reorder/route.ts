@@ -13,7 +13,7 @@ export async function POST(request: Request) {
         const updates = tagOrder.map((tagName: string, index: number) => {
             return supabase
                 .from("tags")
-                .update({ sort_order: String(index) })
+                .update({ sort_order: index })  // Use integer directly
                 .eq("user_id", userId)
                 .eq("name", tagName)
         })

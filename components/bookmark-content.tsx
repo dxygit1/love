@@ -115,16 +115,34 @@ export function BookmarkContent() {
 
         setTags(updatedTags)
 
+        console.log('🔄 Updating tag order...')
+        let successCount = 0
+        let errorCount = 0
+
         for (const tag of updatedTags) {
-            const { error } = await supabase
+            console.log(`  Updating "${tag.name}" to sort_order ${tag.sort_order}`)
+
+            const { data, error } = await supabase
                 .from("tags")
                 .update({ sort_order: tag.sort_order })
                 .eq("id", tag.id)
                 .eq("user_id", user.id)
+                .select()
 
             if (error) {
-                console.error("Error updating tag order:", error)
+                console.error(`  ❌ Error updating "${tag.name}":`, error)
+                errorCount++
+            } else {
+                console.log(`  ✅ Successfully updated "${tag.name}"`, data)
+                successCount++
             }
+        }
+
+        console.log(`\n📊 Update summary: ${successCount} succeeded, ${errorCount} failed`)
+
+        if (errorCount > 0) {
+            console.error('⚠️ Some updates failed, reloading tags from database...')
+            loadTags()
         }
     }
 

@@ -106,7 +106,7 @@ function SortableGroup({ group, items, isCollapsed, onToggle, onDelete }: Sortab
 }
 
 export function BookmarkList({ bookmarks, onDelete, isSearching = false, tagOrder = [], onMoveGroup }: BookmarkListProps) {
-  const { t } = useAppContext()
+  const { t, user } = useAppContext()
   const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>({})
   const [localTagOrder, setLocalTagOrder] = useState<string[]>([])
 
@@ -213,11 +213,13 @@ export function BookmarkList({ bookmarks, onDelete, isSearching = false, tagOrde
       setLocalTagOrder(newOrder)
 
       // Save to API
-      fetch("/api/tags/reorder", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: (window as any).__user_id, tagOrder: newOrder }),
-      }).catch(console.error)
+      if (user) {
+        fetch("/api/tags/reorder", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ userId: user.id, tagOrder: newOrder }),
+        }).catch(console.error)
+      }
     }
   }
 
