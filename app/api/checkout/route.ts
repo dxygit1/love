@@ -32,18 +32,20 @@ export async function POST(request: NextRequest) {
     }
 
     // Call Creem API to create checkout session
+    // Using snake_case as per user provided curl example
     const requestBody = {
-      productId: productId,
+      product_id: productId,
+      request_id: crypto.randomUUID(),
       customer: {
         email: profile.email,
       },
       metadata: {
-        userId: userId,
+        user_id: userId,
         plan: plan,
-        fullName: profile.full_name || profile.email
+        full_name: profile.full_name || profile.email
       },
-      successUrl: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/dashboard?payment=success`,
-      cancelUrl: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/#pricing`,
+      success_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/dashboard?payment=success`,
+      cancel_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/#pricing`,
     }
 
     console.log("Creem API Request:")
