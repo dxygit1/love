@@ -59,4 +59,3 @@ export const userMetadata = pgTable('user_metadata', {
     createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),
     updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
 })
-
