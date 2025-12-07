@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { useAppContext } from "./providers"
 import { Activity, TrendingUp } from "lucide-react"
 
@@ -10,15 +10,20 @@ interface UsageStats {
     remaining: number
     usagePercentage: number
     daysUntilReset: number
+    isUnavailable?: boolean
 }
 
 export function AiUsageWidget() {
     const { user } = useAppContext()
     const [stats, setStats] = useState<UsageStats | null>(null)
     const [loading, setLoading] = useState(true)
+    const hasFetched = useRef(false)
 
     useEffect(() => {
         if (!user) return
+        // Prevent duplicate fetches in React StrictMode (dev only)
+        if (hasFetched.current) return
+        hasFetched.current = true
 
         const fetchStats = async () => {
             try {
@@ -31,6 +36,7 @@ export function AiUsageWidget() {
                         remaining: data.remaining,
                         usagePercentage: data.usagePercentage,
                         daysUntilReset: data.daysUntilReset,
+                        isUnavailable: data.isUnavailable
                     })
                 }
             } catch (error) {
@@ -46,12 +52,14 @@ export function AiUsageWidget() {
     if (!user || loading || !stats) return null
 
     const getProgressColor = () => {
+        if (stats.isUnavailable) return 'bg-gray-300 dark:bg-gray-700'
         if (stats.usagePercentage >= 90) return 'bg-red-500'
         if (stats.usagePercentage >= 70) return 'bg-yellow-500'
         return 'bg-primary'
     }
 
     const getTextColor = () => {
+        if (stats.isUnavailable) return 'text-muted-foreground'
         if (stats.usagePercentage >= 90) return 'text-red-600'
         if (stats.usagePercentage >= 70) return 'text-yellow-600'
         return 'text-primary'
@@ -72,7 +80,7 @@ export function AiUsageWidget() {
             <div className="space-y-3">
                 <div className="flex items-center justify-between">
                     <span className={`text-2xl font-bold ${getTextColor()}`}>
-                        {stats.totalCalls} / {stats.monthlyLimit}
+                        {stats.isUnavailable ? '---' : `${stats.totalCalls} / ${stats.monthlyLimit}`}
                     </span>
                     <span className="text-sm text-muted-foreground">
                         {stats.remaining} remaining
@@ -83,11 +91,18 @@ export function AiUsageWidget() {
                 <div className="w-full bg-muted rounded-full h-2.5">
                     <div
                         className={`h-2.5 rounded-full transition-all duration-500 ${getProgressColor()}`}
-                        style={{ width: `${Math.min(stats.usagePercentage, 100)}%` }}
+                        style={{ width: `${stats.isUnavailable ? 0 : Math.min(stats.usagePercentage, 100)}%` }}
                     />
                 </div>
 
-                {stats.usagePercentage >= 90 && (
+                {stats.isUnavailable && (
+                    <div className="flex items-center gap-2 text-sm text-yellow-600 bg-yellow-50 dark:bg-yellow-950/20 p-3 rounded-lg">
+                        <Activity className="w-4 h-4" />
+                        <span>Usage data currently unavailable.</span>
+                    </div>
+                )}
+
+                {!stats.isUnavailable && stats.usagePercentage >= 90 && (
                     <div className="flex items-center gap-2 text-sm text-red-600 bg-red-50 dark:bg-red-950/20 p-3 rounded-lg">
                         <TrendingUp className="w-4 h-4" />
                         <span>You're approaching your monthly limit!</span>

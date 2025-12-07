@@ -19,20 +19,18 @@ export async function POST(request: NextRequest) {
         const hostname = new URL(url).hostname
         const isChinese = locale === 'zh'
 
-        // Construct prompt for summary generation
+        // Construct prompt for summary generation - ultra concise
         const systemPrompt = isChinese
-            ? `你是一个网站内容分析助手。请根据提供的网站信息，生成一个简洁的摘要（1-2句话），描述这个网站的主要功能和用途。
-摘要要求：
-- 简洁明了，1-2句话
-- 突出网站的核心功能
-- 使用中文
-- 不要包含营销语言`
-            : `You are a website content analyzer. Based on the provided website information, generate a concise summary (1-2 sentences) describing the main purpose and functionality of this website.
+            ? `你是一个网站内容分析助手。请用最简洁的一句话（10-20个字）描述这个网站是干什么的。
+要求：
+- 只说核心功能，不要多余的描述
+- 不要包含"网站"、"平台"等词
+- 例如："在线翻译工具"、"前端部署服务"、"视频分享社区"`
+            : `You are a website analyzer. Describe what this website does in ONE ultra-concise phrase (5-10 words).
 Requirements:
-- Concise and clear, 1-2 sentences
-- Highlight core functionality
-- In English
-- No marketing language`
+- Only core functionality
+- No words like "website", "platform"
+- Examples: "Online translation tool", "Frontend deployment service", "Video sharing community"`
 
         const userPrompt = isChinese
             ? `网站名称：${title || hostname}

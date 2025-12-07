@@ -1,21 +1,24 @@
 import { type NextRequest, NextResponse } from "next/server"
 import { supabase } from "@/lib/supabase"
 
-// Admin email check
-const ADMIN_EMAIL = 'dxysy1@gmail.com'
-
 export async function GET(request: NextRequest) {
     try {
-        // Get user email from query parameters
+        // Get user id from query parameters
         const { searchParams } = new URL(request.url)
-        const requestingUserEmail = searchParams.get('email')
+        const userId = searchParams.get('userId')
 
-        if (!requestingUserEmail) {
-            return NextResponse.json({ error: "Email is required" }, { status: 400 })
+        if (!userId) {
+            return NextResponse.json({ error: "User ID is required" }, { status: 400 })
         }
 
         // Check if user is admin
-        if (requestingUserEmail !== ADMIN_EMAIL) {
+        const { data: profile } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', userId)
+            .single()
+
+        if (profile?.role !== 'admin') {
             return NextResponse.json({ error: "Unauthorized" }, { status: 403 })
         }
 

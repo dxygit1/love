@@ -282,18 +282,54 @@ export const translations = {
     classifyFailed: "识别失败，请手动输入分组",
     enterUrl: "请输入网址",
     myBookmarks: "我的书签",
+    allBookmarks: "全部书签",
+    recentlyAdded: "最近添加",
     items: "个",
     noBookmarks: "暂无书签",
     addFirstBookmark: "添加你的第一个书签吧",
     uncategorized: "未分类",
     openLink: "打开链接",
     deleteBookmark: "删除书签",
+    favorites: "收藏夹",
+    trash: "回收站",
+    restore: "恢复",
+    deletePermanently: "永久删除",
+    addToFavorites: "添加收藏",
+    removeFromFavorites: "取消收藏",
+    noDescription: "暂无描述",
     theme: "主题",
     light: "浅色",
     dark: "深色",
     system: "跟随系统",
     language: "语言",
     searchPlaceholder: "搜索标签...",
+
+    // Add Bookmark Dialog
+    addDialog: {
+      title: "添加新书签",
+      description: "粘贴网址，让 AI 为你自动整理",
+      supported: "支持: GitHub, Twitter, YouTube, Bilibili, and more...",
+      analyze: "智能分析",
+      analyzingTitle: "AI 正在分析中...",
+      analyzingDesc: "正在提取内容、生成摘要并预测分类",
+      summary: "摘要",
+      noSummary: "暂无摘要",
+      smartGrouping: "智能分组",
+      back: "返回",
+      confirmSave: "确认并保存",
+      loginRequired: "请先登录",
+    },
+
+    // Tech Stack
+    techStack: {
+      title: "基于现代技术栈构建",
+    },
+
+    // Beta Banner
+    betaBanner: {
+      text: "🚀 AI Bookmark 目前处于 Beta 阶段，完全免费！立即体验。",
+      link: "开始使用",
+    },
   },
   en: {
     // Navigation
@@ -583,18 +619,54 @@ export const translations = {
     classifyFailed: "Classification failed, please enter manually",
     enterUrl: "Please enter a URL",
     myBookmarks: "My Bookmarks",
+    allBookmarks: "All Bookmarks",
+    recentlyAdded: "Recently Added",
     items: "items",
     noBookmarks: "No bookmarks yet",
     addFirstBookmark: "Add your first bookmark",
     uncategorized: "Uncategorized",
     openLink: "Open link",
     deleteBookmark: "Delete bookmark",
+    favorites: "Favorites",
+    trash: "Trash",
+    restore: "Restore",
+    deletePermanently: "Delete permanently",
+    addToFavorites: "Add to favorites",
+    removeFromFavorites: "Remove from favorites",
+    noDescription: "No description available.",
     theme: "Theme",
     light: "Light",
     dark: "Dark",
     system: "System",
     language: "Language",
     searchPlaceholder: "Search tags...",
+
+    // Add Bookmark Dialog
+    addDialog: {
+      title: "Add New Bookmark",
+      description: "Paste a URL and let AI organize it for you",
+      supported: "Supports: GitHub, Twitter, YouTube, Bilibili, and more...",
+      analyze: "Analyze",
+      analyzingTitle: "AI Analysis in Progress...",
+      analyzingDesc: "Extracting content, generating summary, and predicting tags",
+      summary: "Summary",
+      noSummary: "No summary generated",
+      smartGrouping: "Smart Grouping",
+      back: "Back",
+      confirmSave: "Confirm & Save",
+      loginRequired: "Login required",
+    },
+
+    // Tech Stack
+    techStack: {
+      title: "Built with modern technologies",
+    },
+
+    // Beta Banner
+    betaBanner: {
+      text: "🚀 AI Bookmark is currently in Beta and 100% Free! Try it now.",
+      link: "Get Started",
+    },
   },
 } as const
 

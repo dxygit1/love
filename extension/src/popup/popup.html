@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Bookmark</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <span class="logo-icon">✨</span>
+        <span class="logo-text">AI Bookmark</span>
+      </div>
+    </header>
+
+    <!-- Login View -->
+    <div id="login-view" class="view">
+      <div class="login-prompt">
+        <p>请先登录以保存书签</p>
+        <p class="login-hint">Login to save bookmarks</p>
+      </div>
+      <form id="login-form" class="login-form">
+        <input type="email" id="email" placeholder="邮箱 / Email" required>
+        <input type="password" id="password" placeholder="密码 / Password" required>
+        <button type="submit" class="btn btn-primary" id="login-btn">
+          <span class="btn-text">登录 / Login</span>
+          <span class="btn-loading" style="display: none;">...</span>
+        </button>
+      </form>
+      <div id="login-error" class="error-message" style="display: none;"></div>
+    </div>
+
+    <!-- Save View -->
+    <div id="save-view" class="view" style="display: none;">
+      <div class="page-info">
+        <img id="page-favicon" class="favicon" src="" alt="">
+        <div class="page-details">
+          <h3 id="page-title" class="page-title">Loading...</h3>
+          <p id="page-url" class="page-url"></p>
+        </div>
+      </div>
+      
+      <div class="save-actions">
+        <button id="save-btn" class="btn btn-primary btn-save">
+          <span class="btn-icon">🚀</span>
+          <span class="btn-text">AI 智能保存</span>
+        </button>
+      </div>
+
+      <div id="save-status" class="save-status" style="display: none;">
+        <div class="status-icon"></div>
+        <span class="status-text"></span>
+      </div>
+
+      <div class="user-info">
+        <span id="user-email" class="user-email"></span>
+        <button id="logout-btn" class="btn btn-text">登出</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

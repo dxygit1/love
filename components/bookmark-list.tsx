@@ -27,9 +27,14 @@ import { CSS } from '@dnd-kit/utilities'
 interface BookmarkListProps {
   bookmarks: Bookmark[]
   onDelete: (id: string) => void
+  onToggleFavorite?: (id: string) => void
+  onRestore?: (id: string) => void
+  onPermanentDelete?: (id: string) => void
   isSearching?: boolean
   tagOrder?: string[]
-  onMoveGroup?: (groupName: string, direction: "up" | "down") => void
+  onTagOrderChange?: () => void
+  layout?: "grid" | "list"
+  isTrashView?: boolean
 }
 
 interface SortableGroupProps {
@@ -38,9 +43,10 @@ interface SortableGroupProps {
   isCollapsed: boolean
   onToggle: () => void
   onDelete: (id: string) => void
+  onToggleFavorite?: (id: string) => void
 }
 
-function SortableGroup({ group, items, isCollapsed, onToggle, onDelete }: SortableGroupProps) {
+function SortableGroup({ group, items, isCollapsed, onToggle, onDelete, onToggleFavorite }: SortableGroupProps) {
   const {
     attributes,
     listeners,
@@ -93,19 +99,35 @@ function SortableGroup({ group, items, isCollapsed, onToggle, onDelete }: Sortab
 
       <div
         className={cn(
-          "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 transition-all duration-300",
+          "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 transition-all duration-300",
           isCollapsed ? "hidden opacity-0" : "opacity-100"
         )}
       >
         {items.map((bookmark) => (
-          <BookmarkCard key={bookmark.id} bookmark={bookmark} onDelete={onDelete} />
+          <BookmarkCard
+            key={bookmark.id}
+            bookmark={bookmark}
+            onDelete={onDelete}
+            onToggleFavorite={onToggleFavorite}
+          />
         ))}
       </div>
     </div>
   )
 }
 
-export function BookmarkList({ bookmarks, onDelete, isSearching = false, tagOrder = [], onMoveGroup }: BookmarkListProps) {
+export function BookmarkList({
+  bookmarks,
+  onDelete,
+  onToggleFavorite,
+  onRestore,
+  onPermanentDelete,
+  isSearching = false,
+  tagOrder = [],
+  onTagOrderChange,
+  layout = "list",
+  isTrashView = false
+}: BookmarkListProps) {
   const { t, user } = useAppContext()
   const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>({})
   const [localTagOrder, setLocalTagOrder] = useState<string[]>([])
@@ -135,8 +157,8 @@ export function BookmarkList({ bookmarks, onDelete, isSearching = false, tagOrde
     }))
   }
 
-  // If searching, show a flat list
-  if (isSearching) {
+  // If searching OR grid layout enforced, show a flat list
+  if (isSearching || layout === 'grid') {
     if (bookmarks.length === 0) {
       return (
         <div className="text-center py-16 text-muted-foreground">
@@ -146,9 +168,17 @@ export function BookmarkList({ bookmarks, onDelete, isSearching = false, tagOrde
     }
 
     return (
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {bookmarks.map((bookmark) => (
-          <BookmarkCard key={bookmark.id} bookmark={bookmark} onDelete={onDelete} />
+          <BookmarkCard
+            key={bookmark.id}
+            bookmark={bookmark}
+            onDelete={onDelete}
+            onToggleFavorite={onToggleFavorite}
+            onRestore={onRestore}
+            onPermanentDelete={onPermanentDelete}
+            isTrashView={isTrashView}
+          />
         ))}
       </div>
     )
@@ -212,13 +242,18 @@ export function BookmarkList({ bookmarks, onDelete, isSearching = false, tagOrde
       // Update local state immediately for instant visual feedback
       setLocalTagOrder(newOrder)
 
-      // Save to API
+      // Save to API and notify parent
       if (user) {
         fetch("/api/tags/reorder", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ userId: user.id, tagOrder: newOrder }),
-        }).catch(console.error)
+        })
+          .then(() => {
+            // Notify parent to reload tags so grid view gets updated order
+            onTagOrderChange?.()
+          })
+          .catch(console.error)
       }
     }
   }
@@ -235,6 +270,7 @@ export function BookmarkList({ bookmarks, onDelete, isSearching = false, tagOrde
               isCollapsed={collapsedGroups[group] || false}
               onToggle={() => toggleGroup(group)}
               onDelete={onDelete}
+              onToggleFavorite={onToggleFavorite}
             />
           ))}
         </div>

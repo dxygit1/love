@@ -53,33 +53,74 @@ export async function GET(request: NextRequest) {
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     )
 
-    const { data: existingUser } = await supabase
+    // First, check if user already exists by email
+    const { data: existingUsers, error: lookupError } = await supabase
       .from("profiles")
       .select("id, email, full_name, avatar_url")
       .eq("email", userData.email)
-      .single()
+
+    console.log("[Google Auth] Email lookup result:", {
+      email: userData.email,
+      existingUsers,
+      lookupError
+    })
 
     let userId: string
     let userName: string
     let userAvatar: string | null
 
+    // Check if we found any existing users
+    const existingUser = existingUsers && existingUsers.length > 0 ? existingUsers[0] : null
+
     if (existingUser) {
       // User exists, use existing data
+      console.log("[Google Auth] Found existing user:", existingUser.id)
       userId = existingUser.id
       userName = existingUser.full_name || userData.name
       userAvatar = existingUser.avatar_url || userData.picture
     } else {
-      // New user, create UUID and insert
+      // New user, create UUID and insert with upsert to prevent duplicates
+      console.log("[Google Auth] Creating new user for:", userData.email)
       userId = crypto.randomUUID()
       userName = userData.name
       userAvatar = userData.picture
 
-      await supabase.from("profiles").insert({
-        id: userId,
-        email: userData.email,
-        full_name: userName,
-        avatar_url: userAvatar,
-      })
+      // Use upsert with email as the conflict resolution key
+      const { data: upsertedUser, error: upsertError } = await supabase
+        .from("profiles")
+        .upsert(
+          {
+            id: userId,
+            email: userData.email,
+            full_name: userName,
+            avatar_url: userAvatar,
+          },
+          {
+            onConflict: 'email',
+            ignoreDuplicates: false
+          }
+        )
+        .select('id')
+        .single()
+
+      if (upsertError) {
+        console.error("[Google Auth] Error upserting user:", upsertError)
+
+        // If upsert failed, try to get the existing user again
+        const { data: retryUser } = await supabase
+          .from("profiles")
+          .select("id")
+          .eq("email", userData.email)
+          .single()
+
+        if (retryUser) {
+          userId = retryUser.id
+          console.log("[Google Auth] Found user on retry:", userId)
+        }
+      } else if (upsertedUser) {
+        userId = upsertedUser.id
+        console.log("[Google Auth] Upserted user ID:", userId)
+      }
     }
 
     // Create user object and encode it for the client

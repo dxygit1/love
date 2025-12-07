@@ -13,9 +13,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-export function DashboardHeader({ activeTab, onTabChange }: {
+export function DashboardHeader({ activeTab, onTabChange, isAdmin }: {
   activeTab?: "bookmarks" | "usage" | "admin"
   onTabChange?: (tab: "bookmarks" | "usage" | "admin") => void
+  isAdmin?: boolean
 }) {
   const router = useRouter()
   const { t, locale, setLocale, theme, setTheme, user, logout } = useAppContext()
@@ -70,7 +71,7 @@ export function DashboardHeader({ activeTab, onTabChange }: {
             >
               {locale === 'zh' ? 'AI 使用统计' : 'AI Usage'}
             </button>
-            {user?.email === 'dxysy1@gmail.com' && (
+            {isAdmin && (
               <button
                 onClick={() => onTabChange?.("admin")}
                 className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${activeTab === "admin"

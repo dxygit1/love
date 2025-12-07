@@ -7,4 +7,6 @@ export interface Bookmark {
   description?: string
   faviconUrl?: string
   createdAt: string
+  isFavorite?: boolean
+  deletedAt?: string | null
 }

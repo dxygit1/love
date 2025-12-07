@@ -3,11 +3,12 @@
 import { useState } from "react"
 import type { Bookmark } from "@/types/bookmark"
 import { Button } from "@/components/ui/button"
-import { ExternalLink, Trash2, MoreVertical, Globe, Copy, Check, MoreHorizontal } from "lucide-react"
+import { Trash2, Globe, Copy, Check, MoreHorizontal, Star, RotateCcw } from "lucide-react"
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
+    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useAppContext } from "./providers"
@@ -16,9 +17,20 @@ import { cn } from "@/lib/utils"
 interface BookmarkCardProps {
     bookmark: Bookmark
     onDelete: (id: string) => void
+    onToggleFavorite?: (id: string) => void
+    onRestore?: (id: string) => void
+    onPermanentDelete?: (id: string) => void
+    isTrashView?: boolean
 }
 
-export function BookmarkCard({ bookmark, onDelete }: BookmarkCardProps) {
+export function BookmarkCard({
+    bookmark,
+    onDelete,
+    onToggleFavorite,
+    onRestore,
+    onPermanentDelete,
+    isTrashView = false
+}: BookmarkCardProps) {
     const { t } = useAppContext()
     const [isHovered, setIsHovered] = useState(false)
     const [copied, setCopied] = useState(false)
@@ -38,6 +50,24 @@ export function BookmarkCard({ bookmark, onDelete }: BookmarkCardProps) {
         onDelete(bookmark.id)
     }
 
+    const handleToggleFavorite = (e: React.MouseEvent) => {
+        e.preventDefault()
+        e.stopPropagation()
+        onToggleFavorite?.(bookmark.id)
+    }
+
+    const handleRestore = (e: React.MouseEvent) => {
+        e.preventDefault()
+        e.stopPropagation()
+        onRestore?.(bookmark.id)
+    }
+
+    const handlePermanentDelete = (e: React.MouseEvent) => {
+        e.preventDefault()
+        e.stopPropagation()
+        onPermanentDelete?.(bookmark.id)
+    }
+
     // Get domain for display
     let domain = ""
     try {
@@ -48,81 +78,127 @@ export function BookmarkCard({ bookmark, onDelete }: BookmarkCardProps) {
 
     return (
         <div
-            className="group relative flex flex-col p-4 rounded-xl border border-border/50 bg-card/50 hover:bg-card hover:border-border hover:shadow-lg hover:-translate-y-1 transition-all duration-300 h-full"
+            className={cn(
+                "group relative flex flex-col p-3 rounded-xl bg-background/50 border border-border/40 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-primary/20 transition-all duration-300 h-[130px] backdrop-blur-sm cursor-pointer overflow-hidden",
+                isTrashView && "opacity-75 hover:opacity-100"
+            )}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            onClick={() => !isTrashView && window.open(bookmark.url, '_blank')}
         >
-            {/* Top Actions (visible on hover) */}
+            {/* Hover Actions (Top Right - Inside Card) */}
             <div className={cn(
-                "absolute top-3 right-3 flex gap-1 transition-opacity duration-200 z-10",
-                isHovered ? "opacity-100" : "opacity-0 md:opacity-0"
+                "absolute top-2 right-2 flex gap-1 transition-all duration-200 z-20",
+                isHovered ? "opacity-100" : "opacity-0 pointer-events-none"
             )}>
-                <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background"
-                    onClick={handleCopy}
-                    title="Copy URL"
-                >
-                    {copied ? <Check className="w-3.5 h-3.5 text-green-500" /> : <Copy className="w-3.5 h-3.5 text-muted-foreground" />}
-                </Button>
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
+                {isTrashView ? (
+                    // Trash view actions
+                    <>
                         <Button
-                            variant="ghost"
+                            variant="secondary"
                             size="icon"
-                            className="h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm hover:bg-background"
+                            className="h-7 w-7 rounded-full shadow-sm bg-background border border-border/50 text-muted-foreground hover:text-green-600 hover:bg-background"
+                            onClick={handleRestore}
+                            title={t.restore}
                         >
-                            <MoreHorizontal className="w-3.5 h-3.5 text-muted-foreground" />
+                            <RotateCcw className="w-3.5 h-3.5" />
                         </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={handleDelete} className="text-destructive focus:text-destructive">
-                            <Trash2 className="w-4 h-4 mr-2" />
-                            {t.deleteBookmark}
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
+                        <Button
+                            variant="secondary"
+                            size="icon"
+                            className="h-7 w-7 rounded-full shadow-sm bg-background border border-border/50 text-muted-foreground hover:text-destructive hover:bg-background"
+                            onClick={handlePermanentDelete}
+                            title={t.deletePermanently}
+                        >
+                            <Trash2 className="w-3.5 h-3.5" />
+                        </Button>
+                    </>
+                ) : (
+                    // Normal view actions - Star, Copy, More (all in a row)
+                    <>
+                        {/* Favorite Star */}
+                        {onToggleFavorite && (
+                            <Button
+                                variant="secondary"
+                                size="icon"
+                                className={cn(
+                                    "h-7 w-7 rounded-full shadow-sm bg-background border border-border/50 hover:bg-background transition-colors",
+                                    bookmark.isFavorite
+                                        ? "text-yellow-500 hover:text-yellow-600"
+                                        : "text-muted-foreground hover:text-yellow-500"
+                                )}
+                                onClick={handleToggleFavorite}
+                                title={bookmark.isFavorite ? t.removeFromFavorites : t.addToFavorites}
+                            >
+                                <Star className={cn("w-3.5 h-3.5", bookmark.isFavorite && "fill-current")} />
+                            </Button>
+                        )}
+
+                        {/* Copy URL */}
+                        <Button
+                            variant="secondary"
+                            size="icon"
+                            className="h-7 w-7 rounded-full shadow-sm bg-background border border-border/50 text-muted-foreground hover:text-foreground hover:bg-background"
+                            onClick={handleCopy}
+                            title="Copy URL"
+                        >
+                            {copied ? <Check className="w-3.5 h-3.5 text-green-500" /> : <Copy className="w-3.5 h-3.5" />}
+                        </Button>
+
+                        {/* Delete Button */}
+                        <Button
+                            variant="secondary"
+                            size="icon"
+                            className="h-7 w-7 rounded-full shadow-sm bg-background border border-border/50 text-muted-foreground hover:text-destructive hover:bg-background"
+                            onClick={handleDelete}
+                            title={t.deleteBookmark}
+                        >
+                            <Trash2 className="w-3.5 h-3.5" />
+                        </Button>
+                    </>
+                )}
             </div>
 
-            <a
-                href={bookmark.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col h-full"
-            >
-                {/* Icon & Title */}
-                <div className="flex items-start gap-3 mb-2">
-                    <div className="shrink-0 w-10 h-10 rounded-lg bg-background border border-border/50 flex items-center justify-center overflow-hidden shadow-sm">
-                        {!imageError && bookmark.faviconUrl ? (
-                            <img
-                                src={bookmark.faviconUrl}
-                                alt=""
-                                className="w-5 h-5"
-                                loading="lazy"
-                                onError={() => setImageError(true)}
-                            />
-                        ) : (
-                            <Globe className="w-5 h-5 text-muted-foreground" />
-                        )}
-                    </div>
-                    <div className="flex-1 min-w-0 pt-0.5">
-                        <h3 className="font-semibold text-sm leading-tight truncate pr-6" title={bookmark.title}>
-                            {bookmark.title}
-                        </h3>
-                        <p className="text-[10px] text-muted-foreground truncate mt-0.5 opacity-70">
-                            {domain}
-                        </p>
-                    </div>
+            {/* Header: Icon + Info */}
+            <div className="flex items-start gap-3 mb-3">
+                <div className="shrink-0 w-10 h-10 rounded-lg bg-muted/40 border border-border/40 flex items-center justify-center overflow-hidden">
+                    {!imageError && bookmark.faviconUrl ? (
+                        <img
+                            src={bookmark.faviconUrl}
+                            alt=""
+                            className="w-5 h-5 object-contain opacity-90"
+                            loading="lazy"
+                            onError={() => setImageError(true)}
+                        />
+                    ) : (
+                        <Globe className="w-5 h-5 text-muted-foreground/50" />
+                    )}
                 </div>
-
-                {/* Description (if any) */}
-                {bookmark.description && (
-                    <p className="text-xs text-muted-foreground line-clamp-2 mt-1">
-                        {bookmark.description}
+                <div className="min-w-0 flex-1">
+                    <h3 className="font-semibold text-sm leading-snug line-clamp-2 text-foreground/90 mb-1" title={bookmark.title}>
+                        {bookmark.title}
+                    </h3>
+                    <p className="text-[10px] text-muted-foreground/60 truncate">
+                        {domain}
                     </p>
+                </div>
+            </div>
+
+            {/* Description - Only show if exists */}
+            {bookmark.description && (
+                <p className="text-xs text-muted-foreground/70 leading-relaxed line-clamp-1 mb-2">
+                    {bookmark.description}
+                </p>
+            )}
+
+            {/* Footer: Group Badge Only */}
+            <div className="mt-auto">
+                {bookmark.group && (
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-medium bg-primary/10 text-primary">
+                        {bookmark.group}
+                    </span>
                 )}
-            </a>
+            </div>
         </div>
     )
 }

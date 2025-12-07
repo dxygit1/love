@@ -11,55 +11,80 @@ export async function GET(request: NextRequest) {
             return NextResponse.json({ error: "User ID is required" }, { status: 400 })
         }
 
-        // Get current month start and end
+        // Get current month start
         const now = new Date()
         const monthStart = new Date(now.getFullYear(), now.getMonth(), 1)
-        const monthEnd = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59)
 
-        // Get user's AI usage logs for this month
-        const { data: logs, error } = await supabase
+        // Get user's profile for usage_limit
+        const { data: profile } = await retry(async () => await supabase
+            .from('profiles')
+            .select('usage_limit')
+            .eq('id', userId)
+            .single())
+
+        const monthlyLimit = profile?.usage_limit ?? 30
+
+        // Count SUCCESSFUL AI usage logs for this month (matching admin API logic)
+        const { count: totalCalls, error: countError } = await retry(async () => await supabase
+            .from('ai_usage_logs')
+            .select('*', { count: 'exact', head: true })
+            .eq('user_id', userId)
+            .eq('success', 'true')  // Only count successful calls
+            .gte('created_at', monthStart.toISOString()))
+
+        if (countError) {
+            console.error('Error fetching usage count:', countError)
+            return NextResponse.json({ error: "Failed to fetch usage data" }, { status: 500 })
+        }
+
+        const usageCount = totalCalls ?? 0
+
+        // Get recent logs for display
+        const { data: logs } = await retry(async () => await supabase
             .from('ai_usage_logs')
             .select('*')
             .eq('user_id', userId)
             .gte('created_at', monthStart.toISOString())
-            .lte('created_at', monthEnd.toISOString())
             .order('created_at', { ascending: false })
-
-        if (error) {
-            console.error('Error fetching usage logs:', error)
-            return NextResponse.json({ error: "Failed to fetch usage data" }, { status: 500 })
-        }
-
-        // Get user metadata (monthly limit)
-        const { data: metadata } = await supabase
-            .from('user_metadata')
-            .select('monthly_ai_limit')
-            .eq('user_id', userId)
-            .single()
-
-        const monthlyLimit = metadata?.monthly_ai_limit ? parseInt(metadata.monthly_ai_limit) : 30
-
-        // Calculate statistics
-        const totalCalls = logs?.length || 0
-        const successfulCalls = logs?.filter(log => log.success === 'true').length || 0
-        const failedCalls = logs?.filter(log => log.success === 'false').length || 0
+            .limit(10))
 
         // Calculate days until reset
         const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1)
         const daysUntilReset = Math.ceil((nextMonth.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
 
         return NextResponse.json({
-            totalCalls,
-            successfulCalls,
-            failedCalls,
+            totalCalls: usageCount,
+            successfulCalls: usageCount,
+            failedCalls: 0, // Not tracking failed separately anymore
             monthlyLimit,
-            remaining: Math.max(0, monthlyLimit - totalCalls),
-            usagePercentage: monthlyLimit > 0 ? Math.round((totalCalls / monthlyLimit) * 100) : 0,
+            remaining: Math.max(0, monthlyLimit - usageCount),
+            usagePercentage: monthlyLimit > 0 ? Math.round((usageCount / monthlyLimit) * 100) : 0,
             daysUntilReset,
-            logs: logs?.slice(0, 10), // Return only last 10 logs
+            logs: logs || [],
         })
     } catch (error) {
         console.error("Analytics error:", error)
-        return NextResponse.json({ error: "Failed to fetch analytics" }, { status: 500 })
+        // Return default "zero" state on error so dashboard doesn't crash
+        return NextResponse.json({
+            totalCalls: 0,
+            successfulCalls: 0,
+            failedCalls: 0,
+            monthlyLimit: 30, // Default fallback
+            remaining: 30,
+            usagePercentage: 0,
+            daysUntilReset: 30,
+            logs: [],
+            isUnavailable: true // Flag for frontend to show warning
+        })
+    }
+}
+
+async function retry<T>(fn: () => Promise<T>, retries = 3, delay = 1000): Promise<T> {
+    try {
+        return await fn()
+    } catch (error) {
+        if (retries <= 0) throw error
+        await new Promise(resolve => setTimeout(resolve, delay))
+        return retry(fn, retries - 1, delay * 2)
     }
 }

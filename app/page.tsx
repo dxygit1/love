@@ -7,12 +7,14 @@ import { Testimonials } from "@/components/landing/testimonials"
 import { FAQ } from "@/components/landing/faq"
 import { Contact } from "@/components/landing/contact"
 import { Footer } from "@/components/landing/footer"
+import { ProductShowcase } from "@/components/landing/product-showcase"
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-background">
       <Navbar />
       <Hero />
+      <ProductShowcase />
       <Features />
       <UseCases />
       {/* <Pricing /> */}

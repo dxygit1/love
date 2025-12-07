@@ -8,6 +8,25 @@ export async function GET(request: Request) {
         return NextResponse.json({ error: "URL is required" }, { status: 400 })
     }
 
+    // Helper function to get Google's faviconV2 API URL (better quality)
+    const getGstaticFaviconUrl = (url: string): string | null => {
+        try {
+            return `https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${encodeURIComponent(url)}&size=64`
+        } catch {
+            return null
+        }
+    }
+
+    // Helper function to get fallback favicon URL
+    const getFallbackFaviconUrl = (url: string): string | null => {
+        try {
+            const urlObj = new URL(url)
+            return `${urlObj.protocol}//${urlObj.host}/favicon.ico`
+        } catch {
+            return null
+        }
+    }
+
     try {
         // 1. Fetch the HTML
         const controller = new AbortController()
@@ -16,12 +35,19 @@ export async function GET(request: Request) {
         const response = await fetch(targetUrl, {
             signal: controller.signal,
             headers: {
-                "User-Agent": "Mozilla/5.0 (compatible; BookmarkManager/1.0; +http://localhost:3000)",
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+                "Accept-Language": "en-US,en;q=0.5",
             },
         })
         clearTimeout(timeoutId)
 
         if (!response.ok) {
+            // If we can't fetch the HTML, return fallback favicon.ico
+            const fallback = getFallbackFaviconUrl(targetUrl)
+            if (fallback) {
+                return NextResponse.json({ url: fallback })
+            }
             throw new Error(`Failed to fetch ${targetUrl}: ${response.status}`)
         }
 
@@ -59,13 +85,11 @@ export async function GET(request: Request) {
             }
         }
 
-        // 4. Fallback to /favicon.ico if nothing found in HTML
+        // 4. Fallback to gstatic faviconV2 API if nothing found in HTML (better quality)
         if (!faviconUrl) {
-            try {
-                const urlObj = new URL(targetUrl)
-                faviconUrl = `${urlObj.protocol}//${urlObj.host}/favicon.ico`
-            } catch (e) {
-                // Invalid targetUrl
+            const gstaticFallback = getGstaticFaviconUrl(targetUrl)
+            if (gstaticFallback) {
+                faviconUrl = gstaticFallback
             }
         }
 
@@ -77,6 +101,11 @@ export async function GET(request: Request) {
 
     } catch (error) {
         console.error("Error fetching favicon:", error)
+        // Try to return gstatic favicon URL on error (better quality)
+        const gstaticFallback = getGstaticFaviconUrl(targetUrl)
+        if (gstaticFallback) {
+            return NextResponse.json({ url: gstaticFallback })
+        }
         return NextResponse.json({ error: "Failed to fetch favicon" }, { status: 500 })
     }
 }
