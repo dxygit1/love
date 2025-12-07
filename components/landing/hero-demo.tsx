@@ -51,7 +51,7 @@ export function HeroDemo() {
     }, [])
 
     return (
-        <div className="relative w-full max-w-2xl mx-auto aspect-[4/3] perspective-1000">
+        <div className="relative w-full max-w-2xl mx-auto perspective-1000">
             {/* Background decorative elements */}
             <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 to-purple-500/20 rounded-3xl blur-3xl -z-10" />
 
@@ -105,7 +105,7 @@ export function HeroDemo() {
                     </div>
 
                     {/* Result Card */}
-                    <div className="relative h-48">
+                    <div className="relative h-[160px]">
                         {step === "result" && (
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.9, y: 20 }}

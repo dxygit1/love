@@ -19,6 +19,9 @@
             "128": "assets/icon-128.png"
         }
     },
+    "omnibox": {
+        "keyword": "bm"
+    },
     "background": {
         "service_worker": "src/background/service-worker.js",
         "type": "module"

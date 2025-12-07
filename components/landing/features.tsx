@@ -1,12 +1,13 @@
 "use client"
 
 import { useAppContext } from "@/components/providers"
-import { Brain, Zap, Cloud, Search, FolderOpen, Shield } from "lucide-react"
+import { Brain, Zap, Cloud, Search, FolderOpen, Shield, Download } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 const icons = [Brain, Zap, Cloud, Search, FolderOpen, Shield]
 
 export function Features() {
-  const { t } = useAppContext()
+  const { t, locale } = useAppContext()
 
   return (
     <section id="features" className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
@@ -19,16 +20,31 @@ export function Features() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {t.features.items.map((feature, index) => {
             const Icon = icons[index]
+            const isExtensionCard = index === 3 // Browser Extension card
+
             return (
               <div
                 key={index}
-                className="group p-6 rounded-2xl bg-background border border-border hover:border-primary/50 hover:shadow-lg transition-all duration-300"
+                className={`group p-6 rounded-2xl bg-background border transition-all duration-300 ${isExtensionCard
+                    ? 'border-primary/50 shadow-lg ring-2 ring-primary/10'
+                    : 'border-border hover:border-primary/50 hover:shadow-lg'
+                  }`}
               >
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                   <Icon className="w-6 h-6 text-primary" />
                 </div>
                 <h3 className="text-lg font-semibold text-foreground mb-2">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
+                <p className="text-muted-foreground mb-4">{feature.description}</p>
+
+                {/* Download button for extension card */}
+                {isExtensionCard && (
+                  <a href="/ai-bookmark-extension.zip" download>
+                    <Button variant="outline" size="sm" className="gap-2 w-full">
+                      <Download className="w-4 h-4" />
+                      {locale === 'zh' ? '下载插件' : 'Download Extension'}
+                    </Button>
+                  </a>
+                )}
               </div>
             )
           })}
