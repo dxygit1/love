@@ -5,12 +5,22 @@
     "description": "Save and organize bookmarks with AI-powered classification",
     "permissions": [
         "storage",
-        "activeTab"
+        "activeTab",
+        "contextMenus"
     ],
     "host_permissions": [
         "http://localhost:3000/*",
         "https://*.vercel.app/*"
     ],
+    "commands": {
+        "save-bookmark": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+B",
+                "mac": "Command+Shift+B"
+            },
+            "description": "Quick Save to AI Bookmark"
+        }
+    },
     "action": {
         "default_popup": "src/popup/popup.html",
         "default_icon": {
@@ -33,6 +43,17 @@
             ],
             "js": [
                 "src/content/content.js"
+            ],
+            "run_at": "document_idle"
+        },
+        {
+            "matches": [
+                "*://www.google.com/search*",
+                "*://www.google.co.jp/search*",
+                "*://www.google.com.hk/search*"
+            ],
+            "js": [
+                "src/content/search-companion.js"
             ],
             "run_at": "document_idle"
         }

@@ -266,7 +266,9 @@ export function BookmarkContent() {
             result = result.filter(b =>
                 b.title.toLowerCase().includes(query) ||
                 b.url.toLowerCase().includes(query) ||
-                b.description?.toLowerCase().includes(query)
+                b.description?.toLowerCase().includes(query) ||
+                b.tags?.some(tag => tag.toLowerCase().includes(query)) ||
+                b.group?.toLowerCase().includes(query)
             )
         }
 

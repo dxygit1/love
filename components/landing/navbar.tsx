@@ -90,6 +90,14 @@ export function Navbar() {
               </button>
             </div>
 
+            {/* Download Extension Button (Desktop) */}
+            <a href="/ai-bookmark-extension.zip" download>
+              <Button variant="outline" size="sm" className="hidden lg:flex gap-2">
+                <Monitor className="w-4 h-4" />
+                {locale === 'zh' ? '下载插件' : 'Download Extension'}
+              </Button>
+            </a>
+
             {user ? (
               <Link href="/dashboard">
                 <Button size="sm">{locale === 'zh' ? '进入控制台' : 'Dashboard'}</Button>
