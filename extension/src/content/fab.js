@@ -1,6 +1,6 @@
 // Configuration
-const API_BASE_URL = 'http://localhost:3000';
-const LOGIN_URL = 'http://localhost:3000/login?source=extension';
+const API_BASE_URL = 'https://bookmark.teasytools.com';
+const LOGIN_URL = 'https://bookmark.teasytools.com/login?source=extension';
 
 // i18n Strings
 const i18n = {

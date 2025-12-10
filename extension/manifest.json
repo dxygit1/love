@@ -10,7 +10,7 @@
         "cookies"
     ],
     "host_permissions": [
-        "http://localhost:3000/*",
+        "https://bookmark.teasytools.com/*",
         "https://*.vercel.app/*"
     ],
     "commands": {
@@ -49,7 +49,7 @@
         },
         {
             "matches": [
-                "http://localhost:3000/*",
+                "https://bookmark.teasytools.com/*",
                 "https://*.vercel.app/*"
             ],
             "js": [

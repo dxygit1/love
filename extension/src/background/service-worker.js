@@ -2,7 +2,7 @@
 // AI Bookmark Extension - Background Service Worker
 // ========================================
 
-const API_BASE_URL = 'http://localhost:3000'; // Development URL
+const API_BASE_URL = 'https://bookmark.teasytools.com'; // Production URL
 
 // Listen for installation
 chrome.runtime.onInstalled.addListener(() => {

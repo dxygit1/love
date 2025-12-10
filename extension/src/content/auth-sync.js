@@ -1,5 +1,5 @@
 // auth-sync.js
-// Runs on the main website (localhost:3000) to sync auth state to the extension
+// Runs on the main website (bookmark.teasytools.com) to sync auth state to the extension
 
 function syncAuth() {
     try {

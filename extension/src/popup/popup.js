@@ -2,9 +2,9 @@
 // AI Bookmark Extension - Popup Script (Cookie-Based Auth)
 // ========================================
 
-const API_BASE_URL = 'http://localhost:3000';
-const LOGIN_PAGE_URL = 'http://localhost:3000/login?source=extension';
-const COOKIE_DOMAIN = 'localhost';
+const API_BASE_URL = 'https://bookmark.teasytools.com';
+const LOGIN_PAGE_URL = 'https://bookmark.teasytools.com/login?source=extension';
+const COOKIE_DOMAIN = 'bookmark.teasytools.com';
 const AUTH_COOKIE_NAME = 'ai-bookmark-auth'; // Dedicated key
 
 // DOM Elements
