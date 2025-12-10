@@ -77,6 +77,41 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
   }, [user])
 
+  // Sync auth state for Chrome extension consumption - WRITE TO DEDICATED COOKIE
+  // NOTE: This app uses CUSTOM AUTH (not Supabase Auth), so we write cookie based on `user` state
+  useEffect(() => {
+    const setCookie = (name: string, value: string, days = 7) => {
+      const expires = new Date()
+      expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000)
+      document.cookie = `${name}=${encodeURIComponent(value)};expires=${expires.toUTCString()};path=/;SameSite=Lax`
+    }
+
+    const deleteCookie = (name: string) => {
+      document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`
+    }
+
+    if (user) {
+      // User is logged in - write cookie for extension
+      const extensionAuth = {
+        // Since we don't have a real Supabase token, we'll create a simple auth payload
+        // The API will need to be updated to accept this format
+        access_token: `custom_${user.id}_${Date.now()}`,
+        user: {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          provider: user.provider
+        }
+      }
+      setCookie("ai-bookmark-auth", JSON.stringify(extensionAuth))
+      console.log('[Auth] Cookie written: ai-bookmark-auth (custom auth)')
+    } else {
+      // User logged out - delete cookie
+      deleteCookie("ai-bookmark-auth")
+      console.log('[Auth] Cookie deleted: ai-bookmark-auth')
+    }
+  }, [user])
+
   // Handle theme changes
   useEffect(() => {
     if (!mounted) return

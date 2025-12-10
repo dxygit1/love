@@ -1,33 +1,67 @@
 import { NextResponse } from "next/server"
 import { createClient } from "@supabase/supabase-js"
 
-// Create a scoped client for the request
-function getSupabaseClient(request: Request) {
-    const authHeader = request.headers.get('Authorization')
-    const headers: Record<string, string> = {}
-
-    if (authHeader) {
-        headers['Authorization'] = authHeader
-    }
-
+// Create a Supabase client with service role for RLS bypass
+function getSupabaseClient() {
     return createClient(
         process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-        {
-            global: { headers }
-        }
+        process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
     )
+}
+
+// Extract user ID from custom auth token
+// Format: "custom_{userId}_{timestamp}" or real Supabase JWT
+async function getUserFromRequest(request: Request) {
+    const authHeader = request.headers.get('Authorization')
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return null
+    }
+
+    const token = authHeader.replace('Bearer ', '')
+
+    // Check if it's our custom token format
+    if (token.startsWith('custom_')) {
+        const parts = token.split('_')
+        if (parts.length >= 2) {
+            const userId = parts[1]
+            // Verify this user exists in profiles table
+            const supabase = getSupabaseClient()
+            const { data } = await supabase
+                .from('profiles')
+                .select('id, email')
+                .eq('id', userId)
+                .single()
+
+            if (data) {
+                return { id: data.id, email: data.email }
+            }
+        }
+        return null
+    }
+
+    // Fallback: Try Supabase JWT verification (for future use)
+    try {
+        const supabase = createClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+            { global: { headers: { Authorization: authHeader } } }
+        )
+        const { data: { user } } = await supabase.auth.getUser()
+        return user
+    } catch {
+        return null
+    }
 }
 
 export async function GET(request: Request) {
     try {
-        const supabase = getSupabaseClient(request)
-
-        // Verify user
-        const { data: { user }, error: authError } = await supabase.auth.getUser()
-        if (authError || !user) {
+        const user = await getUserFromRequest(request)
+        if (!user) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
         }
+
+        const supabase = getSupabaseClient()
 
         const { searchParams } = new URL(request.url)
         const query = searchParams.get('q')
@@ -126,12 +160,12 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
     try {
-        const supabase = getSupabaseClient(request)
-        const { data: { user }, error: authError } = await supabase.auth.getUser()
-
-        if (authError || !user) {
+        const user = await getUserFromRequest(request)
+        if (!user) {
             return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
         }
+
+        const supabase = getSupabaseClient()
 
         const body = await request.json()
         const { url, title, description, tags, favicon } = body

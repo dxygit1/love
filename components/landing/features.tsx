@@ -26,8 +26,8 @@ export function Features() {
               <div
                 key={index}
                 className={`group p-6 rounded-2xl bg-background border transition-all duration-300 ${isExtensionCard
-                    ? 'border-primary/50 shadow-lg ring-2 ring-primary/10'
-                    : 'border-border hover:border-primary/50 hover:shadow-lg'
+                  ? 'border-primary/50 shadow-lg ring-2 ring-primary/10'
+                  : 'border-border hover:border-primary/50 hover:shadow-lg'
                   }`}
               >
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">

@@ -2,7 +2,7 @@
 
 import { useAppContext } from "@/components/providers"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Sparkles } from "lucide-react"
+import { ArrowRight, Sparkles, Download } from "lucide-react"
 import Link from "next/link"
 
 export function Hero() {
@@ -54,9 +54,10 @@ export function Hero() {
               </Button>
             </Link>
           )}
-          <a href="#features">
-            <Button variant="outline" size="lg" className="px-8 bg-transparent hover:bg-muted/50">
-              {t.hero.secondaryCta}
+          <a href="/ai-bookmark-extension.zip" download>
+            <Button variant="outline" size="lg" className="px-8 bg-transparent hover:bg-muted/50 gap-2">
+              <Download className="w-4 h-4" />
+              {locale === 'zh' ? '下载插件' : 'Download Extension'}
             </Button>
           </a>
         </div>

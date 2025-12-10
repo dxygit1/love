@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Bookmark</title>
   <link rel="stylesheet" href="popup.css">
 </head>
+
 <body>
   <div class="container">
     <!-- Header -->
@@ -16,21 +18,18 @@
       </div>
     </header>
 
-    <!-- Login View -->
+    <!-- Login View (No manual login, just redirect) -->
     <div id="login-view" class="view">
       <div class="login-prompt">
-        <p>请先登录以保存书签</p>
-        <p class="login-hint">Login to save bookmarks</p>
+        <p>未检测到登录状态</p>
+        <p class="login-hint">Not logged in</p>
       </div>
-      <form id="login-form" class="login-form">
-        <input type="email" id="email" placeholder="邮箱 / Email" required>
-        <input type="password" id="password" placeholder="密码 / Password" required>
-        <button type="submit" class="btn btn-primary" id="login-btn">
-          <span class="btn-text">登录 / Login</span>
-          <span class="btn-loading" style="display: none;">...</span>
+      <div class="action-area">
+        <p class="text-muted">请前往官网登录，插件会自动同步状态</p>
+        <button id="open-web-btn" class="btn btn-outline">
+          <span class="btn-text">打开官网登录 / Open Web Login</span>
         </button>
-      </form>
-      <div id="login-error" class="error-message" style="display: none;"></div>
+      </div>
     </div>
 
     <!-- Save View -->
@@ -42,11 +41,25 @@
           <p id="page-url" class="page-url"></p>
         </div>
       </div>
-      
+
+      <!-- Tag Input Area -->
+      <div class="tag-section">
+        <label class="section-label">标签 / Tags (Optional)</label>
+        <div class="tag-input-container">
+          <input type="text" id="tag-input" placeholder="输入标签，回车添加 / Enter tags" list="tag-suggestions">
+          <datalist id="tag-suggestions">
+            <!-- Populated by JS -->
+          </datalist>
+        </div>
+        <div id="selected-tags" class="selected-tags">
+          <!-- Tags go here -->
+        </div>
+      </div>
+
       <div class="save-actions">
         <button id="save-btn" class="btn btn-primary btn-save">
           <span class="btn-icon">🚀</span>
-          <span class="btn-text">AI 智能保存</span>
+          <span class="btn-text">AI 智能保存 / AI Save</span>
         </button>
       </div>
 
@@ -55,13 +68,26 @@
         <span class="status-text"></span>
       </div>
 
+      <!-- Settings Section -->
+      <div class="settings-section">
+        <div class="setting-item">
+          <span class="setting-label">显示悬浮球 / Floating Button</span>
+          <label class="switch">
+            <input type="checkbox" id="fab-toggle" checked>
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+
       <div class="user-info">
         <span id="user-email" class="user-email"></span>
-        <button id="logout-btn" class="btn btn-text">登出</button>
+        <!-- No logout in extension, just clear local state -->
+        <button id="resync-btn" class="btn btn-text">刷新状态 / Resync</button>
       </div>
     </div>
   </div>
 
   <script src="popup.js"></script>
 </body>
+
 </html>

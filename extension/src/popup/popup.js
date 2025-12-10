@@ -1,40 +1,115 @@
 // ========================================
-// AI Bookmark Extension - Popup Script
+// AI Bookmark Extension - Popup Script (Cookie-Based Auth)
 // ========================================
 
-// API Base URL - Change this for production
 const API_BASE_URL = 'http://localhost:3000';
+const LOGIN_PAGE_URL = 'http://localhost:3000/login?source=extension';
+const COOKIE_DOMAIN = 'localhost';
+const AUTH_COOKIE_NAME = 'ai-bookmark-auth'; // Dedicated key
 
 // DOM Elements
 const loginView = document.getElementById('login-view');
 const saveView = document.getElementById('save-view');
-const loginForm = document.getElementById('login-form');
-const loginBtn = document.getElementById('login-btn');
-const loginError = document.getElementById('login-error');
+const openWebBtn = document.getElementById('open-web-btn');
 const saveBtn = document.getElementById('save-btn');
-const logoutBtn = document.getElementById('logout-btn');
+const resyncBtn = document.getElementById('resync-btn');
 const pageTitle = document.getElementById('page-title');
 const pageUrl = document.getElementById('page-url');
 const pageFavicon = document.getElementById('page-favicon');
 const userEmail = document.getElementById('user-email');
 const saveStatus = document.getElementById('save-status');
+const fabToggle = document.getElementById('fab-toggle');
+const tagInput = document.getElementById('tag-input');
+const selectedTagsContainer = document.getElementById('selected-tags');
+const tagSuggestions = document.getElementById('tag-suggestions');
+
+// State
+let currentTags = [];
+let availableTags = [];
+let currentAuthToken = null;
+let currentUser = null;
 
 // ========================================
 // Initialization
 // ========================================
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const user = await getStoredUser();
-    if (user) {
-        showSaveView(user);
+    console.log('[Popup] Initializing...');
+
+    // Try to get auth from cookie
+    const authData = await getAuthFromCookie();
+
+    if (authData && authData.token) {
+        console.log('[Popup] Found auth token in cookie!');
+        currentAuthToken = authData.token;
+        currentUser = authData.user;
+
+        // Also store in chrome.storage for other extension parts to use
+        await chrome.storage.sync.set({
+            authToken: authData.token,
+            user: authData.user
+        });
+
+        showSaveView(authData.user);
         loadCurrentPageInfo();
+        loadSettings();
+        fetchTags();
     } else {
+        console.log('[Popup] No auth token found');
         showLoginView();
     }
 });
 
 // ========================================
-// View Management
+// Cookie-Based Auth
+// ========================================
+
+async function getAuthFromCookie() {
+    return new Promise((resolve) => {
+        // Read auth cookie from localhost - this is the ONLY source of truth
+        chrome.cookies.get({
+            url: API_BASE_URL,
+            name: AUTH_COOKIE_NAME
+        }, (cookie) => {
+            console.log('[Popup] Cookie result:', cookie);
+
+            if (cookie && cookie.value) {
+                try {
+                    const decoded = decodeURIComponent(cookie.value);
+                    const session = JSON.parse(decoded);
+                    console.log('[Popup] Parsed session:', session);
+
+                    const token = session.access_token || session.token;
+
+                    if (token) {
+                        console.log('[Popup] Found valid token');
+                        // Also update chrome.storage for background script use
+                        chrome.storage.sync.set({
+                            authToken: token,
+                            user: session.user
+                        });
+                        resolve({
+                            token: token,
+                            user: session.user || { email: 'User' }
+                        });
+                        return;
+                    }
+                } catch (e) {
+                    console.error('[Popup] Failed to parse cookie:', e);
+                }
+            }
+
+            // No valid cookie = not logged in
+            // Clear any stale data from chrome.storage
+            console.log('[Popup] No cookie found, clearing storage');
+            chrome.storage.sync.remove(['authToken', 'user']);
+            resolve(null);
+        });
+    });
+}
+
+// ========================================
+// View Logic
 // ========================================
 
 function showLoginView() {
@@ -45,206 +120,200 @@ function showLoginView() {
 function showSaveView(user) {
     loginView.style.display = 'none';
     saveView.style.display = 'block';
-    userEmail.textContent = user.email;
+    userEmail.textContent = user?.email || user?.name || 'Logged In';
+}
+
+// Redirect to Web Login
+openWebBtn.addEventListener('click', () => {
+    chrome.tabs.create({ url: LOGIN_PAGE_URL });
+});
+
+// Resync (Re-check cookie)
+resyncBtn.addEventListener('click', async () => {
+    console.log('[Popup] Resync requested...');
+    const authData = await getAuthFromCookie();
+    if (authData && authData.token) {
+        currentAuthToken = authData.token;
+        currentUser = authData.user;
+        await chrome.storage.sync.set({ authToken: authData.token, user: authData.user });
+        showSaveView(authData.user);
+        loadCurrentPageInfo();
+        showStatus('success', 'Synced!');
+        setTimeout(() => saveStatus.style.display = 'none', 1500);
+    } else {
+        showStatus('error', 'No session found');
+        setTimeout(() => chrome.tabs.create({ url: LOGIN_PAGE_URL }), 1000);
+    }
+});
+
+// ========================================
+// Settings (FAB Toggle)
+// ========================================
+
+async function loadSettings() {
+    chrome.storage.sync.get(['fabEnabled'], (result) => {
+        if (fabToggle) fabToggle.checked = result.fabEnabled !== false;
+    });
+}
+
+if (fabToggle) {
+    fabToggle.addEventListener('change', (e) => {
+        const enabled = e.target.checked;
+        chrome.storage.sync.set({ fabEnabled: enabled });
+        chrome.tabs.query({}, (tabs) => {
+            tabs.forEach(tab => {
+                chrome.tabs.sendMessage(tab.id, { action: 'TOGGLE_FAB', enabled }).catch(() => { });
+            });
+        });
+    });
 }
 
 // ========================================
-// Storage Helpers
+// Tag Logic
 // ========================================
 
-async function getStoredUser() {
-    return new Promise((resolve) => {
-        chrome.storage.sync.get(['user', 'accessToken'], (result) => {
-            if (result.user && result.accessToken) {
-                resolve(result.user);
-            } else {
-                resolve(null);
+async function fetchTags() {
+    try {
+        const result = await apiRequest('/api/tags');
+        if (result && Array.isArray(result)) {
+            availableTags = result;
+            renderTagSuggestions();
+        }
+    } catch (e) {
+        console.warn('Failed to fetch tags:', e);
+    }
+}
+
+function renderTagSuggestions() {
+    if (!tagSuggestions) return;
+    tagSuggestions.innerHTML = '';
+    availableTags.forEach(tag => {
+        const option = document.createElement('option');
+        option.value = tag.name;
+        tagSuggestions.appendChild(option);
+    });
+}
+
+if (tagInput) {
+    tagInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const val = tagInput.value.trim();
+            if (val && !currentTags.includes(val)) {
+                addTag(val);
+                tagInput.value = '';
             }
-        });
+        }
     });
 }
 
-async function storeUser(user, accessToken) {
-    return new Promise((resolve) => {
-        chrome.storage.sync.set({ user, accessToken }, resolve);
-    });
+function addTag(tag) {
+    currentTags.push(tag);
+    renderSelectedTags();
 }
 
-async function clearUser() {
-    return new Promise((resolve) => {
-        chrome.storage.sync.remove(['user', 'accessToken'], resolve);
-    });
+function removeTag(tag) {
+    currentTags = currentTags.filter(t => t !== tag);
+    renderSelectedTags();
 }
 
-async function getAccessToken() {
-    return new Promise((resolve) => {
-        chrome.storage.sync.get(['accessToken'], (result) => {
-            resolve(result.accessToken || null);
-        });
+function renderSelectedTags() {
+    if (!selectedTagsContainer) return;
+    selectedTagsContainer.innerHTML = '';
+    currentTags.forEach(tag => {
+        const chip = document.createElement('div');
+        chip.className = 'tag-chip';
+        chip.innerHTML = `<span>${tag}</span><span class="tag-remove">&times;</span>`;
+        chip.querySelector('.tag-remove').onclick = () => removeTag(tag);
+        selectedTagsContainer.appendChild(chip);
     });
 }
 
 // ========================================
-// API Helpers
+// Save Logic
+// ========================================
+
+if (saveBtn) {
+    saveBtn.addEventListener('click', async () => {
+        try {
+            const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+            if (!tab || !tab.url) return;
+
+            saveBtn.disabled = true;
+            showStatus('loading', 'AI 分析中...');
+
+            const bookmarkData = {
+                url: tab.url,
+                title: pageTitle.textContent || tab.title,
+                tags: currentTags,
+                userId: currentUser?.id
+            };
+
+            await apiRequest('/api/bookmarks', {
+                method: 'POST',
+                body: JSON.stringify(bookmarkData),
+            });
+
+            showStatus('success', '保存成功！');
+            setTimeout(() => window.close(), 1500);
+
+        } catch (error) {
+            console.error('Save failed:', error);
+            showStatus('error', error.message || '保存失败');
+            saveBtn.disabled = false;
+        }
+    });
+}
+
+// ========================================
+// Helpers
 // ========================================
 
 async function apiRequest(endpoint, options = {}) {
-    const accessToken = await getAccessToken();
+    if (!currentAuthToken) {
+        const authData = await getAuthFromCookie();
+        if (authData) currentAuthToken = authData.token;
+    }
 
-    const config = {
+    if (!currentAuthToken) {
+        throw new Error('Not authenticated');
+    }
+
+    const res = await fetch(`${API_BASE_URL}${endpoint}`, {
         ...options,
         headers: {
             'Content-Type': 'application/json',
-            ...(accessToken ? { 'Authorization': `Bearer ${accessToken}` } : {}),
-            ...options.headers,
-        },
-    };
+            'Authorization': `Bearer ${currentAuthToken}`,
+            ...options.headers
+        }
+    });
 
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
-
-    if (!response.ok) {
-        const error = await response.json().catch(() => ({ message: 'Request failed' }));
-        throw new Error(error.message || error.error || 'Request failed');
+    if (!res.ok) {
+        if (res.status === 401) {
+            chrome.storage.sync.remove(['authToken', 'user']);
+            currentAuthToken = null;
+            showLoginView();
+            throw new Error('Session expired');
+        }
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.message || 'Request failed');
     }
 
-    return response.json();
+    return res.json();
 }
 
-// ========================================
-// Login Handler
-// ========================================
-
-loginForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    // Show loading state
-    loginBtn.disabled = true;
-    loginBtn.querySelector('.btn-text').style.display = 'none';
-    loginBtn.querySelector('.btn-loading').style.display = 'inline';
-    loginError.style.display = 'none';
-
-    try {
-        const result = await apiRequest('/api/auth/extension-login', {
-            method: 'POST',
-            body: JSON.stringify({ email, password }),
-        });
-
-        if (result.user && result.accessToken) {
-            await storeUser(result.user, result.accessToken);
-            showSaveView(result.user);
-            loadCurrentPageInfo();
-        } else {
-            throw new Error('登录失败 / Login failed');
-        }
-    } catch (error) {
-        loginError.textContent = error.message;
-        loginError.style.display = 'block';
-    } finally {
-        loginBtn.disabled = false;
-        loginBtn.querySelector('.btn-text').style.display = 'inline';
-        loginBtn.querySelector('.btn-loading').style.display = 'none';
-    }
-});
-
-// ========================================
-// Logout Handler
-// ========================================
-
-logoutBtn.addEventListener('click', async () => {
-    await clearUser();
-    showLoginView();
-});
-
-// ========================================
-// Load Current Page Info
-// ========================================
+function showStatus(type, msg) {
+    if (!saveStatus) return;
+    saveStatus.style.display = 'flex';
+    saveStatus.className = `save-status ${type}`;
+    const textEl = saveStatus.querySelector('.status-text');
+    if (textEl) textEl.textContent = msg;
+}
 
 async function loadCurrentPageInfo() {
-    try {
-        const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-
-        if (tab) {
-            pageTitle.textContent = tab.title || 'Untitled';
-            pageUrl.textContent = tab.url || '';
-
-            // Set favicon
-            if (tab.favIconUrl) {
-                pageFavicon.src = tab.favIconUrl;
-            } else {
-                pageFavicon.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2394a3b8"><path d="M12 2L2 7v10l10 5 10-5V7L12 2z"/></svg>';
-            }
-        }
-    } catch (error) {
-        console.error('Failed to load page info:', error);
-        pageTitle.textContent = 'Unable to load page info';
+    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+    if (tab) {
+        if (pageTitle) pageTitle.textContent = tab.title || 'Untitled';
+        if (pageUrl) pageUrl.textContent = tab.url || '';
+        if (pageFavicon) pageFavicon.src = tab.favIconUrl || 'favicon.ico';
     }
-}
-
-// ========================================
-// Save Bookmark Handler
-// ========================================
-
-saveBtn.addEventListener('click', async () => {
-    try {
-        const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-
-        if (!tab || !tab.url) {
-            showStatus('error', '无法获取页面信息');
-            return;
-        }
-
-        // Show loading state
-        saveBtn.disabled = true;
-        showStatus('loading', 'AI 正在分析...');
-
-        const user = await getStoredUser();
-
-        // Call classify API
-        const classifyResult = await apiRequest('/api/classify', {
-            method: 'POST',
-            body: JSON.stringify({ url: tab.url }),
-        });
-
-        // Save bookmark
-        const bookmarkData = {
-            url: tab.url,
-            title: classifyResult.title || tab.title,
-            description: classifyResult.summary || '',
-            group: classifyResult.group || 'Uncategorized',
-            tags: classifyResult.tags || [],
-            favicon: tab.favIconUrl || '',
-            userId: user.id,
-        };
-
-        await apiRequest('/api/bookmarks', {
-            method: 'POST',
-            body: JSON.stringify(bookmarkData),
-        });
-
-        showStatus('success', '保存成功！');
-
-        // Reset after 2 seconds
-        setTimeout(() => {
-            saveStatus.style.display = 'none';
-            saveBtn.disabled = false;
-        }, 2000);
-
-    } catch (error) {
-        console.error('Save failed:', error);
-        showStatus('error', error.message || '保存失败');
-        saveBtn.disabled = false;
-    }
-});
-
-// ========================================
-// Status Display
-// ========================================
-
-function showStatus(type, message) {
-    saveStatus.className = `save-status ${type}`;
-    saveStatus.querySelector('.status-text').textContent = message;
-    saveStatus.style.display = 'flex';
 }

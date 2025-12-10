@@ -131,6 +131,13 @@ export function DashboardHeader({ activeTab, onTabChange, isAdmin }: {
             >
               EN
             </button>
+            {/* Download Extension Button */}
+            <a href="/ai-bookmark-extension.zip" download>
+              <Button variant="outline" size="sm" className="hidden lg:flex gap-2">
+                <Monitor className="w-4 h-4" />
+                {locale === 'zh' ? '下载插件' : 'Download Extension'}
+              </Button>
+            </a>
           </div>
 
           {/* User Menu */}

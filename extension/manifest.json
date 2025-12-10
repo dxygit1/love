@@ -6,7 +6,8 @@
     "permissions": [
         "storage",
         "activeTab",
-        "contextMenus"
+        "contextMenus",
+        "cookies"
     ],
     "host_permissions": [
         "http://localhost:3000/*",
@@ -43,6 +44,28 @@
             ],
             "js": [
                 "src/content/content.js"
+            ],
+            "run_at": "document_idle"
+        },
+        {
+            "matches": [
+                "http://localhost:3000/*",
+                "https://*.vercel.app/*"
+            ],
+            "js": [
+                "src/content/auth-sync.js"
+            ],
+            "run_at": "document_idle"
+        },
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "src/content/fab.js"
+            ],
+            "css": [
+                "src/content/fab.css"
             ],
             "run_at": "document_idle"
         },

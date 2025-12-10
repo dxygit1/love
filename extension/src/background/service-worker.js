@@ -81,10 +81,140 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
 // Helper to get access token
 async function getAccessToken() {
     return new Promise((resolve) => {
-        chrome.storage.sync.get(['accessToken'], (result) => {
-            resolve(result.accessToken || null);
+        // 1. Try storage first
+        chrome.storage.sync.get(['authToken'], (result) => {
+            if (result.authToken) {
+                resolve(result.authToken);
+            } else {
+                // 2. Fallback: Try to read cookie directly from background
+                chrome.cookies.get({
+                    url: API_BASE_URL,
+                    name: 'ai-bookmark-auth'
+                }, (cookie) => {
+                    if (cookie && cookie.value) {
+                        try {
+                            const decoded = decodeURIComponent(cookie.value);
+                            const session = JSON.parse(decoded);
+                            const token = session.access_token || session.token;
+
+                            if (token) {
+                                // Sync back to storage for future use
+                                chrome.storage.sync.set({
+                                    authToken: token,
+                                    user: session.user
+                                });
+                                resolve(token);
+                                return;
+                            }
+                        } catch (e) {
+                            console.error('[Background] Failed to parse auth cookie:', e);
+                        }
+                    }
+                    resolve(null);
+                });
+            }
         });
     });
+}
+
+// Classify page via AI API
+async function classifyPage(pageData) {
+    try {
+        const token = await getAccessToken();
+        if (!token) {
+            return { success: false, error: 'Not authenticated' };
+        }
+
+        // Get user ID from storage for quota tracking
+        const userId = await new Promise(resolve => {
+            chrome.storage.sync.get(['user'], (result) => {
+                resolve(result.user?.id || null);
+            });
+        });
+
+        const response = await fetch(`${API_BASE_URL}/api/classify`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                url: pageData.url,
+                title: pageData.title,
+                description: pageData.description,
+                locale: pageData.locale || 'en',
+                userId: userId // Pass userId for quota tracking!
+            })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            return { success: true, data };
+        } else {
+            const err = await response.text();
+            return { success: false, error: err || 'Classification failed' };
+        }
+    } catch (error) {
+        console.error('[Background] Classify error:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// Save bookmark to API
+async function saveBookmark(data) {
+    try {
+        let token = await getAccessToken();
+
+        if (!token) {
+            return { success: false, code: 401, message: 'Not authenticated' };
+        }
+
+        const saveRequest = async (authToken) => {
+            return fetch(`${API_BASE_URL}/api/bookmarks`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authToken}`
+                },
+                body: JSON.stringify({
+                    url: data.url,
+                    title: data.title,
+                    description: data.description || '',
+                    tags: data.category ? [data.category] : []
+                })
+            });
+        };
+
+        let response = await saveRequest(token);
+
+        // Auto-retry on 401 (Session expired)
+        if (response.status === 401) {
+            console.log('[Background] Token expired, attempting refresh from cookie...');
+            // Clear storage to force cookie read
+            await new Promise(resolve => chrome.storage.sync.remove(['authToken', 'user'], resolve));
+
+            // Get fresh token (will read from cookie now)
+            token = await getAccessToken();
+
+            if (token) {
+                console.log('[Background] Got fresh token, retrying save...');
+                response = await saveRequest(token);
+            } else {
+                return { success: false, code: 401, message: 'Session expired, login required' };
+            }
+        }
+
+        if (!response.ok) {
+            const err = await response.json().catch(() => ({}));
+            return { success: false, message: err.message || 'Save failed' };
+        }
+
+        return { success: true };
+
+    } catch (error) {
+        console.error('[Background] Save bookmark error:', error);
+        return { success: false, message: error.message };
+    }
 }
 
 // ----------------------------------------
@@ -166,6 +296,42 @@ function escapeXml(unsafe) {
 
 // Handle messages from popup or content scripts
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === 'SYNC_AUTH') {
+        const { token, user } = request.payload;
+        if (token) {
+            chrome.storage.sync.set({
+                authToken: token,
+                user: user,
+                lastSync: Date.now()
+            }, () => {
+                console.log('[Background] Auth synced:', user?.email);
+                sendResponse({ success: true });
+            });
+        }
+        return true; // Keep channel open
+    }
+
+    if (request.action === 'SAVE_CURRENT_PAGE') {
+        saveBookmark(request.data).then(result => {
+            sendResponse(result);
+        });
+        return true; // Keep channel open
+    }
+
+    if (request.action === 'CHECK_AUTH_STATUS') {
+        chrome.storage.sync.get(['authToken'], (result) => {
+            sendResponse({ isAuthenticated: !!result.authToken });
+        });
+        return true;
+    }
+
+    if (request.action === 'CLASSIFY_PAGE') {
+        classifyPage(request.data).then(result => {
+            sendResponse(result);
+        });
+        return true; // Keep channel open for async response
+    }
+
     if (request.action === 'getPageInfo') {
         // Get info from active tab
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {

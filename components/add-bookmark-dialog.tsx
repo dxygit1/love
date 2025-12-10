@@ -58,6 +58,32 @@ export function AddBookmarkDialog({ onAdd, defaultOpen = false, defaultUrl = "",
     setSmartGrouping(false)
   }
 
+  // Extract domain for display
+  const getDomain = (urlStr: string) => {
+    try {
+      return new URL(urlStr).hostname
+    } catch {
+      return urlStr
+    }
+  }
+
+  // Show card immediately when valid URL is entered
+  const handleUrlChange = (newUrl: string) => {
+    setUrl(newUrl)
+    setError("")
+
+    // If URL looks valid, show the card immediately
+    if (newUrl.trim() && (newUrl.includes('://') || newUrl.includes('.')) && newUrl.length > 5) {
+      const domain = getDomain(newUrl.startsWith('http') ? newUrl : `https://${newUrl}`)
+      setTitle(domain) // Use domain as default title
+      setGroup(locale === 'zh' ? '未分类' : 'Uncategorized')
+      setGeneratedSummary('')
+      setStep("result") // Show card immediately!
+    } else {
+      setStep("idle")
+    }
+  }
+
   const handleClassify = async () => {
     if (!url.trim()) {
       setError(t.urlRequired || "URL is required")
@@ -84,10 +110,10 @@ export function AddBookmarkDialog({ onAdd, defaultOpen = false, defaultUrl = "",
       if (!response.ok) {
         if (data.code === 'QUOTA_EXCEEDED') {
           const quotaMsg = locale === 'zh'
-            ? `本月 AI 额度已用完 (${data.usage}/${data.limit})`
-            : `Monthly AI quota exceeded (${data.usage}/${data.limit})`
+            ? `本月 AI 额度已用完 (${data.usage}/${data.limit})，但您仍可保存`
+            : `AI quota exceeded (${data.usage}/${data.limit}), but you can still save`
           setError(quotaMsg)
-          setStep("idle")
+          setStep("result") // Stay on result card!
           return
         }
         throw new Error(data.error || "Classification failed")
@@ -99,9 +125,12 @@ export function AddBookmarkDialog({ onAdd, defaultOpen = false, defaultUrl = "",
 
       setStep("result")
     } catch (err: any) {
-      setError(t.classifyFailed)
+      const errorMsg = locale === 'zh'
+        ? 'AI 分析失败，但您仍可手动编辑并保存'
+        : 'AI analysis failed, but you can still edit and save'
+      setError(errorMsg)
       console.error("Classification error:", err)
-      setStep("idle")
+      setStep("result") // Stay on result card!
     }
   }
 
@@ -243,10 +272,7 @@ export function AddBookmarkDialog({ onAdd, defaultOpen = false, defaultUrl = "",
                       className="flex-1 bg-transparent border-none outline-none focus:outline-none focus:ring-0 text-foreground placeholder:text-muted-foreground/70 h-11 text-sm"
                       placeholder={t.urlPlaceholder}
                       value={url}
-                      onChange={(e) => {
-                        setUrl(e.target.value)
-                        setError("")
-                      }}
+                      onChange={(e) => handleUrlChange(e.target.value)}
                       onKeyDown={(e) => {
                         if (e.key === 'Enter') handleClassify()
                       }}
