@@ -37,12 +37,12 @@ export function ResultScreen({ score, result, onRestart }: ResultScreenProps) {
         setIsGenerating(true);
         try {
             // 等待一下以确保UI稳定
-            await new Promise(resolve => setTimeout(resolve, 100));
+            await new Promise(resolve => setTimeout(resolve, 500));
 
             const canvas = await html2canvas(resultRef.current, {
                 useCORS: true,
-                scale: 2, // 提高清晰度
-                backgroundColor: "#f9fafb", // bg-gray-50
+                backgroundColor: null, // Allow transparency for rounded corners
+                logging: false,
             } as any);
 
             const image = canvas.toDataURL("image/png");
@@ -54,9 +54,9 @@ export function ResultScreen({ score, result, onRestart }: ResultScreenProps) {
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-        } catch (err) {
+        } catch (err: any) {
             console.error("生成图片失败:", err);
-            alert("抱歉，生成图片失败，请稍后重试");
+            alert(`生成图片失败: ${err?.message || "未知错误"}`);
         } finally {
             setIsGenerating(false);
         }
@@ -72,7 +72,7 @@ export function ResultScreen({ score, result, onRestart }: ResultScreenProps) {
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="min-h-screen flex flex-col items-center justify-center p-6 bg-gray-50"
+            className="min-h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-br from-rose-50 via-white to-indigo-50"
         >
             <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
@@ -81,13 +81,20 @@ export function ResultScreen({ score, result, onRestart }: ResultScreenProps) {
                 className="w-full max-w-4xl text-center"
             >
                 {/* 截图区域容器 */}
-                <div ref={resultRef} className="bg-gray-50 p-4 rounded-xl">
+                {/* 截图区域容器 */}
+                {/* 截图区域容器 - 恢复白卡风格 */}
+                {/* 截图区域容器 - 恢复白卡风格 - 纯白背景防止Glitch */}
+                <div
+                    ref={resultRef}
+                    className="p-8 rounded-3xl shadow-xl bg-white border border-gray-100 mx-auto"
+                    style={{ backgroundColor: "#ffffff" }} // Ensure solid white for capture
+                >
                     {/* Title */}
-                    <p className="text-gray-500 mb-6 text-lg">
-                        你对 <span className="font-bold text-gray-800">他的喜欢程度</span> 位于：
+                    <p className="mb-6 text-lg" style={{ color: "#6b7280" }}>
+                        你对 <span className="font-bold" style={{ color: "#1f2937" }}>他的喜欢程度</span> 位于：
                     </p>
 
-                    {/* Score Circle - 参考设计美化版 */}
+                    {/* Score Circle */}
                     <div className="relative mx-auto mb-6" style={{ width: size, height: size }}>
                         {/* 定义渐变 */}
                         <svg className="w-full h-full" style={{ transform: 'rotate(-90deg)' }}>
@@ -123,17 +130,21 @@ export function ResultScreen({ score, result, onRestart }: ResultScreenProps) {
                                 transition={{ duration: 1.5, ease: "easeOut", delay: 0.3 }}
                             />
                         </svg>
-                        {/* 中心分数显示 */}
+                        {/* 中心分数显示 - 保持纯色防止glitch */}
                         <div className="absolute inset-0 flex flex-col items-center justify-center">
                             <motion.span
-                                className="text-5xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent"
+                                className="text-6xl font-bold"
+                                style={{
+                                    color: "#3b82f6",
+                                    fontFamily: "ui-sans-serif, system-ui, sans-serif"
+                                }}
                                 initial={{ opacity: 0, scale: 0.5 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ delay: 0.8, type: "spring", stiffness: 200 }}
                             >
                                 {displayScore}
                             </motion.span>
-                            <span className="text-base text-gray-400 mt-1">/ 100</span>
+                            <span className="text-base mt-1" style={{ color: "#9ca3af" }}>/ 100</span>
                         </div>
                     </div>
 
@@ -142,24 +153,35 @@ export function ResultScreen({ score, result, onRestart }: ResultScreenProps) {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1 }}
-                        className="text-2xl font-bold text-amber-500 mb-6"
+                        className="text-2xl font-bold mb-6"
+                        style={{ color: "#f59e0b" }}
                     >
                         {result.titleZh}
                     </motion.h2>
 
                     {/* Segment Labels (Top) */}
                     <div className="flex justify-between text-xs mb-1 px-1">
-                        <span className="text-red-500">一时脑热</span>
-                        <span className="text-gray-500">小鹿乱撞</span>
-                        <span className="text-blue-600">永生挚爱</span>
+                        <span style={{ color: "#ef4444" }}>一时脑热</span>
+                        <span style={{ color: "#6b7280" }}>小鹿乱撞</span>
+                        <span style={{ color: "#2563eb" }}>永生挚爱</span>
                     </div>
 
                     {/* Result Bar */}
                     <div className="relative mb-2">
                         <div className="flex h-3 rounded-full overflow-hidden">
-                            {segments.map((seg, i) => (
-                                <div key={i} className={`flex-1 ${seg.color}`} />
-                            ))}
+                            {segments.map((seg, i) => {
+                                // Map classes to hex for manual override
+                                let hexColor = "#d1d5db"; // default gray-300
+                                if (seg.color.includes("red-400")) hexColor = "#f87171";
+                                if (seg.color.includes("gray-300")) hexColor = "#d1d5db";
+                                if (seg.color.includes("gray-400")) hexColor = "#9ca3af";
+                                if (seg.color.includes("blue-300")) hexColor = "#93c5fd";
+                                if (seg.color.includes("blue-500")) hexColor = "#3b82f6";
+
+                                return (
+                                    <div key={i} className="flex-1" style={{ backgroundColor: hexColor }} />
+                                );
+                            })}
                         </div>
                         {/* Marker */}
                         <motion.div
@@ -169,16 +191,16 @@ export function ResultScreen({ score, result, onRestart }: ResultScreenProps) {
                             transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
                             style={{ transform: "translateX(-50%)" }}
                         >
-                            <div className="w-0 h-0 border-l-[8px] border-r-[8px] border-t-[12px] border-l-transparent border-r-transparent border-t-yellow-400" />
+                            <div className="w-0 h-0 border-l-[8px] border-r-[8px] border-t-[12px] border-l-transparent border-r-transparent" style={{ borderTopColor: "#facc15" }} />
                         </motion.div>
                     </div>
 
                     {/* Segment Labels (Bottom) */}
                     <div className="flex justify-between text-xs mb-8 px-1">
-                        <span className="text-gray-400"></span>
-                        <span className="text-gray-500">云淡风轻</span>
-                        <span className="text-blue-500">绝对理想型</span>
-                        <span className="text-gray-400"></span>
+                        <span style={{ color: "#9ca3af" }}></span>
+                        <span style={{ color: "#6b7280" }}>云淡风轻</span>
+                        <span style={{ color: "#3b82f6" }}>绝对理想型</span>
+                        <span style={{ color: "#9ca3af" }}></span>
                     </div>
 
                     {/* Result Description */}
@@ -186,20 +208,21 @@ export function ResultScreen({ score, result, onRestart }: ResultScreenProps) {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1.2 }}
-                        className="bg-white rounded-xl p-6 shadow-lg border border-gray-100 mb-6 text-left"
+                        className="rounded-xl p-6 shadow-lg mb-6 text-left"
+                        style={{ backgroundColor: "#ffffff", borderColor: "#f3f4f6", borderWidth: "1px", borderStyle: "solid" }}
                     >
-                        <h3 className="text-lg font-bold text-gray-800 mb-2 flex items-center gap-2">
+                        <h3 className="text-lg font-bold mb-2 flex items-center gap-2" style={{ color: "#1f2937" }}>
                             💡 你的情感现状分析
                         </h3>
-                        <p className="text-gray-600 leading-relaxed mb-6">
+                        <p className="leading-relaxed mb-6" style={{ color: "#4b5563" }}>
                             {result.descriptionZh}
                         </p>
 
-                        <div className="bg-emerald-50 rounded-lg p-4 border border-emerald-100">
-                            <h3 className="text-base font-bold text-emerald-800 mb-2 flex items-center gap-2">
+                        <div className="rounded-lg p-4" style={{ backgroundColor: "#ecfdf5", borderColor: "#d1fae5", borderWidth: "1px", borderStyle: "solid" }}>
+                            <h3 className="text-base font-bold mb-2 flex items-center gap-2" style={{ color: "#065f46" }}>
                                 ❤️ 给你的恋爱建议
                             </h3>
-                            <p className="text-emerald-700 font-medium leading-relaxed">
+                            <p className="font-medium leading-relaxed" style={{ color: "#047857" }}>
                                 {result.adviceZh}
                             </p>
                         </div>
@@ -242,6 +265,6 @@ export function ResultScreen({ score, result, onRestart }: ResultScreenProps) {
                     </motion.button>
                 </motion.div>
             </motion.div>
-        </motion.div>
+        </motion.div >
     );
 }
