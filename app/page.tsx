@@ -1,27 +1,57 @@
-import { Navbar } from "@/components/landing/navbar"
-import { Hero } from "@/components/landing/hero"
-import { Features } from "@/components/landing/features"
-import { UseCases } from "@/components/landing/use-cases"
-import { Pricing } from "@/components/landing/pricing"
-import { Testimonials } from "@/components/landing/testimonials"
-import { FAQ } from "@/components/landing/faq"
-import { Contact } from "@/components/landing/contact"
-import { Footer } from "@/components/landing/footer"
-import { ProductShowcase } from "@/components/landing/product-showcase"
+"use client";
+
+import { AnimatePresence } from "framer-motion";
+import { useQuiz } from "@/hooks/useQuiz";
+import { WelcomeScreen } from "@/components/WelcomeScreen";
+import { QuizScreen } from "@/components/QuizScreen";
+import { ResultScreen } from "@/components/ResultScreen";
+import { AnalyzingScreen } from "@/components/AnalyzingScreen";
 
 export default function Home() {
+  const {
+    state,
+    currentQuestion,
+    totalQuestions,
+    canGoBack,
+    startQuiz,
+    selectAnswer,
+    goBack,
+    resetQuiz,
+  } = useQuiz();
+
   return (
-    <main className="min-h-screen bg-background">
-      <Navbar />
-      <Hero />
-      <ProductShowcase />
-      <Features />
-      <UseCases />
-      {/* <Pricing /> */}
-      <Testimonials />
-      <FAQ />
-      <Contact />
-      <Footer />
+    <main className="min-h-screen">
+      <AnimatePresence mode="wait">
+        {state.step === "welcome" && (
+          <WelcomeScreen key="welcome" onStart={startQuiz} />
+        )}
+
+        {state.step === "quiz" && !state.isAnalyzing && currentQuestion && (
+          <QuizScreen
+            key={`quiz-${state.currentQuestionIndex}`}
+            question={currentQuestion}
+            currentIndex={state.currentQuestionIndex}
+            totalQuestions={totalQuestions}
+            selectedAnswer={state.answers[currentQuestion.id]}
+            canGoBack={canGoBack}
+            onSelectAnswer={selectAnswer}
+            onBack={goBack}
+          />
+        )}
+
+        {state.isAnalyzing && (
+          <AnalyzingScreen key="analyzing" />
+        )}
+
+        {state.step === "result" && state.result && !state.isAnalyzing && (
+          <ResultScreen
+            key="result"
+            score={state.score}
+            result={state.result}
+            onRestart={resetQuiz}
+          />
+        )}
+      </AnimatePresence>
     </main>
-  )
+  );
 }
