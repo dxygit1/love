@@ -97,11 +97,11 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                     {/* 截图区域容器 - 恢复白卡风格 - 纯白背景防止Glitch */}
                     <div
                         ref={resultRef}
-                        className="pt-20 pb-10 px-6 md:p-12 rounded-none md:rounded-[2rem] shadow-none md:shadow-xl bg-white md:border border-gray-100 mx-auto max-w-5xl min-h-screen md:min-h-0"
+                        className="pt-16 pb-8 px-5 md:p-12 rounded-none md:rounded-[2rem] shadow-none md:shadow-xl bg-white md:border border-gray-100 mx-auto max-w-5xl min-h-screen md:min-h-0"
                         style={{ backgroundColor: "#ffffff" }} // Ensure solid white for capture
                     >
                         {/* Title */}
-                        <p className="mb-6 text-lg" style={{ color: "#6b7280" }}>
+                        <p className="mb-4 md:mb-6 text-base md:text-lg" style={{ color: "#6b7280" }}>
                             {language === "zh" ? (
                                 <>你对 <span className="font-bold" style={{ color: "#1f2937" }}>{personName || (gender === "female" ? "她" : "他")}的喜欢程度</span> 位于：</>
                             ) : (
