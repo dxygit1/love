@@ -45,7 +45,7 @@ export default function Home() {
           <AnalyzingScreen key="analyzing" />
         )}
 
-        {state.step === "personalization" && (
+        {state.step === "personalization" && !state.isAnalyzing && (
           <PersonalizationScreen
             key="personalization"
             onSubmit={submitPersonalization}

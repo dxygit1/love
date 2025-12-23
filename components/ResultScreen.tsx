@@ -192,13 +192,13 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             </div>
                             {/* Marker */}
                             <motion.div
-                                className="absolute top-0 -mt-1"
+                                className="absolute top-0 -mt-2 drop-shadow-md z-10"
                                 initial={{ left: "0%" }}
                                 animate={{ left: `${percentage}%` }}
                                 transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
                                 style={{ transform: "translateX(-50%)" }}
                             >
-                                <div className="w-0 h-0 border-l-[8px] border-r-[8px] border-t-[12px] border-l-transparent border-r-transparent" style={{ borderTopColor: "#facc15" }} />
+                                <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-t-[18px] border-l-transparent border-r-transparent" style={{ borderTopColor: "#facc15" }} />
                             </motion.div>
                         </div>
 
