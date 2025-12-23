@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 import type { Question } from "@/lib/quiz-data";
 import { useMemo } from "react";
 
@@ -24,6 +25,8 @@ export function QuizScreen({
     onSelectAnswer,
     onBack,
 }: QuizScreenProps) {
+    const { language } = useLanguage();
+
     // Randomize options order, re-shuffle only when question changes
     const shuffledOptions = useMemo(() => {
         return [...question.options].sort(() => Math.random() - 0.5);
@@ -77,7 +80,7 @@ export function QuizScreen({
 
                         {/* Question Text */}
                         <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-8 text-center leading-relaxed">
-                            {question.textZh}
+                            {language === "zh" ? question.textZh : question.textEn}
                         </h2>
 
                         {/* Options */}
@@ -98,7 +101,7 @@ export function QuizScreen({
                                         whileTap={{ scale: 0.98 }}
                                     >
                                         <span className="text-gray-700 text-base sm:text-lg">
-                                            {option.textZh}
+                                            {language === "zh" ? option.textZh : option.textEn}
                                         </span>
                                     </motion.button>
                                 );

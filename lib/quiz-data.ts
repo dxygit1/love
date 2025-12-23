@@ -252,51 +252,51 @@ export const results: ResultCategory[] = [
   {
     minScore: 87,
     maxScore: 100,
-    titleEn: "Eternal Love",
-    titleZh: "永生挚爱",
-    descriptionEn: "You are hopelessly in love! He is the center of your universe.",
-    descriptionZh: "恭喜你，你对他的感情已经超越了普通的喜欢，达到了刻骨铭心的程度。他的一举一动都牵动着你的心，他的笑容是你每天最期待的风景。你愿意为他改变自己，愿意为他付出一切。这种深沉的爱意，是很多人一辈子都难以遇到的。在你心里，他就是那个独一无二的人，是你想要携手共度余生的灵魂伴侣。",
-    adviceEn: "Don't be afraid to show it, but remember self-love too.",
-    adviceZh: "如此深厚的感情值得被珍惜，但也请记住：真正的爱是相互的。在全心付出的同时，也要留一些温柔给自己。如果缘分到了，不妨勇敢迈出那一步；如果暂时没有回应，也请相信，你这么美好的人，一定会遇到懂得珍惜你的人。"
+    titleEn: "Soulmate Connection",
+    titleZh: "灵魂共振",
+    descriptionEn: "Deep spiritual connection.",
+    descriptionZh: "这已超越了简单的'喜欢'，而是一种罕见的深度共鸣。在心理学视角下，你的潜意识已经完全接纳他进入你的'核心安全区'。你对他不仅有强烈的激情（Passion），更建立了极高的亲密感（Intimacy）和排他性承诺（Commitment）。这种三维度的饱满情感，正是斯腾伯格笔下的“完美之爱”雏形。你不仅爱着他的闪光点，似乎也准备好了包容他的不完美。",
+    adviceEn: "Cherish this rare bond.",
+    adviceZh: "这种强烈的连接感往往伴随着'害怕失去'的焦虑，这是深爱的副作用。但请记住：最好的爱不是“因为需要所以爱”，而是“因为爱所以需要”。在全情投入的同时，保持适度的自我独立性，会让这段关系更有韧性。去拥抱这份幸运吧，它是生命馈赠的珍贵礼物。"
   },
   {
     minScore: 67,
     maxScore: 86,
-    titleEn: "Deeply Linked",
+    titleEn: "Deep Affection",
     titleZh: "绝对理想型",
-    descriptionEn: "You definitely have strong feelings for him.",
-    descriptionZh: "在你心中，他几乎符合你对另一半的所有想象。你欣赏他的性格，喜欢和他在一起的感觉，甚至开始不自觉地幻想两个人的未来。当他不在身边的时候，你会想念；当他出现的时候，你的世界仿佛都明亮了起来。这份心动是真实而热烈的，它让你的生活都变得更加有期待感。",
-    adviceEn: "It might be time to take the next step.",
-    adviceZh: "你对他的喜欢程度已经相当深了，这种感觉不是一时冲动，而是经过了时间的沉淀。如果你还在犹豫要不要表白，不如先试着创造更多相处的机会，让他也能感受到你的心意。缘分有时候需要一点点勇气来推动，愿你们能有一个美好的故事。"
+    descriptionEn: "Strong feelings and high compatibility.",
+    descriptionZh: "在你眼中，他几乎精准地击中了你对伴侣的'理想化投射'。数据表明，你对他有着极高的精神依恋度。这种吸引力不仅源于荷尔蒙的冲动，更源于他在性格或价值观上满足了你的深层需求。想起他时，你的大脑会分泌大量的多巴胺，这种愉悦感让你觉得世界都变得明亮。你们之间，只差最后那层窗户纸。",
+    adviceEn: "Time to express your feelings.",
+    adviceZh: "如果说喜欢是放肆，那么爱就是克制。你可能还在犹豫要不要跨出那一步，担心破坏现有的平衡。但心理学研究显示，'未完成事件'往往会让人遗憾终生。不如试着给彼此一个机会，不要让过多的理性分析阻碍了感性的自然流动。愿你们能从'我'变成'我们'。"
   },
   {
     minScore: 47,
     maxScore: 66,
-    titleEn: "Crushing Hard",
+    titleEn: "Sweet Crush",
     titleZh: "小鹿乱撞",
-    descriptionEn: "You have a sweet crush on him.",
-    descriptionZh: "每次见到他，你的心就像有一只小鹿在乱撞。你会忍不住关注他的动态，会因为他的一条消息而开心一整天，也会偶尔幻想和他一起做很多事情。这种甜甜的心动感，就是恋爱最初萌芽的样子。虽然你可能还没有完全确定自己的心意，但毫无疑问，他在你心里已经占据了一个特别的位置。",
-    adviceEn: "Enjoy this phase, get to know him better.",
-    adviceZh: "正处于心动阶段的你，拥有的是最美好的暧昧期感觉。不必着急确认关系，好好享受这种小鹿乱撞的感觉吧。多和他聊聊天，多了解他这个人，看看随着时间推移，你的感觉会不会越来越深。如果是真爱，时间会给你答案。"
+    descriptionEn: "Typical early stage crush.",
+    descriptionZh: "你正处于最迷人也最折磨人的“暧昧期”。这种患得患失的感觉，源于“间歇性强化”——他偶尔的回应给你希望，偶尔的沉默又让你焦虑。你在潜意识里已经给了他特殊的优先权，每一次手机震动，你都期待是他的名字。这种朦胧的好感充满了张力，是爱情萌芽时最原本的样子。",
+    adviceEn: "Enjoy the uncertainty.",
+    adviceZh: "不必急着给这段关系下定义。当下的焦虑和兴奋，其实都是一种心理能量的释放。试着把关注点从“他喜不喜欢我”转移到“我和他在一起快不快乐”上。多创造一些线下的真实互动，去验证这到底是真实的灵魂吸引，还是一场短暂的荷尔蒙狂欢。时间会给你最诚实的答案。"
   },
   {
     minScore: 27,
     maxScore: 46,
-    titleEn: "Just Friends",
+    titleEn: "Friendly Zone",
     titleZh: "云淡风轻",
-    descriptionEn: "You like him, but maybe just as a friend right now.",
-    descriptionZh: "你觉得他还不错，和他相处也挺舒服的，但要说心动，似乎还差那么一点火候。你可能会欣赏他的某些优点，偶尔也会想起他，但他还没有真正走进你的心里。这种感觉更像是一种淡淡的好感，介于朋友和恋人之间的灰色地带，进一步是暧昧，退一步是友情。",
-    adviceEn: "See how things develop naturally.",
-    adviceZh: "不用着急给这段关系下定义，有些感情需要时间来培养。如果你对他有一点好奇心，不妨多接触看看，说不定深入了解之后会有不一样的感觉。但如果你发现他始终无法让你心动，那也没关系，至少你多了一个值得交往的朋友。感情的事情，顺其自然就好。"
+    descriptionEn: "Maybe just friends.",
+    descriptionZh: "你对他有好感，但这更像是一种基于欣赏的“伴侣式友谊”，而非激情的恋爱。你的理智大脑明显占据了上风，你能够客观地评价他，也能自如地控制自己的情绪。这种关系舒适且安全，但缺乏那种让人冲动想要占有的张力。也许在你的潜意识里，他更适合做一个长久的朋友，而不是恋人。",
+    adviceEn: "Analysis suggests friendship.",
+    adviceZh: "不要为了恋爱而恋爱。有时候，我们容易混淆“不讨厌”和“喜欢”的界限。这种淡淡的关系其实非常珍贵，进可攻退可守。如果没有感受到那种生理性的冲动和强烈的独占欲，不妨就维持在舒适区。毕竟，一个懂你的朋友，有时比一个不合适的恋人更难得。"
   },
   {
     minScore: 0,
     maxScore: 26,
     titleEn: "Not Interested",
-    titleZh: "一时脑热",
-    descriptionEn: "You don't seem to have romantic feelings for him.",
-    descriptionZh: "根据你的回答来看，你对他的感觉可能只是暂时的好奇或者欣赏，并没有达到真正心动的程度。也许是因为他某个瞬间吸引了你的注意，或者只是周围人的起哄让你产生了错觉。真正的喜欢应该是持续的、深入骨髓的牵挂，而不是偶尔闪过的念头。",
-    adviceEn: "Friendship is valuable too!",
-    adviceZh: "能够清醒地认识到自己的感情状态，其实是一件好事。不要因为孤单就勉强自己喜欢一个人，也不要因为别人说你们很配就强迫自己心动。真正的爱情来临时，你会不由自主地沦陷。现在的你，不如把更多时间放在自己身上，提升自己，等待那个真正让你怦然心动的人出现。"
+    titleZh: "一时幻觉",
+    descriptionEn: "Likely just impulse.",
+    descriptionZh: "与其说你喜欢他，不如说你喜欢的是“被爱”的感觉，或者是对他身上某个光环的短暂迷恋。心理学将其称为“晕轮效应”——你可能因为一点好感而美化了他的全部。但当冷静下来审视，你们之间缺乏深层的情感连接。你现在的焦虑，可能更多是源于孤独或自尊心，而非对那个人的真实依恋。",
+    adviceEn: "Focus on yourself.",
+    adviceZh: "清醒地面对自己的内心，是一种了不起的能力。不要因为周围人的起哄或深夜的寂寞，就勉强自己投入一段不对等的关系。真正的喜欢是藏不住的，更是持续的。现在的你，不如把那份期待收回来好好爱自己。提升自己的磁场，那个真正让灵魂同频的人，正在赶来见你的路上。"
   }
 ];

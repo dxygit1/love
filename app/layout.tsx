@@ -21,6 +21,10 @@ export const viewport: Viewport = {
   themeColor: "#f43f5e",
 };
 
+import { Footer } from "@/components/Footer";
+import { Header } from "@/components/Header";
+import { LanguageProvider } from "@/contexts/LanguageContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -28,8 +32,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN">
-      <body className="antialiased">
-        {children}
+      <body className="antialiased min-h-screen flex flex-col">
+        <LanguageProvider>
+          <Header />
+          {children}
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

@@ -2,18 +2,21 @@
 
 import { motion } from "framer-motion";
 import { Heart, ArrowRight, Sparkles, Clock } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface WelcomeScreenProps {
     onStart: () => void;
 }
 
 export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
+    const { t } = useLanguage();
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden bg-gradient-to-br from-rose-50 via-white to-indigo-50"
+            className="min-h-screen flex flex-col items-center py-20 relative overflow-hidden bg-gradient-to-br from-rose-50 via-white to-indigo-50"
         >
             {/* 动态背景装饰 */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -29,7 +32,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                 />
             </div>
 
-            <div className="w-full max-w-2xl px-6 relative z-10">
+            <div className="w-full max-w-5xl px-6 relative z-10">
                 <motion.div
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
@@ -62,34 +65,32 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                     {/* Title */}
                     <h1 className="text-4xl md:text-5xl font-black text-gray-800 tracking-tight mb-2">
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-rose-500 via-pink-500 to-indigo-500">
-                            测测你到底有多
+                            {t("welcome.title_1")}
                         </span>
                     </h1>
                     <h1 className="text-4xl md:text-5xl font-black text-gray-800 tracking-tight mb-8">
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-500 to-violet-500">
-                            喜欢他？
+                            {t("welcome.title_2")}
                         </span>
                     </h1>
 
                     {/* Card Content */}
                     <motion.div
-                        className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/50 mb-8"
+                        className="bg-white/60 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-white/50 mb-8 max-w-2xl mx-auto"
                         initial={{ y: 20, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
                         transition={{ delay: 0.2 }}
                     >
                         <p className="text-gray-600 leading-relaxed mb-6 text-base md:text-lg">
-                            <span className="font-semibold text-rose-500">“他其实没那么喜欢你”</span> —— 当年这句台词浇醒了多少梦中人。
+                            <span className="font-semibold text-rose-500">{t("welcome.subtitle_1")}</span> {t("welcome.subtitle_2")}
                         </p>
                         <p className="text-gray-600 leading-relaxed mb-6">
-                            我们容易美化一段关系，也容易在暧昧中迷失。
-                            <br />
-                            早点看清自己的心意，是狂热挚爱还是一时心动？
+                            {t("welcome.desc")}
                         </p>
 
                         <div className="flex items-center justify-center gap-2 text-sm text-gray-500 bg-gray-50/50 py-3 rounded-lg border border-gray-100/50">
                             <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                            建议选择日常生活中的朋友或暧昧对象来测哦
+                            {t("welcome.tip")}
                         </div>
                     </motion.div>
 
@@ -103,16 +104,87 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                         >
                             <div className="absolute inset-0 bg-gradient-to-r from-rose-500 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                             <div className="relative flex items-center gap-3">
-                                开始探索内心
+                                {t("welcome.btn_start")}
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             </div>
                         </motion.button>
 
                         <div className="flex items-center gap-2 text-sm text-gray-400">
                             <Clock className="w-3 h-3" />
-                            <span>预计用时: 2-3 分钟</span>
+                            <span>{t("welcome.time")}</span>
                         </div>
                     </div>
+
+                    {/* SEO Content Sections (For AdSense) */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.5 }}
+                        className="mt-20 text-left space-y-12 max-w-3xl mx-auto pb-12"
+                    >
+                        {/* Section 1: Introduction */}
+                        <section>
+                            <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                                <span className="w-1 h-6 bg-rose-500 rounded-full" />
+                                {t("welcome_content.about_title")}
+                            </h2>
+                            <p className="text-gray-600 leading-relaxed text-sm">
+                                {t("welcome_content.about_text")}
+                            </p>
+                        </section>
+
+                        {/* Section 2: Theory */}
+                        <section>
+                            <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                                <span className="w-1 h-6 bg-indigo-500 rounded-full" />
+                                {t("welcome_content.dimension_title")}
+                            </h2>
+                            <div className="bg-white/50 rounded-2xl p-6 border border-white/60 shadow-sm">
+                                <ul className="space-y-3 text-sm text-gray-600">
+                                    <li className="flex gap-3">
+                                        <span className="font-bold text-indigo-600 min-w-16">{t("welcome_content.dim_1_title")}</span>
+                                        <span>{t("welcome_content.dim_1_desc")}</span>
+                                    </li>
+                                    <li className="flex gap-3">
+                                        <span className="font-bold text-rose-600 min-w-16">{t("welcome_content.dim_2_title")}</span>
+                                        <span>{t("welcome_content.dim_2_desc")}</span>
+                                    </li>
+                                    <li className="flex gap-3">
+                                        <span className="font-bold text-purple-600 min-w-16">{t("welcome_content.dim_3_title")}</span>
+                                        <span>{t("welcome_content.dim_3_desc")}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </section>
+
+                        {/* Section 3: FAQ */}
+                        <section>
+                            <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                                <span className="w-1 h-6 bg-violet-500 rounded-full" />
+                                {t("welcome_content.faq_title")}
+                            </h2>
+                            <div className="space-y-4">
+                                <details className="group bg-white/40 rounded-xl overflow-hidden border border-white/50">
+                                    <summary className="flex items-center justify-between p-4 cursor-pointer font-medium text-gray-700 hover:bg-white/60 transition-colors">
+                                        {t("welcome_content.faq_1_q")}
+                                        <span className="group-open:rotate-180 transition-transform">▼</span>
+                                    </summary>
+                                    <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
+                                        {t("welcome_content.faq_1_a")}
+                                    </div>
+                                </details>
+                                <details className="group bg-white/40 rounded-xl overflow-hidden border border-white/50">
+                                    <summary className="flex items-center justify-between p-4 cursor-pointer font-medium text-gray-700 hover:bg-white/60 transition-colors">
+                                        {t("welcome_content.faq_2_q")}
+                                        <span className="group-open:rotate-180 transition-transform">▼</span>
+                                    </summary>
+                                    <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
+                                        {t("welcome_content.faq_2_a")}
+                                    </div>
+                                </details>
+                            </div>
+                        </section>
+                    </motion.div>
                 </motion.div>
             </div>
         </motion.div>
