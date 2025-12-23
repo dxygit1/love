@@ -11,10 +11,8 @@ interface AdUnitProps {
 export function AdUnit({ slot, format = "auto", className = "" }: AdUnitProps) {
     const adRef = useRef<HTMLDivElement>(null);
 
-    // ⚠️ 临时发布商 ID (占位符)，等您提供后我会替换
     // 只有当有真实 ID 时，广告才会尝试加载
-    // const PUBLISHER_ID = "ca-pub-XXXXXXXXXXXXXXXX"; 
-    const PUBLISHER_ID = ""; // 暂空，确保当前不占用任何高度
+    const PUBLISHER_ID = "ca-pub-2863794754217950";
 
     useEffect(() => {
         if (!PUBLISHER_ID || !slot) return;
