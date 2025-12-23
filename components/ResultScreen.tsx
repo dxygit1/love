@@ -84,7 +84,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className={`min-h-screen flex flex-col items-center pt-8 pb-8 md:pt-20 md:pb-16 px-4 sm:px-6 bg-gradient-to-br from-rose-50 via-white to-indigo-50 ${isPreviewMode ? 'fixed inset-0 z-[60] overflow-auto cursor-pointer flex justify-center items-center' : ''}`}
+                className={`min-h-screen flex flex-col items-center pt-0 pb-8 md:pt-20 md:pb-16 px-0 md:px-6 bg-gradient-to-br from-rose-50 via-white to-indigo-50 ${isPreviewMode ? 'fixed inset-0 z-[60] overflow-auto cursor-pointer flex justify-center items-center' : ''}`}
                 onClick={isPreviewMode ? handleCaptureAndClose : undefined}
             >
                 <motion.div
@@ -93,13 +93,10 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                     transition={{ delay: 0.1 }}
                     className="w-full max-w-5xl text-center"
                 >
-                    {/* 截图区域容器 */}
-                    {/* 截图区域容器 */}
-                    {/* 截图区域容器 - 恢复白卡风格 */}
                     {/* 截图区域容器 - 恢复白卡风格 - 纯白背景防止Glitch */}
                     <div
                         ref={resultRef}
-                        className="p-8 md:p-12 rounded-[2rem] shadow-xl bg-white border border-gray-100 mx-auto max-w-5xl"
+                        className="py-10 px-6 md:p-12 rounded-none md:rounded-[2rem] shadow-none md:shadow-xl bg-white md:border border-gray-100 mx-auto max-w-5xl min-h-screen md:min-h-0"
                         style={{ backgroundColor: "#ffffff" }} // Ensure solid white for capture
                     >
                         {/* Title */}
