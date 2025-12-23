@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Heart, ArrowRight, Sparkles, Clock } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { AdUnit } from "@/components/AdUnit";
 
 interface WelcomeScreenProps {
     onStart: () => void;
@@ -33,6 +34,11 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
             </div>
 
             <div className="w-full max-w-5xl px-6 relative z-10">
+                {/* 顶部广告位 */}
+                <div className="w-full mb-8 min-h-[100px]">
+                    <AdUnit slot="HOME_TOP_SLOT" />
+                </div>
+
                 <motion.div
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
