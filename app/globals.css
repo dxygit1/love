@@ -45,3 +45,8 @@ a {
     padding-bottom: max(0px, env(safe-area-inset-bottom));
   }
 }
+
+/* Hide AdSense units when no ad is loaded to prevent whitespace */
+ins.adsbygoogle[data-ad-status="unfilled"] {
+  display: none !important;
+}

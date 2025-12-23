@@ -6,6 +6,7 @@ import { RefreshCw, Camera, Link2 } from "lucide-react";
 import type { ResultCategory } from "@/lib/quiz-data";
 import { useRef, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { AdUnit } from "@/components/AdUnit";
 
 interface ResultScreenProps {
     score: number;
@@ -257,6 +258,14 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                                 </p>
                             </div>
                         </motion.div>
+
+                        {/* 广告位：建议卡片下方 */}
+                        {/* 如果在预览模式（截图）或者是没有配置 ID，这个组件高度为 0，完全不可见 */}
+                        {!isPreviewMode && (
+                            <div className="w-full max-w-5xl mx-auto px-1 mt-4">
+                                <AdUnit slot="YOUR_SLOT_ID_HERE" />
+                            </div>
+                        )}
                     </div>
 
                     {/* Action Buttons - Hidden in Preview Mode */}

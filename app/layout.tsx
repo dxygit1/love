@@ -24,6 +24,7 @@ export const viewport: Viewport = {
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { LanguageProvider } from "@/contexts/LanguageContext";
+import Script from "next/script";
 
 export default function RootLayout({
   children,
@@ -33,6 +34,12 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <body className="antialiased min-h-screen flex flex-col">
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2863794754217950"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         <LanguageProvider>
           <Header />
           {children}
