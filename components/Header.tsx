@@ -17,21 +17,21 @@ export function Header() {
 
     return (
         <header className="fixed top-0 left-0 right-0 z-50 bg-white/60 backdrop-blur-md border-b border-white/50 transition-all duration-300">
-            <div className="container mx-auto px-6 h-16 flex items-center max-w-5xl gap-12">
-                <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
+            <div className="container mx-auto px-4 md:px-6 h-14 md:h-16 flex items-center justify-between max-w-5xl">
+                <Link href="/" className="flex items-center gap-2 group flex-shrink-0 mr-2 md:mr-0">
                     <div className="p-1.5 bg-gradient-to-br from-rose-500 to-pink-600 rounded-lg text-white shadow-lg group-hover:scale-105 transition-transform">
                         <Heart className="w-5 h-5 fill-current" />
                     </div>
-                    <span className="font-bold text-lg text-gray-800 tracking-tight group-hover:text-rose-600 transition-colors">
+                    <span className="font-bold text-base md:text-lg text-gray-800 tracking-tight group-hover:text-rose-600 transition-colors">
                         {t("header.title")}
                     </span>
                 </Link>
 
-                <nav className="flex items-center gap-8 text-sm font-medium flex-grow">
+                <nav className="flex items-center gap-4 md:gap-8 text-sm font-medium">
                     <Link
                         href="/"
                         className={cn(
-                            "transition-colors hover:text-rose-500",
+                            "transition-colors hover:text-rose-500 whitespace-nowrap",
                             isHome ? "text-rose-600" : "text-gray-600"
                         )}
                     >
@@ -40,7 +40,7 @@ export function Header() {
                     <Link
                         href="/about"
                         className={cn(
-                            "transition-colors hover:text-rose-500",
+                            "transition-colors hover:text-rose-500 whitespace-nowrap",
                             pathname === "/about" ? "text-rose-600" : "text-gray-600"
                         )}
                     >
@@ -50,9 +50,9 @@ export function Header() {
 
                 <button
                     onClick={toggleLanguage}
-                    className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-gray-600 hover:text-rose-600 hover:bg-rose-50 rounded-full transition-all border border-gray-200 hover:border-rose-200"
+                    className="flex-shrink-0 flex items-center gap-1.5 md:gap-2 px-2.5 py-1.5 md:px-3 text-xs md:text-sm font-medium text-gray-600 hover:text-rose-600 hover:bg-rose-50 rounded-full transition-all border border-gray-200 hover:border-rose-200 ml-2 md:ml-0"
                 >
-                    <Languages className="w-4 h-4" />
+                    <Languages className="w-3.5 h-3.5 md:w-4 md:h-4" />
                     <span>{language === "zh" ? "EN" : "中"}</span>
                 </button>
             </div>
