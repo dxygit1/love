@@ -96,7 +96,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                     {/* 截图区域容器 - 恢复白卡风格 - 纯白背景防止Glitch */}
                     <div
                         ref={resultRef}
-                        className="py-10 px-6 md:p-12 rounded-none md:rounded-[2rem] shadow-none md:shadow-xl bg-white md:border border-gray-100 mx-auto max-w-5xl min-h-screen md:min-h-0"
+                        className="pt-20 pb-10 px-6 md:p-12 rounded-none md:rounded-[2rem] shadow-none md:shadow-xl bg-white md:border border-gray-100 mx-auto max-w-5xl min-h-screen md:min-h-0"
                         style={{ backgroundColor: "#ffffff" }} // Ensure solid white for capture
                     >
                         {/* Title */}
