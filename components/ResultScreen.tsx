@@ -5,13 +5,14 @@ import { motion } from "framer-motion";
 import { RefreshCw, Camera, Link2 } from "lucide-react";
 import type { ResultCategory } from "@/lib/quiz-data";
 import { useRef, useState } from "react";
-import html2canvas from "html2canvas";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 interface ResultScreenProps {
     score: number;
     result: ResultCategory;
     onRestart: () => void;
+    personName?: string;
+    gender?: "male" | "female";
 }
 
 // Result bar segments
@@ -23,11 +24,29 @@ const segments = [
     { label: "永生挚爱", color: "bg-blue-500", textColor: "text-blue-600" },
 ];
 
-export function ResultScreen({ score, result, onRestart }: ResultScreenProps) {
+export function ResultScreen({ score, result, onRestart, personName, gender = "male" }: ResultScreenProps) {
     const resultRef = useRef<HTMLDivElement>(null);
-    const [isGenerating, setIsGenerating] = useState(false);
     const [isPreviewMode, setIsPreviewMode] = useState(false);
     const { t, language } = useLanguage();
+
+    // Dynamic text replacement
+    const getFinalText = (text: string) => {
+        if (!text) return "";
+        let newText = text;
+
+        // If name provided, replace "他" with name
+        if (personName && personName.trim()) {
+            newText = newText.replaceAll("他", personName.trim());
+        }
+
+        // If gender is female, replace "他" with "她" (only if name not used for that instance, logic similar to before)
+        // Actually simple replacement: if female, replace all remaining '他' with '她'
+        if (gender === "female") {
+            newText = newText.replaceAll("他", "她");
+        }
+
+        return newText;
+    };
 
     // 满分100分制
     const maxScore = 100;
@@ -38,38 +57,12 @@ export function ResultScreen({ score, result, onRestart }: ResultScreenProps) {
         setIsPreviewMode(true);
     };
 
-    const handleCaptureAndClose = async () => {
-        if (!resultRef.current || isGenerating) return;
-
-        setIsGenerating(true);
-        try {
-            await new Promise(resolve => setTimeout(resolve, 300));
-
-            const canvas = await html2canvas(resultRef.current, {
-                useCORS: true,
-                backgroundColor: "#ffffff",
-                logging: false,
-            } as any);
-
-            const image = canvas.toDataURL("image/png");
-
-            const link = document.createElement("a");
-            link.href = image;
-            link.download = `LoveQuiz-Result-${language === "zh" ? result.titleZh : result.titleEn}.png`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        } catch (err: any) {
-            console.error("图片生成失败:", err);
-            alert(`图片生成失败: ${err?.message || "未知错误"}`);
-        } finally {
-            setIsGenerating(false);
-            setIsPreviewMode(false);
-        }
+    const handleCaptureAndClose = () => {
+        setIsPreviewMode(false);
     };
 
     // 圆环尺寸参数
-    const size = 120;
+    const size = 110;
     const strokeWidth = 12;
     const radius = (size - strokeWidth) / 2;
     const circumference = 2 * Math.PI * radius;
@@ -83,7 +76,7 @@ export function ResultScreen({ score, result, onRestart }: ResultScreenProps) {
                     onClick={handleCaptureAndClose}
                 >
                     <p className="fixed top-8 left-1/2 -translate-x-1/2 text-white/80 text-sm animate-pulse">
-                        {isGenerating ? t("common.generating") : "点击任意位置保存图片"}
+                        点击任意位置退出预览
                     </p>
                 </div>
             )}
@@ -91,7 +84,7 @@ export function ResultScreen({ score, result, onRestart }: ResultScreenProps) {
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className={`min-h-screen flex flex-col items-center pt-24 pb-12 px-4 sm:px-6 bg-gradient-to-br from-rose-50 via-white to-indigo-50 ${isPreviewMode ? 'fixed inset-0 z-[60] overflow-auto cursor-pointer' : ''}`}
+                className={`min-h-screen flex flex-col items-center pt-8 pb-8 md:pt-20 md:pb-16 px-4 sm:px-6 bg-gradient-to-br from-rose-50 via-white to-indigo-50 ${isPreviewMode ? 'fixed inset-0 z-[60] overflow-auto cursor-pointer flex justify-center items-center' : ''}`}
                 onClick={isPreviewMode ? handleCaptureAndClose : undefined}
             >
                 <motion.div
@@ -106,15 +99,15 @@ export function ResultScreen({ score, result, onRestart }: ResultScreenProps) {
                     {/* 截图区域容器 - 恢复白卡风格 - 纯白背景防止Glitch */}
                     <div
                         ref={resultRef}
-                        className="p-8 md:p-12 rounded-[2rem] shadow-xl bg-white border border-gray-100 mx-auto"
+                        className="p-8 md:p-12 rounded-[2rem] shadow-xl bg-white border border-gray-100 mx-auto max-w-5xl"
                         style={{ backgroundColor: "#ffffff" }} // Ensure solid white for capture
                     >
                         {/* Title */}
                         <p className="mb-6 text-lg" style={{ color: "#6b7280" }}>
                             {language === "zh" ? (
-                                <>你对 <span className="font-bold" style={{ color: "#1f2937" }}>他的喜欢程度</span> 位于：</>
+                                <>你对 <span className="font-bold" style={{ color: "#1f2937" }}>{personName || (gender === "female" ? "她" : "他")}的喜欢程度</span> 位于：</>
                             ) : (
-                                <>Your love level for <span className="font-bold" style={{ color: "#1f2937" }}>Him</span> is:</>
+                                <>Your love level for <span className="font-bold" style={{ color: "#1f2937" }}>{personName || (gender === "female" ? "Her" : "Him")}</span> is:</>
                             )}
                         </p>
 
@@ -157,7 +150,7 @@ export function ResultScreen({ score, result, onRestart }: ResultScreenProps) {
                             {/* 中心分数显示 - 保持纯色防止glitch */}
                             <div className="absolute inset-0 flex flex-col items-center justify-center">
                                 <motion.span
-                                    className="text-6xl font-bold"
+                                    className="text-4xl font-bold leading-none"
                                     style={{
                                         color: "#3b82f6",
                                         fontFamily: "ui-sans-serif, system-ui, sans-serif"
@@ -168,7 +161,8 @@ export function ResultScreen({ score, result, onRestart }: ResultScreenProps) {
                                 >
                                     {displayScore}
                                 </motion.span>
-                                <span className="text-xs mt-1 font-medium" style={{ color: "#9ca3af" }}>/ 100</span>
+                                <div className="w-10 h-[1.5px] bg-gray-400 my-0.5"></div>
+                                <span className="text-sm font-medium leading-none" style={{ color: "#9ca3af" }}>100</span>
                             </div>
                         </div>
 
@@ -227,44 +221,42 @@ export function ResultScreen({ score, result, onRestart }: ResultScreenProps) {
                             className="mt-6 w-full mx-auto px-1 space-y-4"
                         >
                             {/* Analysis Section - Rose Card */}
-                            <div className="bg-rose-50/50 rounded-2xl p-5 md:p-6 border border-rose-100">
-                                <h3 className="flex items-center text-rose-500 font-bold text-lg mb-3">
-                                    <span className="w-1.5 h-5 bg-rose-500 rounded-full mr-2"></span>
+                            <div className="bg-rose-50/50 rounded-2xl p-4 md:p-6 border border-rose-100">
+                                <h3 className="flex items-center text-rose-500 font-bold text-base md:text-lg mb-2 md:mb-3">
+                                    <span className="w-1.5 h-4 md:h-5 bg-rose-500 rounded-full mr-2"></span>
                                     {t("result.analysis_title")}
                                 </h3>
                                 <p
-                                    className="text-base md:text-lg font-medium"
+                                    className="text-sm md:text-lg font-medium leading-[1.6] md:leading-[1.8]"
                                     style={{
                                         fontFamily: "'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif",
-                                        lineHeight: '1.8',
                                         textAlign: 'justify',
                                         textAlignLast: 'left',
                                         textJustify: 'inter-ideograph' as any,
                                         color: '#4b5563'
                                     }}
                                 >
-                                    {language === "zh" ? result.descriptionZh : result.descriptionEn}
+                                    {getFinalText(language === "zh" ? result.descriptionZh : result.descriptionEn)}
                                 </p>
                             </div>
 
                             {/* Advice Section - Blue Card */}
-                            <div className="bg-blue-50/50 rounded-2xl p-5 md:p-6 border border-blue-100">
-                                <h3 className="flex items-center text-blue-500 font-bold text-lg mb-3">
-                                    <span className="w-1.5 h-5 bg-blue-500 rounded-full mr-2"></span>
+                            <div className="bg-blue-50/50 rounded-2xl p-4 md:p-6 border border-blue-100">
+                                <h3 className="flex items-center text-blue-500 font-bold text-base md:text-lg mb-2 md:mb-3">
+                                    <span className="w-1.5 h-4 md:h-5 bg-blue-500 rounded-full mr-2"></span>
                                     {t("result.advice_title")}
                                 </h3>
                                 <p
-                                    className="text-base md:text-lg font-medium"
+                                    className="text-sm md:text-lg font-medium leading-[1.6] md:leading-[1.8]"
                                     style={{
                                         fontFamily: "'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif",
-                                        lineHeight: '1.8',
                                         textAlign: 'justify',
                                         textAlignLast: 'left',
                                         textJustify: 'inter-ideograph' as any,
                                         color: '#4b5563'
                                     }}
                                 >
-                                    {language === "zh" ? result.adviceZh : result.adviceEn}
+                                    {getFinalText(language === "zh" ? result.adviceZh : result.adviceEn)}
                                 </p>
                             </div>
                         </motion.div>
@@ -280,7 +272,6 @@ export function ResultScreen({ score, result, onRestart }: ResultScreenProps) {
                         >
                             <motion.button
                                 onClick={handleEnterPreview}
-                                disabled={isGenerating}
                                 className="flex-1 py-5 bg-gradient-to-r from-blue-600 via-pink-500 to-yellow-400 text-white rounded-2xl font-bold text-lg md:text-xl flex items-center justify-between px-6 hover:opacity-95 transition-all shadow-xl disabled:opacity-70"
                                 whileTap={{ scale: 0.98 }}
                             >

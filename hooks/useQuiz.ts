@@ -3,7 +3,7 @@
 import { useState, useCallback } from "react";
 import { questions, results, type Question, type ResultCategory } from "@/lib/quiz-data";
 
-export type QuizStep = "welcome" | "quiz" | "result";
+export type QuizStep = "welcome" | "quiz" | "personalization" | "result";
 
 export interface QuizState {
     step: QuizStep;
@@ -12,6 +12,9 @@ export interface QuizState {
     score: number;
     result: ResultCategory | null;
     isAnalyzing: boolean;
+    // Personalization
+    personName?: string;
+    gender?: "male" | "female";
 }
 
 export function useQuiz() {
@@ -22,6 +25,8 @@ export function useQuiz() {
         score: 0,
         result: null,
         isAnalyzing: false,
+        personName: "",
+        gender: "male",
     });
 
     const startQuiz = useCallback(() => {
@@ -32,6 +37,8 @@ export function useQuiz() {
             score: 0,
             result: null,
             isAnalyzing: false,
+            personName: "",
+            gender: "male",
         });
     }, []);
 
@@ -41,40 +48,12 @@ export function useQuiz() {
             const newAnswers = { ...prev.answers, [questionId]: optionId };
             const nextIndex = prev.currentQuestionIndex + 1;
 
-            // If this was the last question, start analyzing
+            // If this was the last question, go to personalization step
             if (nextIndex >= questions.length) {
-                // Calculate score immediately but don't show it yet
-                let totalScore = 0;
-                for (const qId in newAnswers) {
-                    const question = questions.find((q) => q.id === Number(qId));
-                    if (question) {
-                        const selectedOption = question.options.find(
-                            (o) => o.id === newAnswers[Number(qId)]
-                        );
-                        if (selectedOption) {
-                            totalScore += selectedOption.weight;
-                        }
-                    }
-                }
-                const result = results.find(
-                    (r) => totalScore >= r.minScore && totalScore <= r.maxScore
-                );
-
-                // Set analyzing state
-                setTimeout(() => {
-                    setState((currentState) => ({
-                        ...currentState,
-                        isAnalyzing: false,
-                        step: "result",
-                        score: totalScore,
-                        result: result || results[results.length - 1],
-                    }));
-                }, 2500); // 2.5 seconds delay for "analysis"
-
                 return {
                     ...prev,
                     answers: newAnswers,
-                    isAnalyzing: true,
+                    step: "personalization",
                 };
             }
 
@@ -99,6 +78,45 @@ export function useQuiz() {
         });
     }, []);
 
+    const submitPersonalization = useCallback((name: string, gender: "male" | "female") => {
+        setState((prev) => {
+            // Calculate score now
+            let totalScore = 0;
+            for (const qId in prev.answers) {
+                const question = questions.find((q) => q.id === Number(qId));
+                if (question) {
+                    const selectedOption = question.options.find(
+                        (o) => o.id === prev.answers[Number(qId)]
+                    );
+                    if (selectedOption) {
+                        totalScore += selectedOption.weight;
+                    }
+                }
+            }
+            const result = results.find(
+                (r) => totalScore >= r.minScore && totalScore <= r.maxScore
+            );
+
+            // Trigger analysis
+            setTimeout(() => {
+                setState((currentState) => ({
+                    ...currentState,
+                    isAnalyzing: false,
+                    step: "result",
+                    score: totalScore,
+                    result: result || results[results.length - 1],
+                }));
+            }, 2500);
+
+            return {
+                ...prev,
+                personName: name,
+                gender: gender,
+                isAnalyzing: true,
+            };
+        });
+    }, []);
+
     const resetQuiz = useCallback(() => {
         setState({
             step: "welcome",
@@ -107,6 +125,8 @@ export function useQuiz() {
             score: 0,
             result: null,
             isAnalyzing: false,
+            personName: "",
+            gender: "male",
         });
     }, []);
 
@@ -126,5 +146,6 @@ export function useQuiz() {
         selectAnswer,
         goBack,
         resetQuiz,
+        submitPersonalization,
     };
 }

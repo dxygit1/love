@@ -6,6 +6,7 @@ import { WelcomeScreen } from "@/components/WelcomeScreen";
 import { QuizScreen } from "@/components/QuizScreen";
 import { ResultScreen } from "@/components/ResultScreen";
 import { AnalyzingScreen } from "@/components/AnalyzingScreen";
+import { PersonalizationScreen } from "@/components/PersonalizationScreen";
 
 export default function Home() {
   const {
@@ -17,6 +18,7 @@ export default function Home() {
     selectAnswer,
     goBack,
     resetQuiz,
+    submitPersonalization,
   } = useQuiz();
 
   return (
@@ -43,12 +45,21 @@ export default function Home() {
           <AnalyzingScreen key="analyzing" />
         )}
 
+        {state.step === "personalization" && (
+          <PersonalizationScreen
+            key="personalization"
+            onSubmit={submitPersonalization}
+          />
+        )}
+
         {state.step === "result" && state.result && !state.isAnalyzing && (
           <ResultScreen
             key="result"
             score={state.score}
             result={state.result}
             onRestart={resetQuiz}
+            personName={state.personName}
+            gender={state.gender}
           />
         )}
       </AnimatePresence>
