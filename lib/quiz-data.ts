@@ -254,9 +254,9 @@ export const results: ResultCategory[] = [
     maxScore: 100,
     titleEn: "Eternal Love",
     titleZh: "永生挚爱",
-    descriptionEn: "You are hopelessly in love! He is the center of your universe.",
+    descriptionEn: "Congratulations! Your feelings for him have transcended a simple crush and reached a profound level of devotion. Every move he makes tugs at your heartstrings, and his smile is the highlight of your day. You are willing to change for him and give your all. This deep, unconditional love is a rare gem that many seek for a lifetime. In your heart, he is the one—your soulmate with whom you wish to share the rest of your journey.",
     descriptionZh: "恭喜你，你对他的感情已经超越了普通的喜欢，达到了刻骨铭心的程度。他的一举一动都牵动着你的心，他的笑容是你每天最期待的风景。你愿意为他改变自己，愿意为他付出一切。这种深沉的爱意，是很多人一辈子都难以遇到的。在你心里，他就是那个独一无二的人，是你想要携手共度余生的灵魂伴侣。",
-    adviceEn: "Don't be afraid to show it, but remember self-love too.",
+    adviceEn: "Such a deep connection is precious, but remember: true love is reciprocal. While giving your whole heart, save some tenderness for yourself properly. If the timing feels right, be brave and take that leap of faith. If the response isn't immediate, trust that someone as wonderful as you deserves to be cherished equally.",
     adviceZh: "如此深厚的感情值得被珍惜，但也请记住：真正的爱是相互的。在全心付出的同时，也要留一些温柔给自己。如果缘分到了，不妨勇敢迈出那一步；如果暂时没有回应，也请相信，你这么美好的人，一定会遇到懂得珍惜你的人。"
   },
   {
@@ -264,9 +264,9 @@ export const results: ResultCategory[] = [
     maxScore: 86,
     titleEn: "Deeply Linked",
     titleZh: "绝对理想型",
-    descriptionEn: "You definitely have strong feelings for him.",
+    descriptionEn: "In your eyes, he perfectly fits your vision of a partner. You admire his personality, cherish the moments you spend together, and find yourself subconsciously planning a future with him. You miss him when he's away, and your world brightens the moment he appears. This attraction is real, intense, and it fills your daily life with a beautiful sense of anticipation.",
     descriptionZh: "在你心中，他几乎符合你对另一半的所有想象。你欣赏他的性格，喜欢和他在一起的感觉，甚至开始不自觉地幻想两个人的未来。当他不在身边的时候，你会想念；当他出现的时候，你的世界仿佛都明亮了起来。这份心动是真实而热烈的，它让你的生活都变得更加有期待感。",
-    adviceEn: "It might be time to take the next step.",
+    adviceEn: "Your feelings run deep and aren't just a fleeting impulse. If you're hesitating about confessing, why not start by creating more opportunities to be together? Let him feel your warmth. Sometimes destiny just needs a little courage to unfold. May you write a beautiful story together.",
     adviceZh: "你对他的喜欢程度已经相当深了，这种感觉不是一时冲动，而是经过了时间的沉淀。如果你还在犹豫要不要表白，不如先试着创造更多相处的机会，让他也能感受到你的心意。缘分有时候需要一点点勇气来推动，愿你们能有一个美好的故事。"
   },
   {
@@ -274,9 +274,9 @@ export const results: ResultCategory[] = [
     maxScore: 66,
     titleEn: "Crushing Hard",
     titleZh: "小鹿乱撞",
-    descriptionEn: "You have a sweet crush on him.",
+    descriptionEn: "Every time you see him, you get butterflies in your stomach. You can't help but check his social updates, a single message from him can make your day, and you catch yourself daydreaming about scenarios together. This sweet, nervous excitement is the hallmark of a budding romance. While you may not be 100% sure yet, he has undeniably claimed a special spot in your heart.",
     descriptionZh: "每次见到他，你的心就像有一只小鹿在乱撞。你会忍不住关注他的动态，会因为他的一条消息而开心一整天，也会偶尔幻想和他一起做很多事情。这种甜甜的心动感，就是恋爱最初萌芽的样子。虽然你可能还没有完全确定自己的心意，但毫无疑问，他在你心里已经占据了一个特别的位置。",
-    adviceEn: "Enjoy this phase, get to know him better.",
+    adviceEn: "You are in the golden phase of a crush—enjoy the mystery and the thrill! There's no rush to define the relationship immediately. Chat more, get to know the real him, and see if your feelings deepen over time. If it's true love, time will give you the answer you seek.",
     adviceZh: "正处于心动阶段的你，拥有的是最美好的暧昧期感觉。不必着急确认关系，好好享受这种小鹿乱撞的感觉吧。多和他聊聊天，多了解他这个人，看看随着时间推移，你的感觉会不会越来越深。如果是真爱，时间会给你答案。"
   },
   {
@@ -284,9 +284,9 @@ export const results: ResultCategory[] = [
     maxScore: 46,
     titleEn: "Just Friends",
     titleZh: "云淡风轻",
-    descriptionEn: "You like him, but maybe just as a friend right now.",
+    descriptionEn: "You think he's a great guy and you feel comfortable around him, but the spark of romance seems a bit dim. You might appreciate his qualities and think of him occasionally, but he hasn't truly unlocked your heart yet. It feels more like a fond friendship—somewhere in the gray area between platonic and romantic. One step forward is ambiguity, one step back is friendship.",
     descriptionZh: "你觉得他还不错，和他相处也挺舒服的，但要说心动，似乎还差那么一点火候。你可能会欣赏他的某些优点，偶尔也会想起他，但他还没有真正走进你的心里。这种感觉更像是一种淡淡的好感，介于朋友和恋人之间的灰色地带，进一步是暧昧，退一步是友情。",
-    adviceEn: "See how things develop naturally.",
+    adviceEn: "No need to rush into labeling this connection. Some feelings take time to brew. If you're curious, keep interacting and see if a deeper bond forms. But if the spark never comes, that's okay too—you've gained a valuable friend. Let things flow naturally.",
     adviceZh: "不用着急给这段关系下定义，有些感情需要时间来培养。如果你对他有一点好奇心，不妨多接触看看，说不定深入了解之后会有不一样的感觉。但如果你发现他始终无法让你心动，那也没关系，至少你多了一个值得交往的朋友。感情的事情，顺其自然就好。"
   },
   {
@@ -294,9 +294,9 @@ export const results: ResultCategory[] = [
     maxScore: 26,
     titleEn: "Not Interested",
     titleZh: "一时脑热",
-    descriptionEn: "You don't seem to have romantic feelings for him.",
+    descriptionEn: "Based on your answers, your interest in him seems to be a fleeting curiosity rather than deep affection. Perhaps a specific moment caught your eye, or peer pressure made you think you liked him. True love is a persistent, deep-seated care, not just a passing thought.",
     descriptionZh: "根据你的回答来看，你对他的感觉可能只是暂时的好奇或者欣赏，并没有达到真正心动的程度。也许是因为他某个瞬间吸引了你的注意，或者只是周围人的起哄让你产生了错觉。真正的喜欢应该是持续的、深入骨髓的牵挂，而不是偶尔闪过的念头。",
-    adviceEn: "Friendship is valuable too!",
+    adviceEn: "It's good to be clear about your feelings. Don't force yourself to like someone just because you're lonely or because others say you're a good match. When real love comes, you'll fall without trying. For now, focus on loving yourself and growing—the right person is worth the wait.",
     adviceZh: "能够清醒地认识到自己的感情状态，其实是一件好事。不要因为孤单就勉强自己喜欢一个人，也不要因为别人说你们很配就强迫自己心动。真正的爱情来临时，你会不由自主地沦陷。现在的你，不如把更多时间放在自己身上，提升自己，等待那个真正让你怦然心动的人出现。"
   }
 ];
