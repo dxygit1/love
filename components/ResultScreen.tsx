@@ -27,7 +27,11 @@ const segments = [
 
 export function ResultScreen({ score, result, onRestart, personName, gender = "male" }: ResultScreenProps) {
     const resultRef = useRef<HTMLDivElement>(null);
-    import { useRef, useState } => {
+    const [isPreviewMode, setIsPreviewMode] = useState(false);
+    const { t, language } = useLanguage();
+
+    // Dynamic text replacement
+    const getFinalText = (text: string) => {
         if (!text) return "";
         let newText = text;
 
@@ -95,9 +99,9 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                         ref={resultRef}
                         className={`
                             mx-auto max-w-5xl rounded-none bg-white
-                            pt-24 pb-6 px-4
+                            pt-32 pb-4 px-2                                  /* Mobile: Huge top padding (pt-32), Minimal side padding (px-2) */
                             md:p-12 md:rounded-[2rem] md:shadow-xl md:border md:border-gray-100 md:min-h-0
-                            ${isPreviewMode ? '!pt-12 !pb-2 scale-[0.85] origin-top' : ''}
+                            ${isPreviewMode ? '!pt-20 !pb-2 w-full' : ''}    /* Preview: wide width, robust top padding */
                         `}
                         style={{ backgroundColor: "#ffffff" }} // Ensure solid white for capture
                     >
