@@ -27,11 +27,7 @@ const segments = [
 
 export function ResultScreen({ score, result, onRestart, personName, gender = "male" }: ResultScreenProps) {
     const resultRef = useRef<HTMLDivElement>(null);
-    const [isPreviewMode, setIsPreviewMode] = useState(false);
-    const { t, language } = useLanguage();
-
-    // Dynamic text replacement
-    const getFinalText = (text: string) => {
+    import { useRef, useState } => {
         if (!text) return "";
         let newText = text;
 
