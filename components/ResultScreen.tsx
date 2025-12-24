@@ -1,6 +1,5 @@
 "use client";
 
-
 import { motion } from "framer-motion";
 import { RefreshCw, Camera, Link2 } from "lucide-react";
 import type { ResultCategory } from "@/lib/quiz-data";
@@ -18,11 +17,11 @@ interface ResultScreenProps {
 
 // Result bar segments
 const segments = [
-    { label: "一时脑热", color: "bg-red-400", textColor: "text-red-500" },
-    { label: "云淡风轻", color: "bg-gray-300", textColor: "text-gray-500" },
-    { label: "小鹿乱撞", color: "bg-gray-400", textColor: "text-gray-600" },
-    { label: "绝对理想型", color: "bg-blue-300", textColor: "text-blue-500" },
-    { label: "永生挚爱", color: "bg-blue-500", textColor: "text-blue-600" },
+    { label: "一时脑热", color: "bg-red-400", textColor: "text-red-500", hex: "#ef4444" },
+    { label: "云淡风轻", color: "bg-orange-300", textColor: "text-orange-500", hex: "#f97316" }, // Corrected to Orange
+    { label: "小鹿乱撞", color: "bg-gray-400", textColor: "text-gray-600", hex: "#4b5563" },
+    { label: "绝对理想型", color: "bg-blue-300", textColor: "text-blue-500", hex: "#3b82f6" },
+    { label: "永生挚爱", color: "bg-blue-600", textColor: "text-blue-700", hex: "#1d4ed8" },
 ];
 
 export function ResultScreen({ score, result, onRestart, personName, gender = "male" }: ResultScreenProps) {
@@ -30,18 +29,24 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
     const [isPreviewMode, setIsPreviewMode] = useState(false);
     const { t, language } = useLanguage();
 
+    // Get color based on score (0-100)
+    const getThemeColor = (s: number) => {
+        if (s < 20) return segments[0];
+        if (s < 40) return segments[1];
+        if (s < 60) return segments[2];
+        if (s < 80) return segments[3];
+        return segments[4];
+    };
+
     // Dynamic text replacement
     const getFinalText = (text: string) => {
         if (!text) return "";
         let newText = text;
 
-        // If name provided, replace "他" with name
         if (personName && personName.trim()) {
             newText = newText.replaceAll("他", personName.trim());
         }
 
-        // If gender is female, replace "他" with "她" (only if name not used for that instance, logic similar to before)
-        // Actually simple replacement: if female, replace all remaining '他' with '她'
         if (gender === "female") {
             newText = newText.replaceAll("他", "她");
         }
@@ -49,10 +54,10 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
         return newText;
     };
 
-    // 满分100分制
     const maxScore = 100;
     const displayScore = Math.min(score, maxScore);
     const percentage = Math.round((displayScore / maxScore) * 100);
+    const theme = getThemeColor(displayScore);
 
     const handleEnterPreview = () => {
         setIsPreviewMode(true);
@@ -62,15 +67,13 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
         setIsPreviewMode(false);
     };
 
-    // 圆环尺寸参数
-    const size = 96; // Reduced for compact view
+    const size = 96;
     const strokeWidth = 10;
     const radius = (size - strokeWidth) / 2;
     const circumference = 2 * Math.PI * radius;
 
     return (
         <>
-            {/* Screenshot Preview Overlay */}
             {isPreviewMode && (
                 <div
                     className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4 cursor-pointer"
@@ -94,7 +97,6 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                     transition={{ delay: 0.1 }}
                     className="w-full max-w-5xl text-center"
                 >
-                    {/* 截图区域容器 - 恢复白卡风格 - 极度紧凑优化 (3:4 Ratio) */}
                     <div
                         ref={resultRef}
                         className={`
@@ -103,16 +105,14 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             md:p-12 md:rounded-[2rem] md:shadow-xl md:border md:border-gray-100 md:min-h-0
                             ${isPreviewMode ? '!pt-20 !pb-2 w-full' : ''}
                         `}
-                        style={{ backgroundColor: "#ffffff" }} // Ensure solid white for capture
+                        style={{ backgroundColor: "#ffffff" }}
                     >
-                        {/* 顶部广告位 (仅在非预览模式显示) */}
                         {!isPreviewMode && (
                             <div className="w-full mb-6 min-h-[80px]">
                                 <AdUnit slot="RESULT_TOP_SLOT" />
                             </div>
                         )}
 
-                        {/* Title - Smaller on mobile */}
                         <p className="mb-3 text-sm md:text-lg md:mb-6" style={{ color: "#6b7280" }}>
                             {language === "zh" ? (
                                 <>你对 <span className="font-bold" style={{ color: "#1f2937" }}>{personName || (gender === "female" ? "她" : "他")}的喜欢程度</span> 位于：</>
@@ -121,9 +121,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             )}
                         </p>
 
-                        {/* Score Circle */}
                         <div className="relative mx-auto mb-6" style={{ width: size, height: size }}>
-                            {/* 定义渐变 */}
                             <svg className="w-full h-full" style={{ transform: 'rotate(-90deg)' }}>
                                 <defs>
                                     <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -132,7 +130,6 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                                         <stop offset="100%" stopColor="#3b82f6" />
                                     </linearGradient>
                                 </defs>
-                                {/* 背景圆环 */}
                                 <circle
                                     cx={size / 2}
                                     cy={size / 2}
@@ -141,7 +138,6 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                                     strokeWidth={strokeWidth}
                                     fill="none"
                                 />
-                                {/* 进度圆环 - 渐变色 */}
                                 <motion.circle
                                     cx={size / 2}
                                     cy={size / 2}
@@ -157,7 +153,6 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                                     transition={{ duration: 1.5, ease: "easeOut", delay: 0.3 }}
                                 />
                             </svg>
-                            {/* 中心分数显示 - 保持纯色防止glitch */}
                             <div className="absolute inset-0 flex flex-col items-center justify-center">
                                 <motion.span
                                     className="text-4xl font-bold leading-none"
@@ -176,7 +171,6 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             </div>
                         </div>
 
-                        {/* Segment Labels (Top) - Grid Layout - Compact */}
                         <div className="grid grid-cols-5 text-[10px] sm:text-xs md:text-base font-bold mb-1 px-0 tracking-tight whitespace-nowrap">
                             <div className="text-left" style={{ color: "#e11d48" }}>{language === "zh" ? "一时脑热" : "Impulse"}</div>
                             <div></div>
@@ -185,24 +179,23 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             <div className="text-right" style={{ color: "#2563eb" }}>{language === "zh" ? "永生挚爱" : "Love"}</div>
                         </div>
 
-                        {/* Result Bar - Thinner */}
                         <div className="relative mb-1">
                             <div className="flex h-1.5 md:h-3 rounded-full overflow-hidden">
                                 {segments.map((seg, i) => {
-                                    // Map classes to hex for manual override
-                                    let hexColor = "#d1d5db"; // default gray-300
+                                    let hexColor = "#d1d5db";
                                     if (seg.color.includes("red-400")) hexColor = "#f87171";
+                                    if (seg.color.includes("orange-300")) hexColor = "#fdba74";
                                     if (seg.color.includes("gray-300")) hexColor = "#d1d5db";
                                     if (seg.color.includes("gray-400")) hexColor = "#9ca3af";
                                     if (seg.color.includes("blue-300")) hexColor = "#93c5fd";
                                     if (seg.color.includes("blue-500")) hexColor = "#3b82f6";
+                                    if (seg.color.includes("blue-600")) hexColor = "#2563eb";
 
                                     return (
                                         <div key={i} className="flex-1" style={{ backgroundColor: hexColor }} />
                                     );
                                 })}
                             </div>
-                            {/* Marker - Smaller */}
                             <motion.div
                                 className="absolute top-0 -mt-1.5 drop-shadow-md z-10"
                                 initial={{ left: "0%" }}
@@ -214,7 +207,6 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             </motion.div>
                         </div>
 
-                        {/* Segment Labels (Bottom) - Grid Layout - Compact */}
                         <div className="grid grid-cols-5 text-[10px] sm:text-xs md:text-base font-bold mb-3 px-0 mt-1 tracking-tight whitespace-nowrap">
                             <div></div>
                             <div className="text-center" style={{ color: "#ea580c" }}>{language === "zh" ? "云淡风轻" : "Friends"}</div>
@@ -223,47 +215,51 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             <div></div>
                         </div>
 
-                        {/* Result Description - Justified Text Style */}
+                        {/* Result Description - Tighter Vertical Spacing */}
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1.2 }}
-                            className="mt-6 w-full mx-auto px-1 space-y-4"
+                            className="mt-4 w-full mx-auto px-1 space-y-2"
                         >
-                            {/* Analysis Section - Rose Card - Compact Text */}
-                            <div className="bg-rose-50/50 rounded-xl p-3 md:p-6 border border-rose-100">
-                                <h3 className="flex items-center text-rose-500 font-bold text-sm md:text-lg mb-1 md:mb-3">
-                                    <span className="w-1 h-3 md:h-5 bg-rose-500 rounded-full mr-2"></span>
+                            {/* Analysis Section - Dynamic Theme Color */}
+                            <div className="rounded-xl p-2.5 md:p-6 border bg-opacity-50"
+                                style={{ backgroundColor: `${theme.hex}08` /* 5% opacity */, borderColor: `${theme.hex}20` /* 20% opacity */ }}>
+                                <h3 className="flex items-center font-bold text-sm md:text-lg mb-0.5 md:mb-3"
+                                    style={{ color: theme.hex }}>
+                                    <span className="w-1 h-3 md:h-5 rounded-full mr-2" style={{ backgroundColor: theme.hex }}></span>
                                     {t("result.analysis_title")}
                                 </h3>
                                 <p
-                                    className="text-[14px] md:text-lg font-medium leading-[1.6] md:leading-[1.8]"
+                                    className="text-[13px] md:text-lg font-bold leading-relaxed md:leading-[1.8]"
                                     style={{
                                         fontFamily: "'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif",
                                         textAlign: 'justify',
                                         textAlignLast: 'left',
                                         textJustify: 'inter-ideograph' as any,
-                                        color: '#4b5563'
+                                        color: theme.hex // Dynamic Text Color!
                                     }}
                                 >
                                     {getFinalText(language === "zh" ? result.descriptionZh : result.descriptionEn)}
                                 </p>
                             </div>
 
-                            {/* Advice Section - Blue Card - Compact Text */}
-                            <div className="bg-blue-50/50 rounded-xl p-3 md:p-6 border border-blue-100">
-                                <h3 className="flex items-center text-blue-500 font-bold text-sm md:text-lg mb-1 md:mb-3">
-                                    <span className="w-1 h-3 md:h-5 bg-blue-500 rounded-full mr-2"></span>
+                            {/* Advice Section - Dynamic Theme Color */}
+                            <div className="rounded-xl p-2.5 md:p-6 border bg-opacity-50"
+                                style={{ backgroundColor: `${theme.hex}08`, borderColor: `${theme.hex}20` }}>
+                                <h3 className="flex items-center font-bold text-sm md:text-lg mb-0.5 md:mb-3"
+                                    style={{ color: theme.hex }}>
+                                    <span className="w-1 h-3 md:h-5 rounded-full mr-2" style={{ backgroundColor: theme.hex }}></span>
                                     {t("result.advice_title")}
                                 </h3>
                                 <p
-                                    className="text-[14px] md:text-lg font-medium leading-[1.6] md:leading-[1.8]"
+                                    className="text-[13px] md:text-lg font-bold leading-relaxed md:leading-[1.8]"
                                     style={{
                                         fontFamily: "'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif",
                                         textAlign: 'justify',
                                         textAlignLast: 'left',
                                         textJustify: 'inter-ideograph' as any,
-                                        color: '#4b5563'
+                                        color: theme.hex // Dynamic Text Color!
                                     }}
                                 >
                                     {getFinalText(language === "zh" ? result.adviceZh : result.adviceEn)}
@@ -271,8 +267,6 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             </div>
                         </motion.div>
 
-                        {/* 广告位：建议卡片下方 */}
-                        {/* 如果在预览模式（截图）或者是没有配置 ID，这个组件高度为 0，完全不可见 */}
                         {!isPreviewMode && (
                             <div className="w-full max-w-5xl mx-auto px-1 mt-4">
                                 <AdUnit slot="YOUR_SLOT_ID_HERE" />
@@ -280,7 +274,6 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                         )}
                     </div>
 
-                    {/* Action Buttons - Hidden in Preview Mode */}
                     {!isPreviewMode && (
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
