@@ -35,9 +35,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
 
             <div className="w-full max-w-5xl px-6 relative z-10">
                 {/* 顶部广告位 */}
-                <div className="w-full mb-8 min-h-[100px]">
-                    <AdUnit slot="HOME_TOP_SLOT" />
-                </div>
+                {/* Top Ad moved to below CTA */}
 
                 <motion.div
                     initial={{ y: 20, opacity: 0 }}
@@ -119,6 +117,11 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                             <Clock className="w-3 h-3" />
                             <span>{t("welcome.time")}</span>
                         </div>
+                    </div>
+
+                    {/* Middle Ad Slot - Positioned after CTA for better UX/Compliance */}
+                    <div className="w-full mt-12 mb-4 min-h-[100px]">
+                        <AdUnit slot="HOME_TOP_SLOT" />
                     </div>
 
                     {/* SEO Content Sections (For AdSense) */}

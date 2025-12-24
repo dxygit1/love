@@ -108,8 +108,8 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                         style={{ backgroundColor: "#ffffff" }}
                     >
                         {!isPreviewMode && (
-                            <div className="w-full mb-6 min-h-[80px]">
-                                <AdUnit slot="RESULT_TOP_SLOT" />
+                            <div className="w-full mb-6 min-h-[0px]">
+                                {/* Ad moved to mid-page */}
                             </div>
                         )}
 
@@ -222,6 +222,12 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             transition={{ delay: 1.2 }}
                             className="mt-4 w-full mx-auto px-1 space-y-2"
                         >
+                            {!isPreviewMode && (
+                                <div className="w-full mb-4 min-h-[80px]">
+                                    <AdUnit slot="RESULT_TOP_SLOT" />
+                                </div>
+                            )}
+
                             {/* Analysis Section - Dynamic Theme Color */}
                             <div className="rounded-xl p-2.5 md:p-6 border bg-opacity-50"
                                 style={{ backgroundColor: `${theme.hex}08` /* 5% opacity */, borderColor: `${theme.hex}20` /* 20% opacity */ }}>
