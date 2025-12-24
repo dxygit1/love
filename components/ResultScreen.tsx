@@ -275,7 +275,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
 
                         {!isPreviewMode && (
                             <div className="w-full max-w-5xl mx-auto px-1 mt-4">
-                                <AdUnit slot="YOUR_SLOT_ID_HERE" />
+                                {/* Bottom ad slot removed due to lack of ID */}
                             </div>
                         )}
                     </div>
