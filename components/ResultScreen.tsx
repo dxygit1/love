@@ -63,8 +63,8 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
     };
 
     // 圆环尺寸参数
-    const size = 110;
-    const strokeWidth = 12;
+    const size = 96; // Reduced for compact view
+    const strokeWidth = 10;
     const radius = (size - strokeWidth) / 2;
     const circumference = 2 * Math.PI * radius;
 
@@ -94,14 +94,19 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                     transition={{ delay: 0.1 }}
                     className="w-full max-w-5xl text-center"
                 >
-                    {/* 截图区域容器 - 恢复白卡风格 - 纯白背景防止Glitch */}
+                    {/* 截图区域容器 - 恢复白卡风格 - 极度紧凑优化 (3:4 Ratio) */}
                     <div
                         ref={resultRef}
-                        className="pt-16 pb-8 px-5 md:p-12 rounded-none md:rounded-[2rem] shadow-none md:shadow-xl bg-white md:border border-gray-100 mx-auto max-w-5xl min-h-screen md:min-h-0"
+                        className={`
+                            mx-auto max-w-5xl rounded-none bg-white
+                            pt-12 pb-6 px-4
+                            md:p-12 md:rounded-[2rem] md:shadow-xl md:border md:border-gray-100 md:min-h-0
+                            ${isPreviewMode ? 'scale-[0.85] origin-top' : ''}
+                        `}
                         style={{ backgroundColor: "#ffffff" }} // Ensure solid white for capture
                     >
-                        {/* Title */}
-                        <p className="mb-4 md:mb-6 text-base md:text-lg" style={{ color: "#6b7280" }}>
+                        {/* Title - Smaller on mobile */}
+                        <p className="mb-3 text-sm md:text-lg md:mb-6" style={{ color: "#6b7280" }}>
                             {language === "zh" ? (
                                 <>你对 <span className="font-bold" style={{ color: "#1f2937" }}>{personName || (gender === "female" ? "她" : "他")}的喜欢程度</span> 位于：</>
                             ) : (
@@ -165,7 +170,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                         </div>
 
                         {/* Segment Labels (Top) - Grid Layout */}
-                        <div className="grid grid-cols-5 text-sm md:text-base font-bold mb-2 px-0">
+                        <div className="grid grid-cols-5 text-[10px] sm:text-xs md:text-base font-bold mb-2 px-0 tracking-tight whitespace-nowrap">
                             <div className="text-left" style={{ color: "#e11d48" }}>{language === "zh" ? "一时脑热" : "Impulse"}</div>
                             <div></div>
                             <div className="text-center" style={{ color: "#9ca3af" }}>{language === "zh" ? "小鹿乱撞" : "Crush"}</div>
@@ -203,7 +208,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                         </div>
 
                         {/* Segment Labels (Bottom) - Grid Layout */}
-                        <div className="grid grid-cols-5 text-sm md:text-base font-bold mb-8 px-0 mt-2">
+                        <div className="grid grid-cols-5 text-[10px] sm:text-xs md:text-base font-bold mb-4 px-0 mt-2 tracking-tight whitespace-nowrap">
                             <div></div>
                             <div className="text-center" style={{ color: "#ea580c" }}>{language === "zh" ? "云淡风轻" : "Friends"}</div>
                             <div></div>
@@ -218,14 +223,14 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             transition={{ delay: 1.2 }}
                             className="mt-6 w-full mx-auto px-1 space-y-4"
                         >
-                            {/* Analysis Section - Rose Card */}
-                            <div className="bg-rose-50/50 rounded-2xl p-4 md:p-6 border border-rose-100">
-                                <h3 className="flex items-center text-rose-500 font-bold text-base md:text-lg mb-2 md:mb-3">
-                                    <span className="w-1.5 h-4 md:h-5 bg-rose-500 rounded-full mr-2"></span>
+                            {/* Analysis Section - Rose Card - Compact Text */}
+                            <div className="bg-rose-50/50 rounded-xl p-3 md:p-6 border border-rose-100">
+                                <h3 className="flex items-center text-rose-500 font-bold text-sm md:text-lg mb-1 md:mb-3">
+                                    <span className="w-1 h-3 md:h-5 bg-rose-500 rounded-full mr-2"></span>
                                     {t("result.analysis_title")}
                                 </h3>
                                 <p
-                                    className="text-sm md:text-lg font-medium leading-[1.6] md:leading-[1.8]"
+                                    className="text-[13px] md:text-lg font-medium leading-[1.6] md:leading-[1.8]"
                                     style={{
                                         fontFamily: "'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif",
                                         textAlign: 'justify',
@@ -238,14 +243,14 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                                 </p>
                             </div>
 
-                            {/* Advice Section - Blue Card */}
-                            <div className="bg-blue-50/50 rounded-2xl p-4 md:p-6 border border-blue-100">
-                                <h3 className="flex items-center text-blue-500 font-bold text-base md:text-lg mb-2 md:mb-3">
-                                    <span className="w-1.5 h-4 md:h-5 bg-blue-500 rounded-full mr-2"></span>
+                            {/* Advice Section - Blue Card - Compact Text */}
+                            <div className="bg-blue-50/50 rounded-xl p-3 md:p-6 border border-blue-100">
+                                <h3 className="flex items-center text-blue-500 font-bold text-sm md:text-lg mb-1 md:mb-3">
+                                    <span className="w-1 h-3 md:h-5 bg-blue-500 rounded-full mr-2"></span>
                                     {t("result.advice_title")}
                                 </h3>
                                 <p
-                                    className="text-sm md:text-lg font-medium leading-[1.6] md:leading-[1.8]"
+                                    className="text-[13px] md:text-lg font-medium leading-[1.6] md:leading-[1.8]"
                                     style={{
                                         fontFamily: "'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif",
                                         textAlign: 'justify',
