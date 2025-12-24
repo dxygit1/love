@@ -244,12 +244,12 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                                 </p>
                             </div>
 
-                            {/* Advice Section - Dynamic Theme Color */}
-                            <div className="rounded-xl p-2.5 md:p-6 border bg-opacity-50"
-                                style={{ backgroundColor: `${theme.hex}08`, borderColor: `${theme.hex}20` }}>
+                            {/* Advice Section - Static Green for Contrast */}
+                            <div className="rounded-xl p-2.5 md:p-6 border bg-emerald-50/50 border-emerald-100"
+                                style={{ backgroundColor: '#ecfdf5', borderColor: '#d1fae5' }}>
                                 <h3 className="flex items-center font-bold text-sm md:text-lg mb-0.5 md:mb-3"
-                                    style={{ color: theme.hex }}>
-                                    <span className="w-1 h-3 md:h-5 rounded-full mr-2" style={{ backgroundColor: theme.hex }}></span>
+                                    style={{ color: '#059669' }}>
+                                    <span className="w-1 h-3 md:h-5 rounded-full mr-2" style={{ backgroundColor: '#059669' }}></span>
                                     {t("result.advice_title")}
                                 </h3>
                                 <p
@@ -259,7 +259,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                                         textAlign: 'justify',
                                         textAlignLast: 'left',
                                         textJustify: 'inter-ideograph' as any,
-                                        color: theme.hex // Dynamic Text Color!
+                                        color: '#047857' // emerald-700
                                     }}
                                 >
                                     {getFinalText(language === "zh" ? result.adviceZh : result.adviceEn)}
