@@ -169,8 +169,8 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             </div>
                         </div>
 
-                        {/* Segment Labels (Top) - Grid Layout */}
-                        <div className="grid grid-cols-5 text-[10px] sm:text-xs md:text-base font-bold mb-2 px-0 tracking-tight whitespace-nowrap">
+                        {/* Segment Labels (Top) - Grid Layout - Compact */}
+                        <div className="grid grid-cols-5 text-[10px] sm:text-xs md:text-base font-bold mb-1 px-0 tracking-tight whitespace-nowrap">
                             <div className="text-left" style={{ color: "#e11d48" }}>{language === "zh" ? "一时脑热" : "Impulse"}</div>
                             <div></div>
                             <div className="text-center" style={{ color: "#9ca3af" }}>{language === "zh" ? "小鹿乱撞" : "Crush"}</div>
@@ -178,9 +178,9 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             <div className="text-right" style={{ color: "#2563eb" }}>{language === "zh" ? "永生挚爱" : "Love"}</div>
                         </div>
 
-                        {/* Result Bar */}
-                        <div className="relative mb-2">
-                            <div className="flex h-3 rounded-full overflow-hidden">
+                        {/* Result Bar - Thinner */}
+                        <div className="relative mb-1">
+                            <div className="flex h-1.5 md:h-3 rounded-full overflow-hidden">
                                 {segments.map((seg, i) => {
                                     // Map classes to hex for manual override
                                     let hexColor = "#d1d5db"; // default gray-300
@@ -195,20 +195,20 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                                     );
                                 })}
                             </div>
-                            {/* Marker */}
+                            {/* Marker - Smaller */}
                             <motion.div
-                                className="absolute top-0 -mt-2 drop-shadow-md z-10"
+                                className="absolute top-0 -mt-1.5 drop-shadow-md z-10"
                                 initial={{ left: "0%" }}
                                 animate={{ left: `${percentage}%` }}
                                 transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
                                 style={{ transform: "translateX(-50%)" }}
                             >
-                                <div className="w-0 h-0 border-l-[12px] border-r-[12px] border-t-[18px] border-l-transparent border-r-transparent" style={{ borderTopColor: "#facc15" }} />
+                                <div className="w-0 h-0 border-l-[6px] border-r-[6px] border-t-[10px] border-l-transparent border-r-transparent md:border-l-[12px] md:border-r-[12px] md:border-t-[18px]" style={{ borderTopColor: "#facc15" }} />
                             </motion.div>
                         </div>
 
-                        {/* Segment Labels (Bottom) - Grid Layout */}
-                        <div className="grid grid-cols-5 text-[10px] sm:text-xs md:text-base font-bold mb-4 px-0 mt-2 tracking-tight whitespace-nowrap">
+                        {/* Segment Labels (Bottom) - Grid Layout - Compact */}
+                        <div className="grid grid-cols-5 text-[10px] sm:text-xs md:text-base font-bold mb-3 px-0 mt-1 tracking-tight whitespace-nowrap">
                             <div></div>
                             <div className="text-center" style={{ color: "#ea580c" }}>{language === "zh" ? "云淡风轻" : "Friends"}</div>
                             <div></div>
