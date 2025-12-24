@@ -99,12 +99,19 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                         ref={resultRef}
                         className={`
                             mx-auto max-w-5xl rounded-none bg-white
-                            pt-12 pb-6 px-4
+                            pt-24 pb-6 px-4
                             md:p-12 md:rounded-[2rem] md:shadow-xl md:border md:border-gray-100 md:min-h-0
-                            ${isPreviewMode ? 'scale-[0.85] origin-top' : ''}
+                            ${isPreviewMode ? '!pt-8 scale-[0.85] origin-top' : ''}
                         `}
                         style={{ backgroundColor: "#ffffff" }} // Ensure solid white for capture
                     >
+                        {/* 顶部广告位 (仅在非预览模式显示) */}
+                        {!isPreviewMode && (
+                            <div className="w-full mb-6 min-h-[80px]">
+                                <AdUnit slot="RESULT_TOP_SLOT" />
+                            </div>
+                        )}
+
                         {/* Title - Smaller on mobile */}
                         <p className="mb-3 text-sm md:text-lg md:mb-6" style={{ color: "#6b7280" }}>
                             {language === "zh" ? (
