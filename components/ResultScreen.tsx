@@ -101,7 +101,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             mx-auto max-w-5xl rounded-none bg-white
                             pt-24 pb-6 px-4
                             md:p-12 md:rounded-[2rem] md:shadow-xl md:border md:border-gray-100 md:min-h-0
-                            ${isPreviewMode ? '!pt-8 scale-[0.85] origin-top' : ''}
+                            ${isPreviewMode ? '!pt-12 !pb-2 scale-[0.85] origin-top' : ''}
                         `}
                         style={{ backgroundColor: "#ffffff" }} // Ensure solid white for capture
                     >
@@ -237,7 +237,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                                     {t("result.analysis_title")}
                                 </h3>
                                 <p
-                                    className="text-[13px] md:text-lg font-medium leading-[1.6] md:leading-[1.8]"
+                                    className="text-[16px] md:text-lg font-medium leading-[1.6] md:leading-[1.8]"
                                     style={{
                                         fontFamily: "'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif",
                                         textAlign: 'justify',
@@ -257,7 +257,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                                     {t("result.advice_title")}
                                 </h3>
                                 <p
-                                    className="text-[13px] md:text-lg font-medium leading-[1.6] md:leading-[1.8]"
+                                    className="text-[16px] md:text-lg font-medium leading-[1.6] md:leading-[1.8]"
                                     style={{
                                         fontFamily: "'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif",
                                         textAlign: 'justify',
