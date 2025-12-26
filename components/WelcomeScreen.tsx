@@ -119,17 +119,12 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                         </div>
                     </div>
 
-                    {/* Middle Ad Slot - Positioned after CTA for better UX/Compliance */}
-                    <div className="w-full mt-12 mb-4 min-h-[100px]">
-                        <AdUnit slot="HOME_TOP_SLOT" />
-                    </div>
-
                     {/* SEO Content Sections (For AdSense) */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.5 }}
-                        className="mt-20 text-left space-y-12 max-w-3xl mx-auto pb-12"
+                        className="mt-12 text-left space-y-12 max-w-3xl mx-auto pb-8"
                     >
                         {/* Section 1: Introduction */}
                         <section>
@@ -166,33 +161,44 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                             </div>
                         </section>
 
-                        {/* Section 3: FAQ */}
+                        {/* Section 3: FAQ - Expanded for SEO/AdSense Value */}
                         <section>
                             <h2 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
                                 <span className="w-1 h-6 bg-violet-500 rounded-full" />
                                 {t("welcome_content.faq_title")}
                             </h2>
-                            <div className="space-y-4">
-                                <details className="group bg-white/40 rounded-xl overflow-hidden border border-white/50">
-                                    <summary className="flex items-center justify-between p-4 cursor-pointer font-medium text-gray-700 hover:bg-white/60 transition-colors">
-                                        {t("welcome_content.faq_1_q")}
-                                        <span className="group-open:rotate-180 transition-transform">▼</span>
-                                    </summary>
-                                    <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
+                            <div className="space-y-6">
+                                <div className="bg-white/40 rounded-xl p-5 border border-white/50">
+                                    <h3 className="font-bold text-gray-800 mb-2 flex items-center gap-2">
+                                        <span className="text-rose-400">Q.</span> {t("welcome_content.faq_1_q")}
+                                    </h3>
+                                    <p className="text-sm text-gray-600 leading-relaxed pl-6 border-l-2 border-rose-100">
                                         {t("welcome_content.faq_1_a")}
-                                    </div>
-                                </details>
-                                <details className="group bg-white/40 rounded-xl overflow-hidden border border-white/50">
-                                    <summary className="flex items-center justify-between p-4 cursor-pointer font-medium text-gray-700 hover:bg-white/60 transition-colors">
-                                        {t("welcome_content.faq_2_q")}
-                                        <span className="group-open:rotate-180 transition-transform">▼</span>
-                                    </summary>
-                                    <div className="px-4 pb-4 text-sm text-gray-600 leading-relaxed">
+                                    </p>
+                                </div>
+                                <div className="bg-white/40 rounded-xl p-5 border border-white/50">
+                                    <h3 className="font-bold text-gray-800 mb-2 flex items-center gap-2">
+                                        <span className="text-rose-400">Q.</span> {t("welcome_content.faq_2_q")}
+                                    </h3>
+                                    <p className="text-sm text-gray-600 leading-relaxed pl-6 border-l-2 border-rose-100">
                                         {t("welcome_content.faq_2_a")}
-                                    </div>
-                                </details>
+                                    </p>
+                                </div>
+                                <div className="bg-white/40 rounded-xl p-5 border border-white/50">
+                                    <h3 className="font-bold text-gray-800 mb-2 flex items-center gap-2">
+                                        <span className="text-rose-400">Q.</span> {t("welcome_content.faq_3_q")}
+                                    </h3>
+                                    <p className="text-sm text-gray-600 leading-relaxed pl-6 border-l-2 border-rose-100">
+                                        {t("welcome_content.faq_3_a")}
+                                    </p>
+                                </div>
                             </div>
                         </section>
+
+                        {/* Bottom Ad Slot - Positioned safely after legitimate content */}
+                        <div className="w-full mt-8 min-h-[100px]">
+                            <AdUnit slot="HOME_TOP_SLOT" />
+                        </div>
                     </motion.div>
                 </motion.div>
             </div>
