@@ -99,8 +99,8 @@ export default function MentalAgeToolPage() {
             </div>
 
             {/* Preview Area */}
-            <div className="flex-1 overflow-y-auto bg-gray-50 relative">
-                <div className="absolute inset-0">
+            <div className="flex-1 bg-gray-50 relative h-auto md:h-full md:overflow-y-auto">
+                <div className="relative md:absolute md:inset-0 p-4 md:p-0">
                     <ResultScreenMentalAge
                         mentalAge={mentalAge}
                         realAge={realAge}
