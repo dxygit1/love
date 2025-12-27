@@ -17,11 +17,28 @@ export function AdUnit({ slot, format = "auto", className = "" }: AdUnitProps) {
     useEffect(() => {
         if (!PUBLISHER_ID || !slot) return;
 
+        // Prevent double push in strict mode by checking if we already have ads in this slot?
+        // AdSense is tricky with this. We just try/catch.
+
         try {
-            // @ts-ignore
-            (window.adsbygoogle = window.adsbygoogle || []).push({});
-        } catch (err) {
-            console.error("AdSense error:", err);
+            if (typeof window !== 'undefined') {
+                // @ts-ignore
+                const adsbygoogle = (window.adsbygoogle = window.adsbygoogle || []);
+                // Simple safeguard: don't push if the element looks filled? 
+                // Hard to check on the 'ins' element ref from here easily without potentially breaking it.
+                // We rely on catch.
+                adsbygoogle.push({});
+            }
+        } catch (err: any) {
+            // Suppress the specific "availableWidth=0" error to avoid log spam, 
+            // but still useful to know during dev.
+            if (err?.message?.includes('availableWidth=0')) {
+                console.warn(`AdSense Warning (Slot ${slot}): Container has 0 width. Ensure parent has explicit width.`);
+            } else if (err?.message?.includes('already have ads')) {
+                // Ignore "already have ads" error which happens in React Strict Mode
+            } else {
+                console.error("AdSense error:", err);
+            }
         }
     }, [slot, PUBLISHER_ID]);
 
