@@ -77,6 +77,22 @@ export default function ToolsPage() {
                             </p>
                         </div>
                     </Link>
+
+                    {/* Does She Like Me Tool Card */}
+                    <Link href="/tools/does-she-like-me" className="block group">
+                        <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-200 hover:shadow-md hover:border-pink-300 transition-all h-full">
+                            <div className="flex items-center justify-between mb-4">
+                                <div className="w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center text-pink-600 group-hover:scale-110 transition-transform">
+                                    <Heart className="w-6 h-6" />
+                                </div>
+                                <ArrowRight className="w-5 h-5 text-gray-300 group-hover:text-pink-500 transition-colors" />
+                            </div>
+                            <h2 className="text-xl font-bold text-gray-900 mb-2">{t("tools.does_she_like_me_title")}</h2>
+                            <p className="text-gray-500 text-sm">
+                                {t("tools.does_she_like_me_desc")}
+                            </p>
+                        </div>
+                    </Link>
                 </div>
             </div>
         </div>

@@ -138,6 +138,8 @@ export const translations = {
             love_quiz_desc: "生成恋爱测试结果页。控制分数、姓名和性别。",
             does_he_like_me_title: "他喜欢我吗生成器",
             does_he_like_me_desc: "生成“他喜欢我吗”测试结果页。",
+            does_she_like_me_title: "她喜欢我吗生成器",
+            does_she_like_me_desc: "生成“她喜欢我吗”测试结果页。",
             do_i_like_her_title: "我喜欢她吗生成器",
             do_i_like_her_desc: "生成“我喜欢她吗”测试结果页。",
             back_to_tools: "返回工具列表",

@@ -1,0 +1,472 @@
+[
+  {
+    "id": 1,
+    "questionEn": "I have my principles.",
+    "options": [
+      {
+        "value": 755,
+        "labelEn": "True"
+      },
+      {
+        "value": 66,
+        "labelEn": "False"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "questionEn": "I don’t want to think about complicated things.",
+    "options": [
+      {
+        "value": 395,
+        "labelEn": "True -"
+      },
+      {
+        "value": 441,
+        "labelEn": "I don’t like thinking complicated things"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "questionEn": "I spend most of my time on ___________.",
+    "options": [
+      {
+        "value": 154,
+        "labelEn": "Instagram"
+      },
+      {
+        "value": 18,
+        "labelEn": "Twitter"
+      },
+      {
+        "value": 53,
+        "labelEn": "Youtube"
+      },
+      {
+        "value": 37,
+        "labelEn": "WhatsApp"
+      },
+      {
+        "value": 13,
+        "labelEn": "Facebook"
+      },
+      {
+        "value": 66,
+        "labelEn": "Snapchat"
+      },
+      {
+        "value": 3,
+        "labelEn": "Reddit"
+      },
+      {
+        "value": 10,
+        "labelEn": "Messenger"
+      },
+      {
+        "value": 550,
+        "labelEn": "TikTok"
+      },
+      {
+        "value": 14,
+        "labelEn": "Roblox"
+      },
+      {
+        "value": 53,
+        "labelEn": "Other:"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "questionEn": "Tears come to my eyes very often.",
+    "options": [
+      {
+        "value": 525,
+        "labelEn": "Yes"
+      },
+      {
+        "value": 330,
+        "labelEn": "No"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "questionEn": "Some people tell me: “",
+    "options": [
+      {
+        "value": 388,
+        "labelEn": "You are like a middle-aged person"
+      },
+      {
+        "value": 449,
+        "labelEn": "” recently."
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "questionEn": "I get angry quite often.",
+    "options": [
+      {
+        "value": 661,
+        "labelEn": "Yes"
+      },
+      {
+        "value": 227,
+        "labelEn": "No"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "questionEn": "I like to be friends with those older than me.",
+    "options": [
+      {
+        "value": 583,
+        "labelEn": "Yes"
+      },
+      {
+        "value": 196,
+        "labelEn": "No"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "questionEn": "I do not like to get up early in the morning.",
+    "options": [
+      {
+        "value": 609,
+        "labelEn": "True -"
+      },
+      {
+        "value": 234,
+        "labelEn": "I don’t like to get up early"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "questionEn": "I care about my clothes and hair-style.",
+    "options": [
+      {
+        "value": 818,
+        "labelEn": "True -"
+      },
+      {
+        "value": 101,
+        "labelEn": "I care"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "questionEn": "I say “",
+    "options": [
+      {
+        "value": 178,
+        "labelEn": "come on!"
+      },
+      {
+        "value": 690,
+        "labelEn": "” or “"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "questionEn": "“",
+    "options": [
+      {
+        "value": 232,
+        "labelEn": "All reality is a phantom, and all phantoms are real"
+      },
+      {
+        "value": 610,
+        "labelEn": "”"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "questionEn": "I always act before thinking.",
+    "options": [
+      {
+        "value": 355,
+        "labelEn": "True"
+      },
+      {
+        "value": 441,
+        "labelEn": "False"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "questionEn": "I will be sleepless before a long journey.",
+    "options": [
+      {
+        "value": 517,
+        "labelEn": "True"
+      },
+      {
+        "value": 329,
+        "labelEn": "False"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "questionEn": "I don’t know what’s popular among young people.",
+    "options": [
+      {
+        "value": 182,
+        "labelEn": "True -"
+      },
+      {
+        "value": 705,
+        "labelEn": "I don’t know those stuff"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "questionEn": "I have a dream.",
+    "options": [
+      {
+        "value": 787,
+        "labelEn": "True"
+      },
+      {
+        "value": 126,
+        "labelEn": "False"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "questionEn": "I have had some hard times in my life.",
+    "options": [
+      {
+        "value": 917,
+        "labelEn": "True"
+      },
+      {
+        "value": 41,
+        "labelEn": "False"
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "questionEn": "(Recently) I sometimes waste time, money or food.",
+    "options": [
+      {
+        "value": 733,
+        "labelEn": "Yes"
+      },
+      {
+        "value": 181,
+        "labelEn": "No"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "questionEn": "I can hit a cockroach with a book.",
+    "options": [
+      {
+        "value": 453,
+        "labelEn": "Yes"
+      },
+      {
+        "value": 436,
+        "labelEn": "No"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "questionEn": "I don’t want to live alone.",
+    "options": [
+      {
+        "value": 510,
+        "labelEn": "True -"
+      },
+      {
+        "value": 358,
+        "labelEn": "I don’t want to live alone"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "questionEn": "I want to grow old.",
+    "options": [
+      {
+        "value": 374,
+        "labelEn": "Yes"
+      },
+      {
+        "value": 468,
+        "labelEn": "No"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "questionEn": "I sometimes enjoy laughing at other people.",
+    "options": [
+      {
+        "value": 639,
+        "labelEn": "Yes"
+      },
+      {
+        "value": 233,
+        "labelEn": "No"
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "questionEn": "I’d prefer staying at home rather than going on a trip.",
+    "options": [
+      {
+        "value": 356,
+        "labelEn": "Yes"
+      },
+      {
+        "value": 497,
+        "labelEn": "No"
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "questionEn": "I don’t enjoy reading books.",
+    "options": [
+      {
+        "value": 366,
+        "labelEn": "True -"
+      },
+      {
+        "value": 499,
+        "labelEn": "I don’t enjoy reading books"
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "questionEn": "I have a plan for the future.",
+    "options": [
+      {
+        "value": 640,
+        "labelEn": "Yes"
+      },
+      {
+        "value": 251,
+        "labelEn": "No"
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "questionEn": "I sometimes feel like singing.",
+    "options": [
+      {
+        "value": 747,
+        "labelEn": "Yes"
+      },
+      {
+        "value": 192,
+        "labelEn": "No"
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "questionEn": "I’d rather live in the countryside rather than a huge metropolis.",
+    "options": [
+      {
+        "value": 395,
+        "labelEn": "Yes"
+      },
+      {
+        "value": 413,
+        "labelEn": "No"
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "questionEn": "I am often fooled by others.",
+    "options": [
+      {
+        "value": 413,
+        "labelEn": "Yes"
+      },
+      {
+        "value": 422,
+        "labelEn": "No"
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "questionEn": "I am very emotional.",
+    "options": [
+      {
+        "value": 645,
+        "labelEn": "Yes"
+      },
+      {
+        "value": 234,
+        "labelEn": "No"
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "questionEn": "I can only be happy when I’m following my plan/everything is on track.",
+    "options": [
+      {
+        "value": 504,
+        "labelEn": "Yes"
+      },
+      {
+        "value": 330,
+        "labelEn": "No"
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "questionEn": "I will never miss a deadline.",
+    "options": [
+      {
+        "value": 330,
+        "labelEn": "Yes"
+      },
+      {
+        "value": 435,
+        "labelEn": "No"
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "questionEn": "My Gender:",
+    "options": [
+      {
+        "value": 520,
+        "labelEn": "Male"
+      },
+      {
+        "value": 460,
+        "labelEn": "Female"
+      }
+    ]
+  }
+]
