@@ -103,7 +103,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             mx-auto max-w-5xl rounded-none bg-white
                             pt-32 pb-4 px-4
                             md:p-12 md:rounded-[2rem] md:shadow-xl md:border md:border-gray-100 md:min-h-0
-                            ${isPreviewMode ? '!pt-20 !pb-2 w-full' : ''}
+                            ${isPreviewMode ? '!pt-36 !pb-20 w-full' : ''}
                         `}
                         style={{ backgroundColor: "#ffffff" }}
                     >
