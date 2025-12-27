@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ResultScreen } from "@/components/ResultScreen";
+import { XiaohongshuGenerator } from "@/components/XiaohongshuGenerator";
 import { results } from "@/lib/quiz-data-does-he-like-me";
 import { ArrowLeft, RefreshCw } from "lucide-react";
 import Link from "next/link";
@@ -103,9 +104,22 @@ export default function DoesHeLikeMeToolPage() {
                         </div>
                     </div>
 
+
+                    <div className="pt-6 border-t border-gray-100">
+                        <XiaohongshuGenerator
+                            type="does-he-like-me"
+                            data={{
+                                quizName: "暧昧情感测试", // Neutral name for AI
+                                score,
+                                resultTitle: result.titleZh,
+                                partnerName: personName || "TA" // Default to "TA" if empty
+                            }}
+                        />
+                    </div>
+
                     <button
                         onClick={() => window.location.reload()}
-                        className="mt-auto flex items-center justify-center w-full py-3 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-xl font-medium transition-colors"
+                        className="mt-6 flex items-center justify-center w-full py-3 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-xl font-medium transition-colors"
                     >
                         <RefreshCw className="w-4 h-4 mr-2" />
                         {t("tools.reset_defaults")}

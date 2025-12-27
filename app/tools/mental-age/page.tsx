@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ResultScreenMentalAge } from "@/components/ResultScreenMentalAge";
+import { XiaohongshuGenerator } from "@/components/XiaohongshuGenerator";
 import { results } from "@/lib/quiz-data-mental-age";
 import { ArrowLeft, RefreshCw } from "lucide-react";
 import Link from "next/link";
@@ -74,9 +75,22 @@ export default function MentalAgeToolPage() {
                         </div>
                     </div>
 
+
+                    <div className="pt-6 border-t border-gray-100">
+                        <XiaohongshuGenerator
+                            type="mental-age"
+                            data={{
+                                realAge,
+                                mentalAge,
+                                title: t("common.mental_age_title"),
+                                description: result.descriptionZh // Prefer Chinese if available, or fetch current Lang
+                            }}
+                        />
+                    </div>
+
                     <button
                         onClick={() => window.location.reload()}
-                        className="mt-auto flex items-center justify-center w-full py-3 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-xl font-medium transition-colors"
+                        className="mt-6 flex items-center justify-center w-full py-3 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-xl font-medium transition-colors"
                     >
                         <RefreshCw className="w-4 h-4 mr-2" />
                         {t("tools.reset_defaults")}
