@@ -25,6 +25,9 @@ export function Footer() {
                     <a href="mailto:contact@lovequiz.app" className="hover:text-rose-500 transition-colors">
                         联系我们
                     </a>
+                    <Link href="/tools" className="hover:text-rose-500 transition-colors text-gray-400">
+                        Tools
+                    </Link>
                 </div>
             </div>
         </footer>

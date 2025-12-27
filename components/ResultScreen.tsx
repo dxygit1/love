@@ -245,7 +245,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             </div>
 
                             {!isPreviewMode && (
-                                <div className="w-full my-4 min-h-[80px]">
+                                <div className="w-full">
                                     <AdUnit slot="RESULT_TOP_SLOT" />
                                 </div>
                             )}
