@@ -126,8 +126,8 @@ export default function DoILikeHerToolPage() {
             </div>
 
             {/* Preview Area */}
-            <div className="flex-1 bg-gray-50 relative h-auto md:h-full md:overflow-y-auto">
-                <div className="relative md:absolute md:inset-0 p-4 md:p-0">
+            <div className="flex-1 bg-gray-50 relative flex flex-col md:h-full md:overflow-y-auto">
+                <div className="w-full min-h-full p-4 md:p-0">
                     <ResultScreen
                         score={score}
                         result={result}
