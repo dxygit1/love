@@ -72,8 +72,6 @@ export default function PortalPage() {
   return (
     <div className="min-h-screen bg-[#F5F5F5] font-sans text-gray-800">
 
-
-
       {/* 2. Hero Section */}
       <section className="bg-white pb-12 pt-24 px-4 text-center border-b border-gray-100">
         <div className="max-w-2xl mx-auto">
@@ -85,6 +83,15 @@ export default function PortalPage() {
               ? "专业的心理学模型，帮助你在复杂的感情世界中找到答案。无需注册，即刻开始。"
               : "Professional psychological models to help you find answers in the complex world of emotions. No registration required."}
           </p>
+
+          {/* Hero Image - SEO Optimized */}
+          <div className="mb-10 relative w-full h-64 md:h-80 mx-auto overflow-hidden rounded-2xl shadow-lg border border-gray-100">
+            <img
+              src="/hero-illustration.png"
+              alt={language === "zh" ? "心理学情感分析脑图 - 连接心脏与大脑的神经网络" : "Psychological Emotional Analysis Illustration - Connecting Heart and Brain"}
+              className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+            />
+          </div>
 
           {/* Search Bar (Visual only for now) */}
           <div className="relative max-w-md mx-auto group">
@@ -113,7 +120,6 @@ export default function PortalPage() {
         {/* AdUnit - Interstitial */}
         <div className="w-full flex justify-center">
           <AdUnit slot="HOME_TOP_SLOT" />
-          {/* Note: In production you might want a distinct slot for the portal */}
         </div>
 
         {/* Quiz Grid */}
@@ -163,8 +169,6 @@ export default function PortalPage() {
               </motion.div>
             </Link>
           ))}
-
-          {/* Placeholder for future quizzes to show grid structure */}
         </div>
 
         {/* 4. Why Choose Us (SEO Content) */}
@@ -247,6 +251,47 @@ export default function PortalPage() {
                 {language === "zh"
                   ? "绝对不会。我们甚至不要求您输入邮箱地址。一切体验都是即用即走的。"
                   : "Absolutely not. We don't even ask for your email address. The experience is completely anonymous."}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 6. Extensive SEO Content (About Love & Psychology) */}
+        <section className="py-12 border-t border-gray-100 mt-8 mb-12">
+          <div className="max-w-4xl mx-auto px-4">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+              {language === "zh" ? "探索真爱的心理学奥秘" : "Exploring the Psychology of True Love"}
+            </h2>
+
+            <div className="space-y-6 text-gray-600 leading-relaxed text-sm md:text-base">
+              <p>
+                {language === "zh"
+                  ? "在这个快节奏的现代社会，我们常常被各种复杂的情绪所困扰。当你问自己“我到底有多喜欢他？”或者“这仅仅是一时的冲动吗？”时，你其实正在寻求一种确定的答案。我们的 **Love Quiz 情感测试平台**正是为此而生。不同于市面上娱乐性质的星座占卜，我们致力于将严肃的心理学理论转化为直观、易懂的在线测试工具。"
+                  : "In our fast-paced modern society, we are often overwhelmed by complex emotions. When you ask yourself 'How much do I really love him?' or 'Is this just a fleeting crush?', you are seeking certainty. **Love Quiz** was created for this purpose. Unlike entertainment-focused horoscopes, we bridge the gap between serious psychological theory and accessible online tools."}
+              </p>
+
+              <h3 className="font-bold text-gray-800 text-lg mt-4">
+                {language === "zh" ? "基于斯腾伯格爱情三角理论" : "Based on Sternberg's Triangular Theory of Love"}
+              </h3>
+              <p>
+                {language === "zh"
+                  ? "美国心理学家罗伯特·斯腾伯格（Robert Sternberg）提出的爱情三角理论是现代亲密关系研究的基石。该理论认为，完美的爱情由三个核心元素组成：**亲密（Intimacy）**、**激情（Passion）**和**承诺（Commitment）**。我们的“深度情感测试”正是基于这一模型设计的。通过分析你在面对特定情境时的潜意识反应（例如：你会多频繁地想到他？你是否愿意为了他牺牲个人利益？），我们能够量化这三个维度的强度，从而判断你当前的情感类型——是注定短暂的“迷恋”，还是细水长流的“伴侣之爱”，亦或是人人向往的“完美之爱”。"
+                  : "Proposed by psychologist Robert Sternberg, the Triangular Theory of Love is a cornerstone of relationship science. It posits that love consists of three components: **Intimacy**, **Passion**, and **Commitment**. Our deep analysis quiz measures the strength of these dimensions through your subconscious reactions to specific scenarios, helping you identify if you are experiencing a fleeting **Infatuation**, stable **Compassionate Love**, or the ideal **Consummate Love**."}
+              </p>
+
+              <h3 className="font-bold text-gray-800 text-lg mt-4">
+                {language === "zh" ? "为什么我们需要情感测试？" : "Why Do We Need Relationship Tests?"}
+              </h3>
+              <p>
+                {language === "zh"
+                  ? "许多人在感情中容易“当局者迷”。自我认知偏差（Self-serving Bias）往往让我们高估或低估对方在自己心中的地位。通过标准化的问卷（Standardized Questionnaire），我们能像照镜子一样客观地审视这段关系。**“他喜欢我吗？”**测试则运用了非语言沟通（Non-verbal Communication）和行为心理学原理，帮助你捕捉那些被忽略的微表情和肢体语言信号。这些科学的分析维度，能通过数据化的形式呈现，为你下一步的感情决策（表白、分手或继续相处）提供理性的参考依据。"
+                  : "We are often blinded by our own biases in relationships. Self-serving bias can make us overestimate or underestimate a partner's importance. Standardized questionnaires act as a mirror, offering an objective view. Our **'Does He Like Me?'** quiz utilizes principles of non-verbal communication and behavioral psychology to decode signals you might miss. These scientific insights provide a rational basis for your next move—whether to confess, move on, or deepen the bond."}
+              </p>
+
+              <p className="mt-4 italic text-gray-500">
+                {language === "zh"
+                  ? "请记住，任何测试都只是辅助工具。真爱不需要完美的测试分数，但需要双方真实的面对与持续的经营。愿你在 Love Quiz 找到属于你的答案。"
+                  : "Remember, no test defines your relationship perfectly. True love requires honesty and effort. We hope Love Quiz helps you find the clarity you seek."}
               </p>
             </div>
           </div>
