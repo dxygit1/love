@@ -84,14 +84,7 @@ export default function PortalPage() {
               : "Professional psychological models to help you find answers in the complex world of emotions. No registration required."}
           </p>
 
-          {/* Hero Image - SEO Optimized */}
-          <div className="mb-10 relative w-full mx-auto overflow-hidden rounded-2xl shadow-lg border border-gray-100">
-            <img
-              src={language === "zh" ? "/hero-illustration-zh.png" : "/hero-illustration-en.png"}
-              alt={language === "zh" ? "多元化心理测试插画 - 涵盖爱情、智商与心理年龄分析" : "Comprehensive Psychology Quiz Illustration - Covering Love, IQ, and Mental Age"}
-              className="w-full h-auto object-contain transform hover:scale-105 transition-transform duration-700"
-            />
-          </div>
+
 
           {/* Search Bar (Visual only for now) */}
           <div className="relative max-w-md mx-auto group">
