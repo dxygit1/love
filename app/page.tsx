@@ -88,7 +88,7 @@ export default function PortalPage() {
           <div className="mb-10 relative w-full h-64 md:h-80 mx-auto overflow-hidden rounded-2xl shadow-lg border border-gray-100">
             <img
               src="/hero-illustration.png"
-              alt={language === "zh" ? "心理学情感分析脑图 - 连接心脏与大脑的神经网络" : "Psychological Emotional Analysis Illustration - Connecting Heart and Brain"}
+              alt={language === "zh" ? "多元化心理测试插画 - 涵盖爱情、智商与心理年龄分析" : "Comprehensive Psychology Quiz Illustration - Covering Love, IQ, and Mental Age"}
               className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
             />
           </div>
