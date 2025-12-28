@@ -10,14 +10,44 @@ export default function sitemap(): MetadataRoute.Sitemap {
         {
             url: baseUrl,
             lastModified: new Date(),
-            changeFrequency: 'weekly',
+            changeFrequency: 'daily', // Increased frequency for homepage
             priority: 1,
+        },
+        {
+            url: `${baseUrl}/love-quiz`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.9, // High priority for tools
+        },
+        {
+            url: `${baseUrl}/does-he-like-me`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
+        {
+            url: `${baseUrl}/do-i-like-her`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
+        {
+            url: `${baseUrl}/mental-age`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
+        {
+            url: `${baseUrl}/tools`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.8,
         },
         {
             url: `${baseUrl}/about`,
             lastModified: new Date(),
             changeFrequency: 'monthly',
-            priority: 0.8,
+            priority: 0.6,
         },
         {
             url: `${baseUrl}/privacy`,

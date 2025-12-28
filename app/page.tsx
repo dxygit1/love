@@ -72,23 +72,10 @@ export default function PortalPage() {
   return (
     <div className="min-h-screen bg-[#F5F5F5] font-sans text-gray-800">
 
-      {/* 1. Header (Arealme Style: Minimalist) */}
-      <header className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-rose-500 rounded-lg flex items-center justify-center text-white font-bold text-xl">
-              L
-            </div>
-            <span className="font-bold text-xl tracking-tight text-gray-800">LOVE QUIZ</span>
-          </div>
-          <button className="p-2 hover:bg-gray-100 rounded-full transition-colors">
-            <Menu className="w-6 h-6 text-gray-600" />
-          </button>
-        </div>
-      </header>
+
 
       {/* 2. Hero Section */}
-      <section className="bg-white pb-12 pt-8 px-4 text-center border-b border-gray-100">
+      <section className="bg-white pb-12 pt-24 px-4 text-center border-b border-gray-100">
         <div className="max-w-2xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">
             {language === "zh" ? "探索内心的真实声音" : "Discover Your True Self"}
@@ -178,11 +165,110 @@ export default function PortalPage() {
           ))}
 
           {/* Placeholder for future quizzes to show grid structure */}
-          <div className="bg-gray-100 rounded-2xl border-2 border-dashed border-gray-200 flex flex-col items-center justify-center p-8 text-center min-h-[300px] opacity-60">
-            <span className="text-4xl mb-4">🚧</span>
-            <p className="text-gray-500 font-medium">More quizzes coming soon...</p>
-          </div>
         </div>
+
+        {/* 4. Why Choose Us (SEO Content) */}
+        <section className="py-12 border-t border-gray-100 mt-12 bg-white rounded-3xl p-8 shadow-sm">
+          <h2 className="text-2xl font-bold text-center mb-8 text-gray-900">
+            {language === "zh" ? "为什么选择 Love Quiz?" : "Why Choose Love Quiz?"}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div>
+              <div className="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-4 text-rose-500">
+                <Brain className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold mb-2">{language === "zh" ? "心理学模型" : "Scientific Models"}</h3>
+              <p className="text-sm text-gray-500">
+                {language === "zh"
+                  ? "基于斯腾伯格爱情三角理论与现代心理学研究，确保测试结果具有参考价值。"
+                  : (
+                    <>
+                      Based on <a href="https://en.wikipedia.org/wiki/Triangular_theory_of_love" target="_blank" rel="noopener noreferrer" className="text-rose-500 hover:underline">Sternberg's Triangular Theory of Love</a> and modern psychological research.
+                    </>
+                  )}
+              </p>
+            </div>
+            <div>
+              <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4 text-purple-500">
+                <Sparkles className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold mb-2">{language === "zh" ? "隐私保护" : "100% Private"}</h3>
+              <p className="text-sm text-gray-500">
+                {language === "zh"
+                  ? "无需注册，无需下载。所有测试在浏览器端完成，我们绝不存储您的个人隐私数据。"
+                  : "No registration, no downloads. All tests run in your browser. We never store personal data."}
+              </p>
+            </div>
+            <div>
+              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4 text-blue-500">
+                <Heart className="w-6 h-6" />
+              </div>
+              <h3 className="font-bold mb-2">{language === "zh" ? "完全免费" : "Always Free"}</h3>
+              <p className="text-sm text-gray-500">
+                {language === "zh"
+                  ? "致力于提供高质量的情感分析工具，所有核心功能永久免费主要开放。"
+                  : "Dedicated to providing high-quality emotional analysis tools. Core features are free forever."}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* 5. FAQ Section (SEO Content) */}
+        <section className="py-12 mt-8">
+          <h2 className="text-2xl font-bold text-center mb-8 text-gray-900">FAQ</h2>
+          <div className="max-w-3xl mx-auto space-y-6">
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <h3 className="font-bold text-lg mb-2 text-gray-800">
+                {language === "zh" ? "测试结果准确吗？" : "How accurate are the results?"}
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                {language === "zh"
+                  ? "我们的测试题目经过心理学团队精心设计，旨在反映您潜意识中的真实感受。虽然没有任何在线测试能做到 100% 准确，但超过 200 万用户的反馈表明，结果具有很高的参考价值，能帮助您更好地审视这段关系。"
+                  : "Our questions are carefully designed by psychology enthusiasts to reflect your subconscious feelings. While no online test is 100% perfect, feedback from over 2M users suggests the results provide valuable insights to help you reflect on your relationship."}
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <h3 className="font-bold text-lg mb-2 text-gray-800">
+                {language === "zh" ? "需要付费才能看结果吗？" : "Do I need to pay to see results?"}
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                {language === "zh"
+                  ? "不需要。我们的核心测试完全免费。我们通过页面上的少量广告来维持服务器运行，感谢您的理解与支持。"
+                  : "No. Our core tests are completely free. We support our server costs through unobtrusive ads on the page. Thank you for your support."}
+              </p>
+            </div>
+
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+              <h3 className="font-bold text-lg mb-2 text-gray-800">
+                {language === "zh" ? "我会收到垃圾邮件吗？" : "Will I receive spam?"}
+              </h3>
+              <p className="text-gray-600 leading-relaxed">
+                {language === "zh"
+                  ? "绝对不会。我们甚至不要求您输入邮箱地址。一切体验都是即用即走的。"
+                  : "Absolutely not. We don't even ask for your email address. The experience is completely anonymous."}
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Structured Data (JSON-LD) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              "name": "Love Quiz",
+              "url": "https://love.teasytools.com",
+              "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://love.teasytools.com/?q={search_term_string}",
+                "query-input": "required name=search_term_string"
+              }
+            })
+          }}
+        />
 
       </main>
 

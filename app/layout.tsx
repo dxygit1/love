@@ -2,14 +2,34 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "测测你到底有多喜欢他？- 深度情感测试",
-  description: "通过专业的心理测试题目，帮你分析你对心仪对象的真实情感状态。是狂热挚爱还是一时好感？快来测测看吧！",
-  keywords: ["情感测试", "恋爱心理", "喜欢一个人", "暗恋", "爱情测试"],
+  metadataBase: new URL("https://love.teasytools.com"),
+  title: "测测你到底有多喜欢他？- 深度情感测试 | 探索内心真实声音",
+  description: "通过专业的心理学问卷测试，深度分析你对心仪对象、伴侣或暗恋对象的真实情感状态。基于斯腾伯格爱情三角理论，帮你理清是狂热挚爱、依赖还是一时好感。完全免费，无需下载，保护隐私。",
+  keywords: ["情感测试", "恋爱心理", "喜欢一个人", "暗恋", "爱情测试", "Love Quiz", "心理年龄", "情感分析"],
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "测测你到底有多喜欢他？",
-    description: "通过专业的心理测试题目，帮你分析你对心仪对象的真实情感状态。",
-    type: "website",
+    title: "测测你到底有多喜欢他？- 深度情感测试",
+    description: "通过专业的心理测试题目，帮你分析你对心仪对象的真实情感状态。立即开始免费测试！",
+    url: "https://love.teasytools.com",
+    siteName: "Love Quiz",
+    images: [
+      {
+        url: "/og-image.png", // We will need to ensure this image exists or use a default
+        width: 1200,
+        height: 630,
+        alt: "Love Quiz Preview",
+      },
+    ],
     locale: "zh_CN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "测测你到底有多喜欢他？- 深度情感测试",
+    description: "通过专业的心理测试题目，帮你分析你对心仪对象的真实情感状态。",
+    images: ["/og-image.png"],
   },
 };
 
