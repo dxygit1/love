@@ -3,7 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { RefreshCw, Camera, Link2, Sparkles, ChevronDown, ChevronUp } from "lucide-react";
 import type { ResultCategory } from "@/lib/quiz-data";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { AdUnit } from "@/components/AdUnit";
 
@@ -30,6 +30,11 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
     const [isPreviewMode, setIsPreviewMode] = useState(false);
     const [showAdvice, setShowAdvice] = useState(false);
     const { t, language } = useLanguage();
+
+    // Scroll to top when component mounts
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: "instant" });
+    }, []);
 
     // Get color based on score (0-100)
     const getThemeColor = (s: number) => {
