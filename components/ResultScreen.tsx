@@ -95,7 +95,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className={`min-h-screen flex flex-col items-center pt-0 pb-8 md:pt-20 md:pb-16 px-4 md:px-6 bg-gradient-to-br from-rose-50 via-white to-indigo-50 ${isPreviewMode ? 'fixed inset-0 z-[60] overflow-y-auto cursor-pointer justify-start pt-0' : ''}`}
+                className={`min-h-screen flex flex-col items-center pt-0 pb-8 md:pt-0 md:pb-16 px-4 md:px-6 bg-gradient-to-br from-rose-50 via-white to-indigo-50 ${isPreviewMode ? 'fixed inset-0 z-[60] overflow-y-auto cursor-pointer justify-start pt-0' : ''}`}
                 onClick={isPreviewMode ? handleCaptureAndClose : undefined}
             >
                 <motion.div
@@ -108,8 +108,8 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                         ref={resultRef}
                         className={`
                             mx-auto max-w-5xl rounded-none bg-white
-                            pt-32 pb-4 px-4
-                            md:px-12 md:pb-12 md:pt-40 md:rounded-[2rem] md:shadow-xl md:border md:border-gray-100 md:min-h-0
+                            pt-40 pb-4 px-4
+                            md:px-12 md:pb-12 md:pt-52 md:rounded-[2rem] md:shadow-xl md:border md:border-gray-100 md:min-h-0
                             ${isPreviewMode ? '!pt-24 !pb-20 w-full' : ''}
                         `}
                         style={{ backgroundColor: "#ffffff" }}
