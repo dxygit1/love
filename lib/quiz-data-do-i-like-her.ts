@@ -254,9 +254,9 @@ export const results: ResultCategory[] = [
         titleEn: "It's LOVE!",
         titleZh: "这是真爱啊！",
         descriptionEn: "You are head over heels for her. This isn't just a crush; you have deep romantic feelings. You care about her deeply, prioritizing her happiness and your connection. Stop hesitating!",
-        descriptionZh: "不管是心动的感觉，还是想保护她的冲动，都说明你已经深深爱上她了。这不仅仅是一时的好感，而是深厚的情感羁绊。别犹豫了，机会不等人！",
+        descriptionZh: "根据你的回答，你对她的感情已经远远超越了普通的好感——这是真正的爱。从心理学角度来看，爱情有三个核心要素：亲密感、激情和承诺。而你对她三者兼具。你会不由自主地想起她，她的笑容能照亮你的一整天，你愿意为她付出、为她改变，想要保护她、让她快乐。这种深沉的情感羁绊是非常珍贵的。当一个人进入到这种状态时，说明对方已经在你心中占据了独一无二的位置，成为了你生命中的重要存在。",
         adviceEn: "Tell her how you feel! Life is short. Plan a special date and let her know she means the world to you.",
-        adviceZh: "勇敢表白吧！人生苦短。找个合适的机会，策划一次约会，让她知道她在你心中有多重要。"
+        adviceZh: "勇敢地向她表达你的心意吧！心理学研究表明，人们往往会后悔那些没有做的事情，而不是做过的事情。真正的爱情是稀有的，当你确认了自己的心意，就不要让犹豫和恐惧成为你们之间的障碍。找一个合适的时机，策划一次有意义的约会，在气氛到位的时候，真诚地告诉她：你在我心中有多特别。即使结果不如预期，至少你不会留下遗憾——而且，谁说她不是也在等你开口呢？"
     },
     {
         minScore: 65,
@@ -264,9 +264,9 @@ export const results: ResultCategory[] = [
         titleEn: "Serious Crush",
         titleZh: "超级有好感",
         descriptionEn: "You definitely like her a lot. There's strong chemistry and you enjoy her company immensely. You are on the verge of falling in love.",
-        descriptionZh: "你非常喜欢她。你们之间有很强的化学反应，你也非常享受和她在一起的时光。离坠入爱河只有一步之遥。",
+        descriptionZh: "你对她有很强烈的好感，已经处于心动的状态了。从你的回答来看，你们之间存在明显的化学反应：她的存在让你感到愉悦，和她相处的时光让你期待，她的消息能让你嘴角上扬。这种感觉说明你已经站在了爱情的门槛上，离坠入爱河只差一点点推动力。心理学中有一个曝光效应——随着相处时间的增加和了解的加深，这份好感很可能会升华为更深刻的情感连接。",
         adviceEn: "Spend more one-on-one time together. See if this connection deepens into something more serious. Flirt a little more openly.",
-        adviceZh: "多创造一些独处的机会，看看这份感情是否能进一步升温。可以尝试更明显一点的示好。"
+        adviceZh: "继续增加你们的互动质量和深度。心理学研究表明，情感的建立需要两个要素：共同经历和情感分享。多创造一些独处的机会——一起喝杯咖啡、看场电影、或者探索一个新地方。在聊天中分享更多真实的自我，包括你的梦想、恐惧和童年回忆。同时，可以尝试更明显一点的示好：真诚的赞美、细心的关注、或者一个有心的小礼物。观察她的反应，如果感觉是相互的，就大胆地表达你的心意吧。"
     },
     {
         minScore: 45,
@@ -274,9 +274,9 @@ export const results: ResultCategory[] = [
         titleEn: "Interested / Curiosity",
         titleZh: "有点意思/好奇",
         descriptionEn: "You have some feelings, but it's not fully clear yet. It might be physical attraction or just enjoying the attention. You are interested but not committed.",
-        descriptionZh: "你对她有点感觉，但还不明朗。可能只是单纯的欣赏，或者享受被关注的感觉。有兴趣，但还没到非她不可的地步。",
+        descriptionZh: "你对她有一定的兴趣和好奇心，但感情还处于萌芽和探索阶段，不够明朗。这种状态很常见——可能是因为认识的时间还不够长，对她的了解还不够深入；也可能是你自己还没有想清楚自己到底想要什么样的感情。从心理学角度来看，这可能只是单纯的欣赏她的某些特质，或者享受被关注、被喜欢的感觉。需要更多时间和经历来确认这份感觉的本质。",
         adviceEn: "Give it time. Don't rush into anything. Get to know her better as a friend first to see if feelings grow.",
-        adviceZh: "给点时间，不要急于求成。先从朋友做起，更深入地了解她，看看感情会不会自然生长。"
+        adviceZh: "给自己一点时间来厘清内心的感受。不要因为孤单或者周围人的催促就急于开始一段关系——在感情不够明确的情况下贸然行动，可能会伤害到她，也会让自己陷入尴尬。建议先从朋友做起，通过更多的相处和交流来加深对她的了解。观察自己的情绪变化：见到她会开心吗？想到她会嘴角上扬吗？如果这些信号开始变强，那就是感情在生长；如果始终平淡，可能说明这只是一时的欣赏而已。"
     },
     {
         minScore: 25,
@@ -284,9 +284,9 @@ export const results: ResultCategory[] = [
         titleEn: "Just Friends",
         titleZh: "只是朋友",
         descriptionEn: "You see her as a good friend. You care about her, but the romantic spark is missing. You are comfortable, but not excited in 'that' way.",
-        descriptionZh: "你把她当好朋友。你关心她，但缺乏那种恋爱的火花。和她在一起很舒服，但没有心跳加速的感觉。",
+        descriptionZh: "从你的回答来看，你把她定位在朋友这个位置上。和她在一起你感到舒适、轻松，你们有不错的交流，但缺少那种让心跳加速的化学反应。在心理学中，这种状态被称为情感陪伴——你欣赏她、关心她，但并没有产生浪漫的欲望。这不是任何人的问题，只是感情的化学反应并不是可以强求的。有时候，一个真挚的异性好友反而比一段勉强的恋情更有价值。",
         adviceEn: "Value the friendship. Don't force a romance that isn't there. It's okay to just be platonic friends.",
-        adviceZh: "珍惜这段友谊吧。不要强求没有火花的爱情。做单纯的异性好友也挺好的。"
+        adviceZh: "珍惜这段友谊，但也要对彼此诚实。如果她对你有超越友情的期待，那么你有责任温柔但明确地表达你的真实想法，避免给她错误的希望。心理学研究表明，异性友谊是可以健康存在的——关键在于双方对关系的定位要一致。做一个尊重她感受的好朋友，而不是一个模糊关系边界的暧昧对象。有时候，最好的礼物不是勉强的爱情，而是真诚的友谊。"
     },
     {
         minScore: 0,
@@ -294,8 +294,8 @@ export const results: ResultCategory[] = [
         titleEn: "No Romantic Interest",
         titleZh: "完全没感觉",
         descriptionEn: "You don't have romantic feelings for her. You might not even be that close as friends. Be honest with yourself.",
-        descriptionZh: "你对她没有恋爱感觉。甚至可能连好朋友都算不上。对自己诚实一点。",
+        descriptionZh: "根据你的回答，你对她确实没有任何超越普通关系的感觉。你可能只是把她当作一个认识的人、一个点头之交，甚至内心对她有些抵触。这是完全正常的——不是每个走进我们生活的人都会引起我们的情感波动。人与人之间的吸引力是复杂的化学反应，无法强求。诚实地面对自己的内心，是成熟的表现。",
         adviceEn: "Treat her with respect, but don't lead her on. Keep your distance if necessary.",
-        adviceZh: "保持尊重，但不要给她误导。如果需要的话，保持适当的距离。"
+        adviceZh: "保持基本的尊重和礼貌，但不要让她产生任何误解。如果她对你有期待，最善意的做法是清楚地表明你的态度，而不是出于不想伤害她而模糊其辞——模糊的态度反而会造成更大的伤害。同时，如果可能的话，保持适当的距离，避免给她任何可能产生误会的信号。诚实和边界感不是冷漠，而是对双方的尊重。把你的时间和精力留给那些真正让你心动的人吧。"
     }
 ];

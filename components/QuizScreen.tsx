@@ -55,7 +55,7 @@ export function QuizScreen({
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     onClick={onBack}
-                    className="absolute top-4 left-4 p-2 text-gray-400 hover:text-gray-600 z-10"
+                    className="absolute top-4 left-4 p-2 text-gray-400 hover:text-gray-600 z-10 mt-2 ml-2"
                 >
                     <ChevronLeft className="w-6 h-6" />
                 </motion.button>

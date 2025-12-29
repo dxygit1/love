@@ -3,18 +3,18 @@ import { Shield } from "lucide-react";
 export default function PrivacyPage() {
     return (
         <main className="min-h-screen flex flex-col bg-gradient-to-br from-rose-50 via-white to-indigo-50">
-            <div className="flex-grow container mx-auto px-4 pt-24 pb-12 max-w-3xl">
+            <div className="flex-grow container mx-auto px-4 md:px-8 pt-24 pb-12 max-w-5xl">
                 <div className="text-center mb-12">
                     <div className="inline-block p-3 rounded-2xl bg-indigo-100 text-indigo-500 mb-4">
                         <Shield className="w-8 h-8 fill-current" />
                     </div>
-                    <h1 className="text-3xl font-bold text-gray-800 mb-4">隐私政策</h1>
+                    <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">隐私政策</h1>
                     <p className="text-gray-600">最后更新日期：{new Date().toISOString().split('T')[0]}</p>
                 </div>
 
-                <div className="space-y-8 bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-sm border border-white/50 text-gray-600 leading-relaxed text-sm md:text-base">
+                <div className="space-y-8 bg-white/80 backdrop-blur-sm p-8 md:p-12 rounded-3xl shadow-sm border border-white/50 text-gray-600 leading-relaxed text-base md:text-lg">
                     <section>
-                        <h2 className="text-lg font-bold text-gray-800 mb-3">1. 信息收集</h2>
+                        <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4">1. 信息收集</h2>
                         <p>
                             我们非常重视您的隐私。在使用"测测你到底有多喜欢他"（以下简称"本服务"）时，我们通常不会要求您注册账户或提供个人身份信息（如姓名、地址等）。
                             <br />
@@ -23,7 +23,7 @@ export default function PrivacyPage() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-bold text-gray-800 mb-3">2. Cookies 和广告</h2>
+                        <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4">2. Cookies 和广告</h2>
                         <p>
                             本网站可能使用 Cookies 或类似技术来增强用户体验。
                             <br />
@@ -32,7 +32,7 @@ export default function PrivacyPage() {
                     </section>
 
                     <section>
-                        <h2 className="text-lg font-bold text-gray-800 mb-3">3. 数据使用</h2>
+                        <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-4">3. 数据使用</h2>
                         <p>
                             您在测试过程中的选择和结果主要用于在本地生成分析报告。除非法律要求，我们不会将您的测试数据主动分享给第三方。
                         </p>

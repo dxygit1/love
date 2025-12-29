@@ -18,7 +18,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="min-h-screen flex flex-col items-center pt-28 pb-20 relative overflow-hidden bg-gradient-to-br from-rose-50 via-white to-indigo-50"
+            className="w-full min-h-screen flex flex-col items-center pt-28 pb-20 relative overflow-hidden bg-gradient-to-br from-rose-50 via-white to-indigo-50"
         >
             {/* 动态背景装饰 */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -34,7 +34,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                 />
             </div>
 
-            <div className="w-full max-w-5xl px-6 relative z-10">
+            <div className="w-full px-6 md:px-12 lg:px-24 relative z-10">
                 {/* 顶部广告位 */}
                 {/* Top Ad moved to below CTA */}
 
@@ -133,7 +133,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.5 }}
-                        className="mt-12 text-left space-y-12 max-w-3xl mx-auto pb-8"
+                        className="mt-12 text-left space-y-12 max-w-5xl mx-auto pb-8"
                     >
                         {/* Section 1: Introduction */}
                         <section>
@@ -141,7 +141,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                                 <span className="w-1 h-6 bg-rose-500 rounded-full" />
                                 {t("welcome_content.about_title")}
                             </h2>
-                            <p className="text-gray-600 leading-relaxed text-sm">
+                            <p className="text-gray-600 leading-relaxed text-base md:text-lg">
                                 {t("welcome_content.about_text")}
                             </p>
                         </section>
@@ -153,7 +153,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                                 {t("welcome_content.dimension_title")}
                             </h2>
                             <div className="bg-white/50 rounded-2xl p-6 border border-white/60 shadow-sm">
-                                <ul className="space-y-3 text-sm text-gray-600">
+                                <ul className="space-y-4 text-base text-gray-600">
                                     <li className="flex gap-3">
                                         <span className="font-bold text-indigo-600 min-w-16">{t("welcome_content.dim_1_title")}</span>
                                         <span>{t("welcome_content.dim_1_desc")}</span>
@@ -181,7 +181,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                                     <h3 className="font-bold text-gray-800 mb-2 flex items-center gap-2">
                                         <span className="text-rose-400">Q.</span> {t("welcome_content.faq_1_q")}
                                     </h3>
-                                    <p className="text-sm text-gray-600 leading-relaxed pl-6 border-l-2 border-rose-100">
+                                    <p className="text-base text-gray-600 leading-relaxed pl-6 border-l-2 border-rose-100">
                                         {t("welcome_content.faq_1_a")}
                                     </p>
                                 </div>
@@ -189,7 +189,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                                     <h3 className="font-bold text-gray-800 mb-2 flex items-center gap-2">
                                         <span className="text-rose-400">Q.</span> {t("welcome_content.faq_2_q")}
                                     </h3>
-                                    <p className="text-sm text-gray-600 leading-relaxed pl-6 border-l-2 border-rose-100">
+                                    <p className="text-base text-gray-600 leading-relaxed pl-6 border-l-2 border-rose-100">
                                         {t("welcome_content.faq_2_a")}
                                     </p>
                                 </div>
@@ -197,7 +197,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
                                     <h3 className="font-bold text-gray-800 mb-2 flex items-center gap-2">
                                         <span className="text-rose-400">Q.</span> {t("welcome_content.faq_3_q")}
                                     </h3>
-                                    <p className="text-sm text-gray-600 leading-relaxed pl-6 border-l-2 border-rose-100">
+                                    <p className="text-base text-gray-600 leading-relaxed pl-6 border-l-2 border-rose-100">
                                         {t("welcome_content.faq_3_a")}
                                     </p>
                                 </div>

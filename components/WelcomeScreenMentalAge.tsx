@@ -24,7 +24,7 @@ export default function WelcomeScreenMentalAge({ onStart }: WelcomeScreenProps) 
     };
 
     return (
-        <div className="flex flex-col items-center min-h-screen pt-28 pb-12 px-4">
+        <div className="w-full flex flex-col items-center min-h-screen pt-28 pb-12 px-6 md:px-12 lg:px-24 bg-gradient-to-br from-green-50 via-white to-blue-50">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -137,13 +137,13 @@ export default function WelcomeScreenMentalAge({ onStart }: WelcomeScreenProps) 
                 </motion.div>
 
                 {/* Features / FAQ Preview */}
-                <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-4xl mx-auto">
+                <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-5xl mx-auto">
                     <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                         <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center text-green-600 mb-4">
                             <Clock size={20} />
                         </div>
                         <h3 className="font-semibold text-gray-900 mb-2">{t("common.faq_mental_age_q1")}</h3>
-                        <p className="text-sm text-gray-500">{t("common.faq_mental_age_a1")}</p>
+                        <p className="text-base text-gray-500">{t("common.faq_mental_age_a1")}</p>
                     </div>
 
                     <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
@@ -151,7 +151,7 @@ export default function WelcomeScreenMentalAge({ onStart }: WelcomeScreenProps) 
                             <Activity size={20} />
                         </div>
                         <h3 className="font-semibold text-gray-900 mb-2">{t("common.faq_mental_age_q2")}</h3>
-                        <p className="text-sm text-gray-500">{t("common.faq_mental_age_a2")}</p>
+                        <p className="text-base text-gray-500">{t("common.faq_mental_age_a2")}</p>
                     </div>
 
                     <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
@@ -159,7 +159,7 @@ export default function WelcomeScreenMentalAge({ onStart }: WelcomeScreenProps) 
                             <RefreshCcw size={20} />
                         </div>
                         <h3 className="font-semibold text-gray-900 mb-2">{t("common.faq_mental_age_q3")}</h3>
-                        <p className="text-sm text-gray-500">{t("common.faq_mental_age_a3")}</p>
+                        <p className="text-base text-gray-500">{t("common.faq_mental_age_a3")}</p>
                     </div>
                 </div>
 

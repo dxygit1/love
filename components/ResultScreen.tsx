@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { RefreshCw, Camera, Link2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { RefreshCw, Camera, Link2, Sparkles, ChevronDown, ChevronUp } from "lucide-react";
 import type { ResultCategory } from "@/lib/quiz-data";
 import { useRef, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -13,6 +13,7 @@ interface ResultScreenProps {
     onRestart: () => void;
     personName?: string;
     gender?: "male" | "female";
+    quizType?: "love-quiz" | "does-he-like-me" | "do-i-like-her";
 }
 
 // Result bar segments
@@ -24,9 +25,10 @@ const segments = [
     { label: "永生挚爱", color: "bg-blue-600", textColor: "text-blue-700", hex: "#1d4ed8" },
 ];
 
-export function ResultScreen({ score, result, onRestart, personName, gender = "male" }: ResultScreenProps) {
+export function ResultScreen({ score, result, onRestart, personName, gender = "male", quizType = "love-quiz" }: ResultScreenProps) {
     const resultRef = useRef<HTMLDivElement>(null);
     const [isPreviewMode, setIsPreviewMode] = useState(false);
+    const [showAdvice, setShowAdvice] = useState(false);
     const { t, language } = useLanguage();
 
     // Get color based on score (0-100)
@@ -67,7 +69,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
         setIsPreviewMode(false);
     };
 
-    const size = 96;
+    const size = 128; // Increased from 96 to 128 as requested
     const strokeWidth = 10;
     const radius = (size - strokeWidth) / 2;
     const circumference = 2 * Math.PI * radius;
@@ -88,7 +90,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className={`min-h-screen flex flex-col items-center pt-0 pb-8 md:pt-20 md:pb-16 px-0 md:px-6 bg-gradient-to-br from-rose-50 via-white to-indigo-50 ${isPreviewMode ? 'fixed inset-0 z-[60] overflow-y-auto cursor-pointer justify-start pt-0' : ''}`}
+                className={`min-h-screen flex flex-col items-center pt-0 pb-8 md:pt-20 md:pb-16 px-4 md:px-6 bg-gradient-to-br from-rose-50 via-white to-indigo-50 ${isPreviewMode ? 'fixed inset-0 z-[60] overflow-y-auto cursor-pointer justify-start pt-0' : ''}`}
                 onClick={isPreviewMode ? handleCaptureAndClose : undefined}
             >
                 <motion.div
@@ -101,9 +103,9 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                         ref={resultRef}
                         className={`
                             mx-auto max-w-5xl rounded-none bg-white
-                            pt-32 pb-4 px-4
+                            pt-20 pb-4 px-4
                             md:p-12 md:rounded-[2rem] md:shadow-xl md:border md:border-gray-100 md:min-h-0
-                            ${isPreviewMode ? '!pt-36 !pb-20 w-full' : ''}
+                            ${isPreviewMode ? '!pt-24 !pb-20 w-full' : ''}
                         `}
                         style={{ backgroundColor: "#ffffff" }}
                     >
@@ -113,15 +115,25 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             </div>
                         )}
 
-                        <p className="mb-3 text-sm md:text-lg md:mb-6" style={{ color: "#6b7280" }}>
-                            {language === "zh" ? (
-                                <>你对 <span className="font-bold" style={{ color: "#1f2937" }}>{personName || (gender === "female" ? "她" : "他")}的喜欢程度</span> 位于：</>
+                        <p className="mb-10 text-sm md:text-lg" style={{ color: "#6b7280" }}>
+                            {quizType === "does-he-like-me" ? (
+                                // "Does He Like Me" quiz - show HIS feelings for YOU
+                                language === "zh" ? (
+                                    <>经测试，<span className="font-bold" style={{ color: "#1f2937" }}>{personName || (gender === "female" ? "她" : "他")}对你的喜欢程度</span> 位于：</>
+                                ) : (
+                                    <><span className="font-bold" style={{ color: "#1f2937" }}>{personName || (gender === "female" ? "Her" : "His")}</span> love level for you is:</>
+                                )
                             ) : (
-                                <>Your love level for <span className="font-bold" style={{ color: "#1f2937" }}>{personName || (gender === "female" ? "Her" : "Him")}</span> is:</>
+                                // "Love Quiz" / "Do I Like Her" - show YOUR feelings for THEM
+                                language === "zh" ? (
+                                    <>你对 <span className="font-bold" style={{ color: "#1f2937" }}>{personName || (gender === "female" ? "她" : "他")}的喜欢程度</span> 位于：</>
+                                ) : (
+                                    <>Your love level for <span className="font-bold" style={{ color: "#1f2937" }}>{personName || (gender === "female" ? "Her" : "Him")}</span> is:</>
+                                )
                             )}
                         </p>
 
-                        <div className="relative mx-auto mb-6" style={{ width: size, height: size }}>
+                        <div className="relative mx-auto mb-10" style={{ width: size, height: size }}>
                             <svg className="w-full h-full" style={{ transform: 'rotate(-90deg)' }}>
                                 <defs>
                                     <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -171,7 +183,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-5 text-[10px] sm:text-xs md:text-base font-bold mb-1 px-0 tracking-tight whitespace-nowrap">
+                        <div className="grid grid-cols-5 text-xs md:text-base font-bold mb-1 px-0 tracking-tight whitespace-nowrap">
                             <div className="text-left" style={{ color: "#e11d48" }}>{language === "zh" ? "一时脑热" : "Impulse"}</div>
                             <div></div>
                             <div className="text-center" style={{ color: "#9ca3af" }}>{language === "zh" ? "小鹿乱撞" : "Crush"}</div>
@@ -207,7 +219,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             </motion.div>
                         </div>
 
-                        <div className="grid grid-cols-5 text-[10px] sm:text-xs md:text-base font-bold mb-3 px-0 mt-1 tracking-tight whitespace-nowrap">
+                        <div className="grid grid-cols-5 text-xs md:text-base font-bold mb-3 px-0 mt-1 tracking-tight whitespace-nowrap">
                             <div></div>
                             <div className="text-center" style={{ color: "#ea580c" }}>{language === "zh" ? "云淡风轻" : "Friends"}</div>
                             <div></div>
@@ -220,24 +232,18 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1.2 }}
-                            className="mt-4 w-full mx-auto px-1 space-y-2"
+                            className="mt-8 w-full mx-auto px-1 space-y-2"
                         >
-                            {/* Analysis Section - Dynamic Theme Color */}
-                            <div className="rounded-xl p-2.5 md:p-6 border bg-opacity-50"
-                                style={{ backgroundColor: `${theme.hex}08` /* 5% opacity */, borderColor: `${theme.hex}20` /* 20% opacity */ }}>
-                                <h3 className="flex items-center font-bold text-sm md:text-lg mb-0.5 md:mb-3"
-                                    style={{ color: theme.hex }}>
-                                    <span className="w-1 h-3 md:h-5 rounded-full mr-2" style={{ backgroundColor: theme.hex }}></span>
-                                    {t("result.analysis_title")}
-                                </h3>
+                            {/* Analysis Section - Minimalist */}
+                            <div className="mt-4 w-full mx-auto px-1">
                                 <p
-                                    className="text-[1rem] md:text-lg font-bold leading-relaxed md:leading-[1.8]"
+                                    className="text-lg md:text-xl font-bold leading-loose tracking-wider"
                                     style={{
                                         fontFamily: "'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif",
                                         textAlign: 'justify',
                                         textAlignLast: 'left',
                                         textJustify: 'inter-ideograph' as any,
-                                        color: theme.hex // Dynamic Text Color!
+                                        color: theme.hex
                                     }}
                                 >
                                     {getFinalText(language === "zh" ? result.descriptionZh : result.descriptionEn)}
@@ -245,32 +251,33 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             </div>
 
                             {!isPreviewMode && (
-                                <div className="w-full">
+                                <div className="w-full mt-4">
                                     <AdUnit slot="RESULT_TOP_SLOT" />
                                 </div>
                             )}
 
-                            {/* Advice Section - Static Green for Contrast */}
-                            <div className="rounded-xl p-2.5 md:p-6 border bg-emerald-50/50 border-emerald-100"
-                                style={{ backgroundColor: '#ecfdf5', borderColor: '#d1fae5' }}>
-                                <h3 className="flex items-center font-bold text-sm md:text-lg mb-0.5 md:mb-3"
-                                    style={{ color: '#059669' }}>
-                                    <span className="w-1 h-3 md:h-5 rounded-full mr-2" style={{ backgroundColor: '#059669' }}></span>
-                                    {t("result.advice_title")}
-                                </h3>
-                                <p
-                                    className="text-[1rem] md:text-lg font-bold leading-relaxed md:leading-[1.8]"
-                                    style={{
-                                        fontFamily: "'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif",
-                                        textAlign: 'justify',
-                                        textAlignLast: 'left',
-                                        textJustify: 'inter-ideograph' as any,
-                                        color: '#047857' // emerald-700
-                                    }}
-                                >
-                                    {getFinalText(language === "zh" ? result.adviceZh : result.adviceEn)}
-                                </p>
-                            </div>
+                            {/* Advice Section - Toggleable */}
+                            <AnimatePresence>
+                                {showAdvice && (
+                                    <motion.div
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: "auto" }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        className="overflow-hidden w-full max-w-4xl mx-auto mt-6"
+                                    >
+                                        <div className="bg-indigo-50/50 rounded-2xl p-6 border border-indigo-100 text-left relative">
+                                            <div className="absolute top-0 left-0 w-1 h-full bg-indigo-400 rounded-l-2xl" />
+                                            <h3 className="flex items-center gap-2 font-bold text-indigo-900 text-lg mb-3">
+                                                <Sparkles className="w-5 h-5 text-indigo-500" />
+                                                {language === "zh" ? "AI 情感建议" : "AI Relationship Advice"}
+                                            </h3>
+                                            <p className="text-slate-800 font-bold leading-relaxed text-base md:text-lg whitespace-pre-wrap">
+                                                {getFinalText(language === "zh" ? result.adviceZh || result.descriptionZh : result.adviceEn || result.descriptionEn)}
+                                            </p>
+                                        </div>
+                                    </motion.div>
+                                )}
+                            </AnimatePresence>
                         </motion.div>
 
                         {!isPreviewMode && (
@@ -281,31 +288,51 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                     </div>
 
                     {!isPreviewMode && (
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 1.4 }}
-                            className="flex flex-row gap-4 px-4 mt-8 w-full max-w-5xl mx-auto"
-                        >
-                            <motion.button
-                                onClick={handleEnterPreview}
-                                className="flex-1 py-5 bg-gradient-to-r from-blue-600 via-pink-500 to-yellow-400 text-white rounded-2xl font-bold text-lg md:text-xl flex items-center justify-between px-6 hover:opacity-95 transition-all shadow-xl disabled:opacity-70"
-                                whileTap={{ scale: 0.98 }}
+                        <div className="w-full max-w-5xl mx-auto px-4 mt-8 pb-8 space-y-5">
+                            {/* Primary Actions Row */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 1.4 }}
+                                className="flex flex-col md:flex-row gap-4"
                             >
-                                <Camera className="w-6 h-6" />
-                                <span>{t("common.share")}</span>
-                                <Link2 className="w-6 h-6" />
-                            </motion.button>
+                                {/* AI Advice Button */}
+                                <motion.button
+                                    onClick={() => setShowAdvice(!showAdvice)}
+                                    className={`flex-1 py-4 px-6 rounded-2xl font-bold text-lg flex items-center justify-center gap-2 transition-all shadow-sm border-2 ${showAdvice
+                                        ? "bg-indigo-100 text-indigo-700 border-indigo-200"
+                                        : "bg-white text-indigo-600 border-indigo-100 hover:border-indigo-200 hover:bg-indigo-50"
+                                        }`}
+                                    whileTap={{ scale: 0.98 }}
+                                >
+                                    <Sparkles className={`w-5 h-5 ${showAdvice ? "animate-pulse" : ""}`} />
+                                    <span>{language === "zh" ? (showAdvice ? "收起建议" : "查看 AI 建议") : (showAdvice ? "Hide Advice" : "View Advice")}</span>
+                                    {showAdvice ? <ChevronUp className="w-5 h-5 opacity-50" /> : <ChevronDown className="w-5 h-5 opacity-50" />}
+                                </motion.button>
 
+                                {/* Capture Button */}
+                                <motion.button
+                                    onClick={handleEnterPreview}
+                                    className="flex-1 py-4 px-6 bg-gradient-to-r from-rose-500 to-pink-600 text-white rounded-2xl font-bold text-lg flex items-center justify-center gap-3 hover:shadow-xl transition-all shadow-md active:scale-95"
+                                    whileTap={{ scale: 0.98 }}
+                                >
+                                    <Camera className="w-6 h-6" />
+                                    <span>{t("common.share")}</span>
+                                </motion.button>
+                            </motion.div>
+
+                            {/* Secondary Action: Restart */}
                             <motion.button
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 1.6 }}
                                 onClick={onRestart}
-                                className="py-5 px-6 bg-white border border-gray-200 text-gray-500 hover:text-gray-700 hover:border-gray-300 rounded-2xl font-medium flex items-center justify-center gap-2 transition-colors shadow-md"
-                                whileTap={{ scale: 0.98 }}
+                                className="w-full py-4 text-gray-500 hover:text-gray-800 text-lg font-bold flex items-center justify-center gap-2 transition-colors border border-dashed border-gray-300 rounded-xl hover:border-gray-400 hover:bg-gray-50/50"
                             >
                                 <RefreshCw className="w-5 h-5" />
                                 {t("result.restart")}
                             </motion.button>
-                        </motion.div>
+                        </div>
                     )}
                 </motion.div>
             </motion.div>

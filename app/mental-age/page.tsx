@@ -56,12 +56,6 @@ export default function MentalAgePage() {
 
     // 3. Show Welcome
     return (
-        <main className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
-            <div className="w-full max-w-5xl mx-auto min-h-screen md:h-auto">
-                <WelcomeScreenMentalAge
-                    onStart={handleStart}
-                />
-            </div>
-        </main>
+        <WelcomeScreenMentalAge onStart={handleStart} />
     );
 }

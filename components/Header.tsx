@@ -17,36 +17,40 @@ export function Header() {
 
     return (
         <header className="fixed top-0 left-0 right-0 z-50 bg-white/60 backdrop-blur-md border-b border-white/50 transition-all duration-300">
-            <div className="container mx-auto px-4 md:px-6 h-14 md:h-16 flex items-center justify-between max-w-5xl">
-                <Link href="/" className="flex items-center gap-2 group flex-shrink-0 mr-2 md:mr-0">
-                    <div className="p-1.5 bg-gradient-to-br from-rose-500 to-pink-600 rounded-lg text-white shadow-lg group-hover:scale-105 transition-transform">
-                        <Heart className="w-5 h-5 fill-current" />
-                    </div>
-                    <span className="font-bold text-base md:text-lg text-gray-800 tracking-tight group-hover:text-rose-600 transition-colors">
-                        {t("header.title")}
-                    </span>
-                </Link>
+            <div className="w-full mx-auto px-4 md:px-8 lg:px-16 h-14 md:h-16 flex items-center justify-between">
+                {/* Logo + Nav - Left */}
+                <div className="flex items-center gap-6 md:gap-10">
+                    <Link href="/" className="flex items-center gap-2 group flex-shrink-0">
+                        <div className="p-1.5 bg-gradient-to-br from-rose-500 to-pink-600 rounded-lg text-white shadow-lg group-hover:scale-105 transition-transform">
+                            <Heart className="w-5 h-5 fill-current" />
+                        </div>
+                        <span className="font-bold text-base md:text-lg text-gray-800 tracking-tight group-hover:text-rose-600 transition-colors">
+                            {t("header.title")}
+                        </span>
+                    </Link>
 
-                <nav className="flex items-center gap-4 md:gap-8 text-sm font-medium">
-                    <Link
-                        href="/"
-                        className={cn(
-                            "transition-colors hover:text-rose-500 whitespace-nowrap",
-                            isHome ? "text-rose-600" : "text-gray-600"
-                        )}
-                    >
-                        {t("header.home")}
-                    </Link>
-                    <Link
-                        href="/about"
-                        className={cn(
-                            "transition-colors hover:text-rose-500 whitespace-nowrap",
-                            pathname === "/about" ? "text-rose-600" : "text-gray-600"
-                        )}
-                    >
-                        {t("header.about")}
-                    </Link>
-                </nav>
+                    {/* Nav - Right of logo */}
+                    <nav className="flex items-center gap-4 md:gap-6 text-sm font-medium">
+                        <Link
+                            href="/"
+                            className={cn(
+                                "transition-colors hover:text-rose-500 whitespace-nowrap",
+                                isHome ? "text-rose-600" : "text-gray-600"
+                            )}
+                        >
+                            {t("header.home")}
+                        </Link>
+                        <Link
+                            href="/about"
+                            className={cn(
+                                "transition-colors hover:text-rose-500 whitespace-nowrap",
+                                pathname === "/about" ? "text-rose-600" : "text-gray-600"
+                            )}
+                        >
+                            {t("header.about")}
+                        </Link>
+                    </nav>
+                </div>
 
                 <button
                     onClick={toggleLanguage}

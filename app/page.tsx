@@ -24,8 +24,8 @@ export default function PortalPage() {
       href: "/love-quiz",
       titleEn: "How much do you Love Him?",
       titleZh: "你到底有多喜欢他？",
-      descEn: "Is it just a crush or true love? Deep psychological analysis of your feelings.",
-      descZh: "是心动还是真爱？基于斯腾伯格爱情三角理论，深度剖析你的真实心意。",
+      descEn: "Is it just a crush or true love? Based on Sternberg's Triangular Theory of Love, this deep psychological analysis reveals the true nature of your feelings.",
+      descZh: "到底是心动还是真爱？基于斯腾伯格爱情三角理论，通过多维度分析深度剖析你的真实心意，助你看清这段关系的本质。",
       icon: Heart,
       color: "from-rose-500 to-pink-600",
       stats: "2.3M+ Tested",
@@ -36,8 +36,8 @@ export default function PortalPage() {
       href: "/does-he-like-me",
       titleEn: "Does He Like Me?",
       titleZh: "他喜欢我吗？",
-      descEn: "Decode his signals! 20 questions to reveal if he's interested in you.",
-      descZh: "那个他到底怎么想的？通过20个潜意识行为细节，揭秘他对你的真实感觉。",
+      descEn: "Decode his mixed signals! We analyze 20 subconscious behavioral details to reveal if he's truly interested in you or just being friendly.",
+      descZh: "那个他到底怎么想的？通过20个潜意识行为细节与非语言信号，我们帮你揭秘他对你的真实感觉，不再猜来猜去。",
       icon: Sparkles,
       color: "from-indigo-500 to-violet-600",
       stats: "New Arrival",
@@ -48,8 +48,8 @@ export default function PortalPage() {
       href: "/do-i-like-her",
       titleEn: "Do I Like Her?",
       titleZh: "我喜欢她吗？",
-      descEn: "Just a friend or something more? Calculate your feelings for that special girl.",
-      descZh: "只是朋友还是心动？基于吸引力法则，解析你对她的真实感觉。",
+      descEn: "Just a friend or something more? Based on the Laws of Attraction, calculate your true affection level and understand your own heart.",
+      descZh: "只是朋友还是心动？基于人际吸引力法则，通过心理投射测试解析你对她的真实感觉，帮你理清心中迷雾。",
       icon: Sparkles,
       color: "from-sky-500 to-blue-600",
       stats: "Trending",
@@ -60,8 +60,8 @@ export default function PortalPage() {
       href: "/mental-age",
       titleEn: "Mental Age Test",
       titleZh: "心理年龄测试",
-      descEn: "How old are you really? Answer 31 questions to find out your true mental age.",
-      descZh: "你的心理年龄是多少？通过31道题目，测出你内心深处的真实年龄。",
+      descEn: "How old is your soul? Answer 31 calibrated questions to find out your true mental maturity and how you view the world.",
+      descZh: "你的心理年龄是多少？通过31道经过校准的心理测试题，测出你内心深处的真实成熟度与看待世界的方式。",
       icon: Brain,
       color: "from-green-500 to-teal-600",
       stats: "Classic",
@@ -211,10 +211,10 @@ export default function PortalPage() {
         </section>
 
         {/* 5. FAQ Section (SEO Content) */}
-        <section className="py-12 mt-8">
+        <section className="py-12 mt-8 bg-white rounded-3xl p-8 shadow-sm">
           <h2 className="text-2xl font-bold text-center mb-8 text-gray-900">FAQ</h2>
-          <div className="max-w-3xl mx-auto space-y-6">
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-gray-50 p-6 rounded-2xl">
               <h3 className="font-bold text-lg mb-2 text-gray-800">
                 {language === "zh" ? "测试结果准确吗？" : "How accurate are the results?"}
               </h3>
@@ -225,7 +225,7 @@ export default function PortalPage() {
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <div className="bg-gray-50 p-6 rounded-2xl">
               <h3 className="font-bold text-lg mb-2 text-gray-800">
                 {language === "zh" ? "需要付费才能看结果吗？" : "Do I need to pay to see results?"}
               </h3>
@@ -236,7 +236,7 @@ export default function PortalPage() {
               </p>
             </div>
 
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <div className="bg-gray-50 p-6 rounded-2xl">
               <h3 className="font-bold text-lg mb-2 text-gray-800">
                 {language === "zh" ? "我会收到垃圾邮件吗？" : "Will I receive spam?"}
               </h3>
@@ -250,8 +250,8 @@ export default function PortalPage() {
         </section>
 
         {/* 6. Extensive SEO Content (About Love & Psychology) */}
-        <section className="py-12 border-t border-gray-100 mt-8 mb-12">
-          <div className="max-w-4xl mx-auto px-4">
+        <section className="py-12 mt-8 mb-12 bg-white rounded-3xl p-8 shadow-sm">
+          <div className="">
             <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
               {language === "zh" ? "探索真爱的心理学奥秘" : "Exploring the Psychology of True Love"}
             </h2>

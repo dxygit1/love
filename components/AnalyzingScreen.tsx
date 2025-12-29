@@ -27,7 +27,7 @@ export function AnalyzingScreen() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6"
+            className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-rose-50 p-6"
         >
             <div className="relative mb-8">
                 {/* 脉冲动画背景 */}

@@ -254,7 +254,7 @@ export const results: ResultCategory[] = [
         titleEn: "He Loves You!",
         titleZh: "命中注定喜欢你！",
         descriptionEn: "All signs point to YES! He is definitely into you. His attention, care, and efforts to be close to you are clear indicators of deep affection. He might just be waiting for the right moment (or a clear sign from you) to make a move. You are his special one.",
-        descriptionZh: "所有的迹象都表明：YES！他喜欢你！他对你的关注、关心以及渴望靠近你的表现，都是深爱的证明。他可能只是在等待一个完美的时机，或者在等待你给他一个明确的信号。在你的心里，你是独一无二的例外。",
+        descriptionZh: "所有的迹象都表明：YES！他确实喜欢你！他对你的关注、关心以及渴望靠近你的种种表现，都是深深喜欢的证明。他会记住你随口提到的小事，找各种理由给你发消息，对你和对其他人的态度截然不同。当你们在一起时，他眼睛里的光芒是藏不住的温柔。他可能只是在等待一个完美的时机来表明心意。在他心里，你是真正特别的、无可替代的存在。",
         adviceEn: "Don't wait! The chemistry is undeniable. Subtle hints are no longer needed—you can be bold. Give him a specific opportunity to ask you out, or just ask him!",
         adviceZh: "别再猜了，他对你的喜欢已经藏不住了！这种“双向奔赴”的化学反应非常难得。试着如果你给他一个明确的“窗口”（比如：周末想看电影但没人陪），他一定会接住的！"
     },
@@ -264,9 +264,9 @@ export const results: ResultCategory[] = [
         titleEn: "He likes you a lot",
         titleZh: "他对你有很大好感",
         descriptionEn: "He enjoys your company and treats you differently from others. While he might not be head over heels in love yet, the potential is huge. He is definitely attracted to you and interested in getting to know you better.",
-        descriptionZh: "他很喜欢和你在一起，对你也比对别人更特别。虽然可能还没到非你不可的程度，但发展的潜力非常大。他对你绝对有吸引力，也想更深入地了解你。",
+        descriptionZh: "从心理学角度来看，他对你展现出了明显的好感信号：与你相处时他会更加投入、更加认真，对话时眼神交流更多，记忆力也会变得更好——这些都是潜意识吸引力的典型表现。他很喜欢和你在一起，对你也比对别人更特别，这种差异化的对待说明你在他心中已经有了一定的份量。虽然可能还没到那种非你不可的程度，但感情的种子已经埋下，发展的潜力非常大。",
         adviceEn: "Keep the momentum going. Deepen your conversations and spend more quality time together. Show him your unique charm to turn this 'like' into 'love'.",
-        adviceZh: "保持住这个势头。多和他进行深度的聊天，增加相处的质量。展示你独特的魅力，把这份“好感”升级为“喜欢”吧。"
+        adviceZh: "保持住现在的势头！心理学研究表明，亲密感的培养需要两个关键要素：共同经历和情感分享。多和他进行深度的聊天，聊彼此的梦想、恐惧和童年回忆，这种情感上的亲近会迅速加深好感。同时，增加高质量的相处时间，一起做一些有挑战性或新鲜感的事情，共同经历会产生强烈的情感纽带。展示你独特的魅力，让他发现你更多的闪光点，把这份好感升级为真正的心动吧。"
     },
     {
         minScore: 45,
@@ -274,9 +274,9 @@ export const results: ResultCategory[] = [
         titleEn: "Maybe? It's Ambiguous",
         titleZh: "有点暧昧，仍在通过中",
         descriptionEn: "There are some mixed signals. Sometimes he seems interested, other times distant. He might be seeing you as a close friend with potential, or he is unsure of his own feelings. You are in the 'Friend Zone' danger area but can get out.",
-        descriptionZh: "信号有点混杂。有时候觉得他喜欢你，有时候又觉得有距离感。他可能把你当成有发展潜力的好朋友，或者他自己也没想清楚。你目前处于“友谊区”的边缘，有机会，但也有风险。",
+        descriptionZh: "这是一种典型的暧昧状态——信号混杂，让人捉摸不透。从依恋心理学的角度来看，他可能属于回避型依恋风格：有时候表现出对你的兴趣和关心，有时候又突然变得疏远和冷淡。这种热-冷交替的模式可能说明几件事：他对你有好感但害怕承诺、他自己还没想清楚内心的感觉、或者他正处于多个选择之间犹豫不决。你目前处于友情和爱情的灰色地带，有发展的可能性，但也存在被长期吊着的风险。关键在于观察这种暧昧状态是否在朝着更明确的方向发展。",
         adviceEn: "Don't overinvest yet. Match his effort. Try to pull back a little to see if he chases, or flirt subtly to test his reaction.",
-        adviceZh: "先别投入太多。观察一下他的反应，试着稍微冷淡一点点看他会不会主动，或者用开玩笑的方式试探一下他的心意。"
+        adviceZh: "暧昧期最重要的原则是：匹配付出，保护自己。心理学中有一个稀缺性原则——当你稍微减少主动的频率，反而可能激发他的追逐欲望。试着把自己的生活过得丰富精彩，不要把全部注意力都放在他身上。如果他真的对你有感觉，你的适度疏离会让他意识到失去你的可能性，从而更加主动。同时，可以用开玩笑的方式试探他的反应，观察他对你和其他异性交往时的态度。如果几个月过去了暧昧状态毫无进展，可能是时候认真考虑是否要继续等待了。"
     },
     {
         minScore: 25,
@@ -284,9 +284,9 @@ export const results: ResultCategory[] = [
         titleEn: "Just Friends (For Now)",
         titleZh: "目前只是朋友",
         descriptionEn: "He sees you as a buddy. He is comfortable around you but lacks the romantic spark. He values your friendship but hasn't shown clear signs of wanting more.",
-        descriptionZh: "他把你当哥们/朋友。和你在一起他很放松，但缺乏那种恋爱的火花。他很珍惜这友谊，但目前没有表现出想进一步的迹象。",
+        descriptionZh: "他把你当哥们儿或者好朋友——和你在一起他很放松，但缺乏那种恋爱的悸动和火花。他对你的态度和对其他朋友差不多，随意、轻松，可能还会和你聊别的女生。他确实很珍惜你们的友谊，也喜欢和你一起玩，但目前并没有表现出想更进一步的迹象。这并不意味着他永远不可能对你产生感情，但现在来说，你是坚定地处于所谓的友谊区。爱情的化学反应需要的不仅仅是舒适的友情基础。",
         adviceEn: "If you want change, you need to shift the dynamic. Change your style, flirt more openly, or shock him out of the 'friend' view. Or, accept the friendship.",
-        adviceZh: "如果想改变现状，由于需要打破“朋友”的固有印象。试着换个风格，或者更直白地释放一些女性魅力的信号，让他意识到你是一个异性，而不只是朋友。"
+        adviceZh: "如果你想改变现状，需要打破他对你只是朋友的固有认知。心理学研究表明，人们很难对熟悉的人产生新的印象，这就是为什么朋友区很难突破。但也不是完全没有办法：第一，尝试改变你的外在形象——新发型、新风格的穿搭，这种视觉上的反差可以让他重新审视你。第二，减少你一直以来的好朋友式的可得性，让他感受到你不只是随叫随到的伙伴。第三，在适当的场合释放一些暧昧的信号，让他意识到你是一个有魅力的异性。不过，也要问问自己：追求一个目前对你没感觉的人，是否值得这份努力？有时候，接受友情也是一种智慧的选择。"
     },
     {
         minScore: 0,
@@ -294,8 +294,8 @@ export const results: ResultCategory[] = [
         titleEn: "Not Interested",
         titleZh: "对他没感觉",
         descriptionEn: "Sorry, it seems he doesn't see you in a romantic way at all. His behavior indicates he treats you strictly as an acquaintance or distant friend.",
-        descriptionZh: "很遗憾，看来他对你完全没有那方面的意思。他的行为表明他只把你当普通熟人，甚至保持着礼貌距离。",
+        descriptionZh: "根据测试结果来看，他目前对你没有表现出任何浪漫方面的兴趣。他的行为模式显示他对你保持着普通社交礼仪的距离——不会主动联系你、不记得你说过的话、也不会特别在意你的感受。从心理学角度来说，当一个人对某人有好感时，会不自觉地表现出关注和亲近的欲望，而这些信号在他身上是缺失的。但请记住，这并不意味着你不够好——感情是一件双向的事情，频率对不上的两个人，勉强也不会幸福。有时候，温柔的拒绝比冷漠的坚持更值得感激。",
         adviceEn: "Time to move on. Don't waste your precious feelings on someone who doesn't see your worth. There are plenty of fish in the sea!",
-        adviceZh: "是时候放下了。不要把珍贵的感情浪费在一个不在意你的人身上。天涯何处无芳草，更好的在后面等着你！"
+        adviceZh: "是时候把目光从他身上移开了。心理学中有一个概念叫沉没成本谬误——我们常常因为已经付出了时间和感情，而不愿意放弃一段明显没有结果的追求。但真正的勇气是承认这段单方面的感情需要结束。把花在他身上的精力和注意力收回来，投资在自己身上——学习新技能、培养新爱好、认识新朋友。当你变得越来越好、越来越自信的时候，自然会吸引到欣赏你的人。记住：你值得拥有一个眼里有光、主动靠近、珍惜你的人。天涯何处无芳草，更好的在后面等着你！"
     }
 ];

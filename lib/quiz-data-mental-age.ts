@@ -325,9 +325,9 @@ export const results: ResultCategory[] = [
         titleEn: "Sophisticated",
         titleZh: "非常成熟（饱经沧桑）",
         descriptionEn: "Your mental age is significantly higher than your physical age. You possess a wisdom that usually comes from a lifetime of experience.",
-        descriptionZh: "你的心理年龄远超实际年龄。你拥有通常需要一生阅历才能积累的智慧。你看待世界的方式深沉而透彻，往往能一眼看穿事物的本质。",
+        descriptionZh: "你的心理年龄远超实际年龄，展现出通常需要多年人生阅历才能积累的深沉智慧。发展心理学研究表明，这种早熟的心态可能源于你人生中的某些重要经历——也许是早年的挫折让你比同龄人更早学会了独立思考，也许是家庭环境培养了你超前的责任感。你看待世界的方式深刻而透彻，往往能洞察事物的本质，但也可能因此承担了不属于这个年龄的沉重感。",
         analysisEn: "You may feel like an 'old soul'. You tend to worry about the future and prefer stability over risk. While you are reliable and wise, don't forget to let loose sometimes.",
-        analysisZh: "你可能经常觉得自己是个“老灵魂”。你倾向于未雨绸缪，比起冒险更看重稳定。虽然你非常可靠且充满智慧，但在这个浮躁的世界里，或许可以试着放下一些担子，找回一点久违的冲动与热情。",
+        analysisZh: "你可能经常觉得自己是个老灵魂，和同龄人聊不到一起，反而更喜欢和长辈交流。你倾向于未雨绸缪，比起冒险更看重稳定和安全感。虽然你非常可靠的特质让周围人都愿意信赖你、依靠你，但这也可能意味着你承担了太多不属于自己的压力。心理学建议：试着放下一些担子，允许自己偶尔不成熟一下，找回那份久违的冲动与热情。生活不只有责任，还需要一些浪漫和随性。",
         color: "#8B4A8B",
         bgGradient: "linear-gradient(135deg, #8B4A8B, #A569BD)"
     },
@@ -351,7 +351,7 @@ export const results: ResultCategory[] = [
         descriptionEn: "You tend to carry the weight of the world on your shoulders. Your mental age shows a tendency towards anxiety and over-planning.",
         descriptionZh: "你稍微有点“操心命”。你的心理年龄显示你倾向于过度思考和规划，总是试图掌控生活中的每一个细节。",
         analysisEn: "Your attention to detail is a strength, but it can be exhausting. Try to trust that things will work out even if you don't control every aspect.",
-        analysisZh: "你对他人的关怀无微不至，对细节的把控也是你的强项。但这往往让你身心俱疲。试着相信“车到山前必有路”，适当放手，生活依然会正常运转。",
+        analysisZh: "你对他人的关怀无微不至，对细节的把控也是你的强项，这让你在工作和生活中都表现优秀。但心理学研究表明，过度的控制欲往往源于内心的不安全感。试着相信车到山前必有路，练习把一些事情交给时间和运气来解决。你不需要完美地掌控一切，适当放手不仅能减轻自己的负担，也能给身边的人更多成长的空间。记住：世界不会因为你松手片刻就崩塌。",
         color: "#D2691E",
         bgGradient: "linear-gradient(135deg, #D2691E, #FF8C42)"
     },
@@ -387,7 +387,7 @@ export const results: ResultCategory[] = [
         descriptionEn: "Your mind and body are in perfect sync. You experience life exactly as you should for your age.",
         descriptionZh: "你的身心状态完美同步。你正以最适合当下的心态去体验生活。",
         analysisEn: "This is a great state! You aren't rushing to grow up, nor are you stuck in the past. You live in the present moment.",
-        analysisZh: "这是非常棒的状态！你既没有急着长大去承担不该有的压力，也没有沉溺过去拒绝成长。你活在当下，享受着这个年纪该有的一切喜怒哀乐。",
+        analysisZh: "这是心理健康的黄金状态！发展心理学认为，每个年龄段都有其独特的任务和意义。你既没有急着长大去承担不该有的压力，也没有沉溺过去拒绝成长。你活在当下，享受着这个年纪该有的一切喜怒哀乐。这种平衡感非常珍贵——它意味着你的心理发展是健康的、自然的。保持这份当下的觉知，继续用开放的心态去体验生活的每一个阶段吧。",
         color: "#6C757D",
         bgGradient: "linear-gradient(135deg, #6C757D, #8A9BA8)"
     },
@@ -399,7 +399,7 @@ export const results: ResultCategory[] = [
         descriptionEn: "You have a youthful spirit. You don't let stress bog you down and you keep a positive outlook.",
         descriptionZh: "你拥有一颗年轻的心。生活中的压力似乎很难击垮你，你总是能保持乐观向上的心态。",
         analysisEn: "Your optimism is infectious. You prioritize happiness and freedom. While some call it naive, it's actually a superpower to stay happy.",
-        analysisZh: "你的乐观极具感染力。你把快乐和自由看得比什么都重。虽然有人可能觉得稍微有点天真，但在成年人的世界里，能保持快乐其实是一种超能力。",
+        analysisZh: "你的乐观极具感染力，和你在一起的人都会感到轻松愉快。你把快乐和自由看得比什么都重要，不愿意被世俗的条条框框所束缚。虽然有人可能觉得这种态度有点天真，但积极心理学告诉我们：在压力重重的成年人世界里，能够保持发自内心的快乐其实是一种稀缺的能力。这份乐观是你抵御生活风浪的护盾，好好珍惜它。",
         color: "#4A7C59",
         bgGradient: "linear-gradient(135deg, #4A7C59, #5FB3CC)"
     },
@@ -411,7 +411,7 @@ export const results: ResultCategory[] = [
         descriptionEn: "Your soul is much younger than your body. You are full of curiosity, energy, and a sense of wonder.",
         descriptionZh: "你的灵魂比肉体要年轻得多。你对世界充满了好奇心、活力和想象力，像个永远长不大的孩子。",
         analysisEn: "You refuse to let the world jade you. You are creative and fun-loving. Keep that spark alive!",
-        analysisZh: "你拒绝变得世故圆滑。你有极强的创造力，是大家眼里的开心果。请务必保护好这份珍贵的初心，不要让它被平庸的生活磨灭！",
+        analysisZh: "你拒绝让这个世界把你变得世故圆滑。你保留了孩童时期的好奇心和创造力，是朋友圈里的开心果。心理学研究表明，好奇心是保持大脑年轻和活力的关键因素之一。请务必保护好这份珍贵的纯真和热情，不要让它被平庸的日常生活所磨灭。这份童心是你最宝贵的财富，它让你的人生比大多数人都要丰富多彩。",
         color: "#27AE60",
         bgGradient: "linear-gradient(135deg, #27AE60, #58D68D)"
     },
@@ -423,7 +423,7 @@ export const results: ResultCategory[] = [
         descriptionEn: "You are incredibly young at heart, possibly bordering on rebellious or extremely energetic.",
         descriptionZh: "你的心态极其年轻，甚至带有一点叛逆和无限的精力。规则对你来说就是用来打破的。",
         analysisEn: "You live life on your own terms. Your energy is boundless. You might be impulsive, but it makes your life an adventure.",
-        analysisZh: "你完全按照自己的意愿生活。你的精力似乎无穷无尽。可能有时候会显得有点冲动，但正是这种冲劲让你的生活充满了一次又一次的冒险。",
+        analysisZh: "你完全按照自己的意愿生活，不在乎别人的眼光和世俗的标准。你的精力似乎无穷无尽，对新鲜事物永远保持着探索的热情。可能有时候会显得有些冲动，让周围人为你捏一把汗，但正是这种敢想敢做的冲劲让你的生活充满了一次又一次的冒险和惊喜。心理学家认为，这种敢于打破常规的勇气，往往能带来意想不到的人生机遇。勇敢地做自己！",
         color: "#16A085",
         bgGradient: "linear-gradient(135deg, #16A085, #48C9B0)"
     },
@@ -435,7 +435,7 @@ export const results: ResultCategory[] = [
         descriptionEn: "A miracle! Your mind is as pure and energetic as a child's, regardless of your real age.",
         descriptionZh: "奇迹！无论你的实际年龄多大，你的内心依然像孩子一样纯真、直接且充满活力。",
         analysisEn: "You possess a rare purity. The complexities of the adult world haven't tainted your spirit. You see the world with fresh eyes every day.",
-        analysisZh: "你拥有极为罕见的纯真。成年人世界的复杂似乎完全没有污染你的精神世界。你每天都用全新的眼光去看待这个世界，是个真正的乐天派。",
+        analysisZh: "你拥有极为罕见的纯真与直接。成年人世界的复杂与尔虞我诈似乎完全没有污染你的精神世界。你每天都用全新的眼光去看待这个世界，对生活充满了热情和期待。心理学家荣格曾说：每个成年人的内心都住着一个孩子。而你，是把这个内在小孩完好保护起来的人。这份纯真是你最特别的礼物，让你能够看到别人看不到的美好，感受到别人感受不到的快乐。永远不要失去它！",
         color: "#E74C3C",
         bgGradient: "linear-gradient(135deg, #E74C3C, #FF6B6B)"
     }

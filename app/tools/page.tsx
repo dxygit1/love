@@ -53,26 +53,15 @@ export default function ToolsPage() {
             icon: Heart,
             color: "from-sky-500 to-blue-600",
             badge: "TOOL"
-        },
-        {
-            id: "does-she-like-me",
-            href: "/tools/does-she-like-me",
-            titleEn: "Does She Like Me Generator",
-            titleZh: "她喜欢我吗生成器",
-            descEn: "Reveal if she is into you.",
-            descZh: "生成“她喜欢我吗”测试结果页。",
-            icon: Sparkles,
-            color: "from-pink-500 to-rose-400",
-            badge: "NEW"
         }
     ];
 
     return (
-        <div className="min-h-screen bg-[#F5F5F5] font-sans text-gray-800 pt-20 pb-12 px-4">
+        <div className="min-h-screen bg-[#F5F5F5] font-sans text-gray-800 pt-20 pb-16 px-4 md:px-8">
             <div className="max-w-6xl mx-auto">
                 <div className="text-center mb-12">
-                    <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4">{t("tools.title")}</h1>
-                    <p className="text-gray-500 max-w-2xl mx-auto">{t("tools.desc")}</p>
+                    <h1 className="text-3xl md:text-5xl font-black text-gray-900 mb-6 tracking-tight">{t("tools.title")}</h1>
+                    <p className="text-gray-500 max-w-2xl mx-auto text-lg md:text-xl leading-relaxed">{t("tools.desc")}</p>
                 </div>
 
                 {/* AdUnit - Interstitial */}
@@ -80,12 +69,12 @@ export default function ToolsPage() {
                     <AdUnit slot="HOME_TOP_SLOT" />
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     {tools.map((tool) => (
                         <Link key={tool.id} href={tool.href} className="group block h-full">
                             <motion.div
-                                whileHover={{ y: -4 }}
-                                className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 h-full flex flex-col"
+                                whileHover={{ y: -8 }}
+                                className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 border border-gray-100 h-full flex flex-col group-hover:border-rose-100"
                             >
                                 {/* Thumbnail Area */}
                                 <div className={`h-40 relative bg-gradient-to-br ${tool.color} flex items-center justify-center overflow-hidden`}>
@@ -106,16 +95,16 @@ export default function ToolsPage() {
 
                                 {/* Content Area */}
                                 <div className="p-5 flex flex-col flex-1">
-                                    <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-rose-600 transition-colors">
+                                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-rose-600 transition-colors">
                                         {language === "zh" ? tool.titleZh : tool.titleEn}
                                     </h3>
-                                    <p className="text-gray-500 text-sm leading-relaxed mb-4 flex-1">
+                                    <p className="text-gray-500 text-base leading-relaxed mb-6 flex-1">
                                         {language === "zh" ? tool.descZh : tool.descEn}
                                     </p>
 
                                     <div className="flex items-center justify-end pt-4 border-t border-gray-50 mt-auto">
-                                        <span className="text-rose-500 font-bold text-sm flex items-center gap-1 group-hover:translate-x-1 transition-transform">
-                                            {language === "zh" ? "去生成" : "Create"} <ArrowRight className="w-4 h-4" />
+                                        <span className="text-rose-500 font-bold text-sm md:text-base flex items-center gap-2 group-hover:gap-3 transition-all">
+                                            {language === "zh" ? "去生成" : "Create"} <ArrowRight className="w-5 h-5" />
                                         </span>
                                     </div>
                                 </div>

@@ -8,6 +8,7 @@ import { ArrowLeft, RefreshCw } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
 
+
 export default function LoveQuizToolPage() {
     const { t } = useLanguage();
     const [score, setScore] = useState<number>(85);
@@ -20,7 +21,7 @@ export default function LoveQuizToolPage() {
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col md:flex-row pt-20 md:pt-0">
             {/* Control Panel */}
-            <div className="w-full md:w-80 bg-white border-r border-gray-200 p-6 flex flex-col z-10 shadow-xl overflow-y-auto h-auto md:h-screen">
+            <div className="w-full md:w-80 bg-white border-r border-gray-200 p-6 flex flex-col z-10 shadow-xl overflow-y-auto h-auto md:h-screen order-last md:order-none">
                 <div className="mb-8">
                     <Link href="/tools" className="flex items-center text-gray-500 hover:text-gray-900 text-sm font-medium transition-colors mb-4">
                         <ArrowLeft className="w-4 h-4 mr-1" />
@@ -126,15 +127,33 @@ export default function LoveQuizToolPage() {
             </div>
 
             {/* Preview Area */}
-            <div className="flex-1 bg-gray-50 relative flex flex-col md:h-full md:overflow-y-auto">
-                <div className="w-full min-h-full p-4 md:p-0">
-                    <ResultScreen
-                        score={score}
-                        result={result}
-                        personName={personName}
-                        gender={gender}
-                        onRestart={() => { }} // No-op for tool
-                    />
+            <div className="flex-1 bg-gray-50 relative flex flex-col md:h-full md:overflow-y-auto md:bg-gray-100">
+                <div className="w-full min-h-full p-4 md:p-12 flex justify-center items-start md:items-center">
+                    {/* Desktop: Show centered ResultScreen */}
+                    <div className="hidden md:flex w-full justify-center">
+                        <div className="w-full max-w-md bg-white min-h-[800px] shadow-2xl rounded-[2rem] overflow-hidden border border-gray-100">
+                            <ResultScreen
+                                score={score}
+                                result={result}
+                                personName={personName}
+                                gender={gender}
+                                onRestart={() => { }} // No-op
+                                quizType="love-quiz"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Mobile: Show Full Screen directly */}
+                    <div className="md:hidden w-full">
+                        <ResultScreen
+                            score={score}
+                            result={result}
+                            personName={personName}
+                            gender={gender}
+                            onRestart={() => { }} // No-op
+                            quizType="love-quiz"
+                        />
+                    </div>
                 </div>
             </div>
         </div>

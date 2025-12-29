@@ -18,7 +18,7 @@ export function WelcomeScreenDoesHeLikeMe({ onStart }: WelcomeScreenDoesHeLikeMe
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="min-h-screen flex flex-col items-center pt-28 pb-20 relative overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-rose-50"
+            className="w-full min-h-screen flex flex-col items-center pt-28 pb-20 relative overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-rose-50"
         >
             {/* 动态背景装饰 - Reversed Colors for distinction */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -34,7 +34,7 @@ export function WelcomeScreenDoesHeLikeMe({ onStart }: WelcomeScreenDoesHeLikeMe
                 />
             </div>
 
-            <div className="w-full max-w-5xl px-6 relative z-10">
+            <div className="w-full px-6 md:px-12 lg:px-24 relative z-10">
 
                 <motion.div
                     initial={{ y: 20, opacity: 0 }}
@@ -131,7 +131,7 @@ export function WelcomeScreenDoesHeLikeMe({ onStart }: WelcomeScreenDoesHeLikeMe
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.5 }}
-                        className="mt-12 text-left space-y-12 max-w-3xl mx-auto pb-8"
+                        className="mt-12 text-left space-y-12 max-w-5xl mx-auto pb-8"
                     >
                         {/* Section 1: Introduction */}
                         <section>
@@ -139,7 +139,7 @@ export function WelcomeScreenDoesHeLikeMe({ onStart }: WelcomeScreenDoesHeLikeMe
                                 <span className="w-1 h-6 bg-indigo-500 rounded-full" />
                                 {t("welcome_content_does_he_like_me.about_title")}
                             </h2>
-                            <p className="text-gray-600 leading-relaxed text-sm">
+                            <p className="text-gray-600 leading-relaxed text-base md:text-lg">
                                 {t("welcome_content_does_he_like_me.about_text")}
                             </p>
                         </section>
@@ -151,7 +151,7 @@ export function WelcomeScreenDoesHeLikeMe({ onStart }: WelcomeScreenDoesHeLikeMe
                                 {t("welcome_content_does_he_like_me.dimension_title")}
                             </h2>
                             <div className="bg-white/50 rounded-2xl p-6 border border-white/60 shadow-sm">
-                                <ul className="space-y-3 text-sm text-gray-600">
+                                <ul className="space-y-4 text-base text-gray-600">
                                     <li className="flex gap-3">
                                         <span className="font-bold text-indigo-600 min-w-16">{t("welcome_content_does_he_like_me.dim_1_title")}</span>
                                         <span>{t("welcome_content_does_he_like_me.dim_1_desc")}</span>
@@ -179,7 +179,7 @@ export function WelcomeScreenDoesHeLikeMe({ onStart }: WelcomeScreenDoesHeLikeMe
                                     <h3 className="font-bold text-gray-800 mb-2 flex items-center gap-2">
                                         <span className="text-indigo-400">Q.</span> {t("welcome_content_does_he_like_me.faq_1_q")}
                                     </h3>
-                                    <p className="text-sm text-gray-600 leading-relaxed pl-6 border-l-2 border-indigo-100">
+                                    <p className="text-base text-gray-600 leading-relaxed pl-6 border-l-2 border-indigo-100">
                                         {t("welcome_content_does_he_like_me.faq_1_a")}
                                     </p>
                                 </div>
@@ -187,7 +187,7 @@ export function WelcomeScreenDoesHeLikeMe({ onStart }: WelcomeScreenDoesHeLikeMe
                                     <h3 className="font-bold text-gray-800 mb-2 flex items-center gap-2">
                                         <span className="text-indigo-400">Q.</span> {t("welcome_content_does_he_like_me.faq_2_q")}
                                     </h3>
-                                    <p className="text-sm text-gray-600 leading-relaxed pl-6 border-l-2 border-indigo-100">
+                                    <p className="text-base text-gray-600 leading-relaxed pl-6 border-l-2 border-indigo-100">
                                         {t("welcome_content_does_he_like_me.faq_2_a")}
                                     </p>
                                 </div>
@@ -195,7 +195,7 @@ export function WelcomeScreenDoesHeLikeMe({ onStart }: WelcomeScreenDoesHeLikeMe
                                     <h3 className="font-bold text-gray-800 mb-2 flex items-center gap-2">
                                         <span className="text-indigo-400">Q.</span> {t("welcome_content_does_he_like_me.faq_3_q")}
                                     </h3>
-                                    <p className="text-sm text-gray-600 leading-relaxed pl-6 border-l-2 border-indigo-100">
+                                    <p className="text-base text-gray-600 leading-relaxed pl-6 border-l-2 border-indigo-100">
                                         {t("welcome_content_does_he_like_me.faq_3_a")}
                                     </p>
                                 </div>
