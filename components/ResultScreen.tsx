@@ -231,7 +231,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                                     {t("result.analysis_title")}
                                 </h3>
                                 <p
-                                    className="text-[13px] md:text-lg font-bold leading-relaxed md:leading-[1.8]"
+                                    className="text-[1rem] md:text-lg font-bold leading-relaxed md:leading-[1.8]"
                                     style={{
                                         fontFamily: "'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif",
                                         textAlign: 'justify',
@@ -259,7 +259,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                                     {t("result.advice_title")}
                                 </h3>
                                 <p
-                                    className="text-[13px] md:text-lg font-bold leading-relaxed md:leading-[1.8]"
+                                    className="text-[1rem] md:text-lg font-bold leading-relaxed md:leading-[1.8]"
                                     style={{
                                         fontFamily: "'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif",
                                         textAlign: 'justify',
