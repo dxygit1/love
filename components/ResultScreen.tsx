@@ -108,8 +108,8 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                         ref={resultRef}
                         className={`
                             mx-auto max-w-5xl rounded-none bg-white
-                            pt-20 pb-4 px-4
-                            md:px-12 md:pb-12 md:pt-24 md:rounded-[2rem] md:shadow-xl md:border md:border-gray-100 md:min-h-0
+                            pt-32 pb-4 px-4
+                            md:px-12 md:pb-12 md:pt-40 md:rounded-[2rem] md:shadow-xl md:border md:border-gray-100 md:min-h-0
                             ${isPreviewMode ? '!pt-24 !pb-20 w-full' : ''}
                         `}
                         style={{ backgroundColor: "#ffffff" }}
