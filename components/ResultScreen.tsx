@@ -69,7 +69,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
         setIsPreviewMode(false);
     };
 
-    const size = 128; // Increased from 96 to 128 as requested
+    const size = 140; // Adjusted to 140 per user request
     const strokeWidth = 10;
     const radius = (size - strokeWidth) / 2;
     const circumference = 2 * Math.PI * radius;
@@ -104,7 +104,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                         className={`
                             mx-auto max-w-5xl rounded-none bg-white
                             pt-20 pb-4 px-4
-                            md:p-12 md:rounded-[2rem] md:shadow-xl md:border md:border-gray-100 md:min-h-0
+                            md:px-12 md:pb-12 md:pt-24 md:rounded-[2rem] md:shadow-xl md:border md:border-gray-100 md:min-h-0
                             ${isPreviewMode ? '!pt-24 !pb-20 w-full' : ''}
                         `}
                         style={{ backgroundColor: "#ffffff" }}
@@ -167,7 +167,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             </svg>
                             <div className="absolute inset-0 flex flex-col items-center justify-center">
                                 <motion.span
-                                    className="text-4xl font-bold leading-none"
+                                    className="text-5xl font-bold leading-none"
                                     style={{
                                         color: "#3b82f6",
                                         fontFamily: "ui-sans-serif, system-ui, sans-serif"
@@ -237,7 +237,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             {/* Analysis Section - Minimalist */}
                             <div className="mt-4 w-full mx-auto px-1">
                                 <p
-                                    className="text-lg md:text-xl font-bold leading-loose tracking-wider"
+                                    className="text-base md:text-lg font-bold leading-relaxed tracking-wider"
                                     style={{
                                         fontFamily: "'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif",
                                         textAlign: 'justify',
