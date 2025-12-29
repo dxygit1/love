@@ -19,7 +19,7 @@ export default function MentalAgeToolPage() {
     const result = results.find(r => diff >= r.minDiff && diff <= r.maxDiff) || results[0];
 
     return (
-        <div className="min-h-screen bg-gray-100 flex flex-col md:flex-row pt-20 md:pt-0">
+        <div className="min-h-screen bg-gray-100 flex flex-col md:flex-row pt-20">
             {/* Control Panel */}
             <div className="w-full md:w-80 bg-white border-r border-gray-200 p-6 flex flex-col z-10 shadow-xl overflow-y-auto h-auto md:h-screen order-last md:order-none">
                 <div className="mb-8">
@@ -99,19 +99,17 @@ export default function MentalAgeToolPage() {
                 </div>
             </div>
 
-            {/* Preview Area */}
-            <div className="flex-1 bg-gray-50 relative flex flex-col md:h-full md:overflow-y-auto md:bg-gray-100">
-                <div className="w-full min-h-full p-4 md:p-12 flex justify-center items-start md:items-center">
-                    {/* Desktop: Show centered ResultScreen */}
-                    <div className="hidden md:flex w-full justify-center">
-                        <div className="w-full max-w-md bg-white min-h-[800px] shadow-2xl rounded-[2rem] overflow-hidden border border-gray-100">
-                            <ResultScreenMentalAge
-                                mentalAge={mentalAge}
-                                realAge={realAge}
-                                result={result}
-                                onRestart={() => { }} // No-op
-                            />
-                        </div>
+            {/* Preview Area - Seamless Design */}
+            <div className="flex-1 relative flex flex-col md:h-full md:overflow-y-auto bg-gradient-to-br from-rose-50 via-white to-indigo-50">
+                <div className="w-full min-h-full flex justify-center items-start">
+                    {/* Desktop: Full-width seamless ResultScreen */}
+                    <div className="hidden md:block w-full">
+                        <ResultScreenMentalAge
+                            mentalAge={mentalAge}
+                            realAge={realAge}
+                            result={result}
+                            onRestart={() => { }} // No-op
+                        />
                     </div>
 
                     {/* Mobile: Show Full Screen directly */}

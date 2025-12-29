@@ -115,7 +115,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             </div>
                         )}
 
-                        <p className="mb-10 text-sm md:text-lg" style={{ color: "#6b7280" }}>
+                        <p className="mb-3 text-sm md:text-lg" style={{ color: "#6b7280" }}>
                             {quizType === "does-he-like-me" ? (
                                 // "Does He Like Me" quiz - show HIS feelings for YOU
                                 language === "zh" ? (
@@ -133,7 +133,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             )}
                         </p>
 
-                        <div className="relative mx-auto mb-10" style={{ width: size, height: size }}>
+                        <div className="relative mx-auto mb-3" style={{ width: size, height: size }}>
                             <svg className="w-full h-full" style={{ transform: 'rotate(-90deg)' }}>
                                 <defs>
                                     <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -232,7 +232,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1.2 }}
-                            className="mt-8 w-full mx-auto px-1 space-y-2"
+                            className="mt-3 w-full mx-auto px-1 space-y-2"
                         >
                             {/* Analysis Section - Minimalist */}
                             <div className="mt-4 w-full mx-auto px-1">
