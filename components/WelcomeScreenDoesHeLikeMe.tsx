@@ -119,7 +119,7 @@ export function WelcomeScreenDoesHeLikeMe({ onStart }: WelcomeScreenDoesHeLikeMe
                             </div>
 
                             {/* Cross Link */}
-                            <Link href="/" className="hover:text-rose-500 transition-colors flex items-center gap-1 border-b border-dashed border-gray-300 hover:border-rose-300">
+                            <Link href="/love-quiz" className="hover:text-rose-500 transition-colors flex items-center gap-1 border-b border-dashed border-gray-300 hover:border-rose-300">
                                 <RefreshCcw className="w-3 h-3" />
                                 Switch to: How much Do I Love Him?
                             </Link>

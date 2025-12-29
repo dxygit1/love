@@ -83,7 +83,7 @@ export default function WelcomeScreenMentalAge({ onStart }: WelcomeScreenProps) 
                         </p>
                     )}
 
-                    {/* Quick Select Buttons (Optional) */}
+                    {/* Quick Select Buttons */}
                     <div className="flex gap-2 mt-3 overflow-x-auto pb-2 no-scrollbar">
                         {[18, 20, 25, 30].map(val => (
                             <button
@@ -108,8 +108,36 @@ export default function WelcomeScreenMentalAge({ onStart }: WelcomeScreenProps) 
                     <div className="absolute inset-0 bg-gradient-to-r from-green-500 to-green-600 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </motion.button>
 
+                {/* Scientific Context Section (SEO Booster) */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.4 }}
+                    className="mt-16 text-left max-w-3xl mx-auto space-y-8"
+                >
+                    <div className="bg-white/80 rounded-2xl p-8 border border-gray-100 shadow-sm">
+                        <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                            <span className="w-1 h-6 bg-green-500 rounded-full" />
+                            {t("common.mental_age_about_title")}
+                        </h2>
+                        <p className="text-gray-600 leading-relaxed text-sm md:text-base whitespace-pre-line">
+                            {t("common.mental_age_about_content")}
+                        </p>
+                    </div>
+
+                    <div className="bg-white/80 rounded-2xl p-8 border border-gray-100 shadow-sm">
+                        <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                            <span className="w-1 h-6 bg-blue-500 rounded-full" />
+                            {t("common.mental_age_brain_title")}
+                        </h2>
+                        <p className="text-gray-600 leading-relaxed text-sm md:text-base whitespace-pre-line">
+                            {t("common.mental_age_brain_content")}
+                        </p>
+                    </div>
+                </motion.div>
+
                 {/* Features / FAQ Preview */}
-                <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-4xl mx-auto">
+                <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-4xl mx-auto">
                     <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
                         <div className="w-10 h-10 bg-green-50 rounded-xl flex items-center justify-center text-green-600 mb-4">
                             <Clock size={20} />
