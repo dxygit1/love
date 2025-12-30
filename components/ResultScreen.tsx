@@ -95,7 +95,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className={`min-h-screen flex flex-col items-center pt-0 pb-8 md:pt-0 md:pb-16 px-4 md:px-6 bg-gradient-to-br from-rose-50 via-white to-indigo-50 ${isPreviewMode ? 'fixed inset-0 z-[60] overflow-y-auto cursor-pointer justify-start pt-0' : ''}`}
+                className={`min-h-screen flex flex-col items-center pt-0 pb-8 md:pt-0 md:pb-16 px-4 md:px-6 bg-gradient-to-br from-rose-50 via-white to-indigo-50 ${isPreviewMode ? 'fixed inset-0 z-[60] overflow-y-auto cursor-pointer justify-start pt-0 !px-0 !bg-white' : ''}`}
                 onClick={isPreviewMode ? handleCaptureAndClose : undefined}
             >
                 <motion.div
