@@ -29,6 +29,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
     const resultRef = useRef<HTMLDivElement>(null);
     const [isPreviewMode, setIsPreviewMode] = useState(false);
     const [showAdvice, setShowAdvice] = useState(false);
+    const [isAdviceLoading, setIsAdviceLoading] = useState(false);
     const { t, language } = useLanguage();
 
     // Scroll to top when component mounts
@@ -72,6 +73,20 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
 
     const handleCaptureAndClose = () => {
         setIsPreviewMode(false);
+    };
+
+    const handleToggleAdvice = () => {
+        if (showAdvice) {
+            // Hide advice immediately
+            setShowAdvice(false);
+        } else {
+            // Show loading first, then show content
+            setIsAdviceLoading(true);
+            setTimeout(() => {
+                setIsAdviceLoading(false);
+                setShowAdvice(true);
+            }, 1500); // 1.5 seconds loading animation
+        }
     };
 
     const size = 140; // Adjusted to 140 per user request
@@ -261,25 +276,56 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                                 </div>
                             )}
 
-                            {/* Advice Section - Toggleable */}
+                            {/* Advice Section - Toggleable with Loading Animation */}
                             <AnimatePresence>
-                                {showAdvice && (
+                                {(showAdvice || isAdviceLoading) && (
                                     <motion.div
                                         initial={{ opacity: 0, height: 0 }}
                                         animate={{ opacity: 1, height: "auto" }}
                                         exit={{ opacity: 0, height: 0 }}
                                         className="overflow-hidden w-full max-w-4xl mx-auto mt-6"
                                     >
-                                        <div className="bg-indigo-50/50 rounded-2xl p-6 border border-indigo-100 text-left relative">
-                                            <div className="absolute top-0 left-0 w-1 h-full bg-indigo-400 rounded-l-2xl" />
-                                            <h3 className="flex items-center gap-2 font-bold text-indigo-900 text-lg mb-3">
-                                                <Sparkles className="w-5 h-5 text-indigo-500" />
-                                                {language === "zh" ? "AI 情感建议" : "AI Relationship Advice"}
-                                            </h3>
-                                            <p className="text-slate-800 font-bold leading-relaxed text-base md:text-lg whitespace-pre-wrap">
-                                                {getFinalText(language === "zh" ? result.adviceZh || result.descriptionZh : result.adviceEn || result.descriptionEn)}
-                                            </p>
-                                        </div>
+                                        {isAdviceLoading ? (
+                                            /* Loading Animation */
+                                            <div className="bg-indigo-50/50 rounded-2xl p-8 border border-indigo-100 relative overflow-hidden">
+                                                <div className="flex flex-col items-center justify-center space-y-4">
+                                                    {/* Spinning Sparkles */}
+                                                    <div className="relative w-16 h-16">
+                                                        <Sparkles className="absolute inset-0 w-full h-full text-indigo-300 animate-pulse" />
+                                                        <Sparkles
+                                                            className="absolute inset-0 w-full h-full text-indigo-500"
+                                                            style={{
+                                                                animation: 'spin 2s linear infinite',
+                                                            }}
+                                                        />
+                                                    </div>
+
+                                                    {/* Loading Text */}
+                                                    <p className="text-lg font-bold text-indigo-700 animate-pulse">
+                                                        ✨ AI 正在分析中...
+                                                    </p>
+
+                                                    {/* Bouncing Dots */}
+                                                    <div className="flex space-x-2">
+                                                        <div className="w-2.5 h-2.5 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                                                        <div className="w-2.5 h-2.5 bg-indigo-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                                                        <div className="w-2.5 h-2.5 bg-indigo-600 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            /* Advice Content */
+                                            <div className="bg-indigo-50/50 rounded-2xl p-6 border border-indigo-100 text-left relative">
+                                                <div className="absolute top-0 left-0 w-1 h-full bg-indigo-400 rounded-l-2xl" />
+                                                <h3 className="flex items-center gap-2 font-bold text-indigo-900 text-lg mb-3">
+                                                    <Sparkles className="w-5 h-5 text-indigo-500" />
+                                                    {language === "zh" ? "AI 情感建议" : "AI Relationship Advice"}
+                                                </h3>
+                                                <p className="text-slate-800 font-bold leading-relaxed text-base md:text-lg whitespace-pre-wrap">
+                                                    {getFinalText(language === "zh" ? result.adviceZh || result.descriptionZh : result.adviceEn || result.descriptionEn)}
+                                                </p>
+                                            </div>
+                                        )}
                                     </motion.div>
                                 )}
                             </AnimatePresence>
@@ -303,16 +349,22 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             >
                                 {/* AI Advice Button */}
                                 <motion.button
-                                    onClick={() => setShowAdvice(!showAdvice)}
-                                    className={`flex-1 py-4 px-6 rounded-2xl font-bold text-lg flex items-center justify-center gap-2 transition-all shadow-sm border-2 ${showAdvice
+                                    onClick={handleToggleAdvice}
+                                    disabled={isAdviceLoading}
+                                    className={`flex-1 py-4 px-6 rounded-2xl font-bold text-lg flex items-center justify-center gap-2 transition-all shadow-sm border-2 ${(showAdvice || isAdviceLoading)
                                         ? "bg-indigo-100 text-indigo-700 border-indigo-200"
                                         : "bg-white text-indigo-600 border-indigo-100 hover:border-indigo-200 hover:bg-indigo-50"
-                                        }`}
+                                        } ${isAdviceLoading ? "cursor-wait" : ""}`}
                                     whileTap={{ scale: 0.98 }}
                                 >
-                                    <Sparkles className={`w-5 h-5 ${showAdvice ? "animate-pulse" : ""}`} />
-                                    <span>{language === "zh" ? (showAdvice ? "收起建议" : "查看 AI 建议") : (showAdvice ? "Hide Advice" : "View Advice")}</span>
-                                    {showAdvice ? <ChevronUp className="w-5 h-5 opacity-50" /> : <ChevronDown className="w-5 h-5 opacity-50" />}
+                                    <Sparkles className={`w-5 h-5 ${(showAdvice || isAdviceLoading) ? "animate-pulse" : ""}`} />
+                                    <span>
+                                        {isAdviceLoading
+                                            ? (language === "zh" ? "AI 分析中..." : "AI Analyzing...")
+                                            : (language === "zh" ? (showAdvice ? "收起建议" : "查看 AI 建议") : (showAdvice ? "Hide Advice" : "View Advice"))
+                                        }
+                                    </span>
+                                    {!isAdviceLoading && (showAdvice ? <ChevronUp className="w-5 h-5 opacity-50" /> : <ChevronDown className="w-5 h-5 opacity-50" />)}
                                 </motion.button>
 
                                 {/* Capture Button */}
