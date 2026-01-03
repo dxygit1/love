@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Heart, Sparkles, ArrowRight, Search, Menu, Brain } from "lucide-react";
+import { Heart, Sparkles, ArrowRight, Search, Menu, Brain, HeartHandshake, Flame, Users, HelpCircle, Smile } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { AdUnit } from "@/components/AdUnit";
@@ -26,7 +26,7 @@ export default function PortalPage() {
       titleZh: "你到底有多喜欢他？",
       descEn: "Is it just a crush or true love? Based on Sternberg's Triangular Theory of Love, this deep psychological analysis reveals the true nature of your feelings.",
       descZh: "到底是心动还是真爱？基于斯腾伯格爱情三角理论，通过多维度分析深度剖析你的真实心意，助你看清这段关系的本质。",
-      icon: Heart,
+      icon: Heart,  // 恋爱测试 - 爱心
       color: "from-rose-500 to-pink-600",
       stats: "2.3M+ Tested",
       badge: "HOT"
@@ -38,8 +38,20 @@ export default function PortalPage() {
       titleZh: "你的欲望组成图",
       descEn: "What drives your heart? Discover your inner desires through 12 fun scenarios. Explore 8 desire dimensions and generate your unique desire pie chart!",
       descZh: "你的欲望由什么组成？通过12道趣味情景题，测试你内心深处的真实渴望。探索八大欲望维度，生成专属于你的欲望比重饼图！",
-      icon: Sparkles,
+      icon: Flame,  // 欲望测试 - 火焰
       color: "from-amber-500 to-orange-600",
+      stats: "Trending",
+      badge: "NEW"
+    },
+    {
+      id: "gay-test",
+      href: "/gay-test",
+      titleEn: "Sexual Orientation Test",
+      titleZh: "性取向测试",
+      descEn: "Explore your true orientation! Through 10 carefully designed scenarios, discover whether you lean more towards heterosexual, homosexual, or bisexual.",
+      descZh: "探索你的真实取向！通过10道精心设计的情境问题，发现你究竟更偏向异性恋、同性恋还是双性恋。结果以饼图形式呈现！",
+      icon: Users,  // 性取向测试 - 人群
+      color: "from-pink-500 to-purple-600",
       stats: "Trending",
       badge: "NEW"
     },
@@ -50,7 +62,7 @@ export default function PortalPage() {
       titleZh: "他喜欢我吗？",
       descEn: "Decode his mixed signals! We analyze 20 subconscious behavioral details to reveal if he's truly interested in you or just being friendly.",
       descZh: "那个他到底怎么想的？通过20个潜意识行为细节与非语言信号，我们帮你揭秘他对你的真实感觉，不再猜来猜去。",
-      icon: Sparkles,
+      icon: HelpCircle,  // 他喜欢我吗 - 问号
       color: "from-indigo-500 to-violet-600",
       stats: "New Arrival",
       badge: "NEW"
@@ -62,7 +74,7 @@ export default function PortalPage() {
       titleZh: "我喜欢她吗？",
       descEn: "Just a friend or something more? Based on the Laws of Attraction, calculate your true affection level and understand your own heart.",
       descZh: "只是朋友还是心动？基于人际吸引力法则，通过心理投射测试解析你对她的真实感觉，帮你理清心中迷雾。",
-      icon: Sparkles,
+      icon: HeartHandshake,  // 我喜欢她吗 - 握手爱心
       color: "from-sky-500 to-blue-600",
       stats: "Trending",
       badge: "HOT"

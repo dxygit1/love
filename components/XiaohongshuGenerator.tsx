@@ -6,7 +6,7 @@ import { generateXiaohongshuCopy, XiaohongshuResult } from '@/lib/ai';
 import { Sparkles, Copy, Check } from 'lucide-react';
 
 interface XiaohongshuGeneratorProps {
-    type: 'mental-age' | 'love-quiz' | 'does-he-like-me' | 'do-i-like-her';
+    type: 'mental-age' | 'love-quiz' | 'does-he-like-me' | 'do-i-like-her' | 'gay-test';
     data: any;
 }
 

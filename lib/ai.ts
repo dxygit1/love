@@ -1,6 +1,6 @@
 
 const AI_CONFIG = {
-    apiKey: 'sk-a60892f196f306697fbe06c2def38d9a',
+    apiKey: 'sk-f8828de5beb25a364ccd874866470543',
     baseUrl: 'https://apis.iflow.cn/v1',
     model: 'tstars2.0'
 };
@@ -10,7 +10,7 @@ export interface XiaohongshuResult {
     content: string;
 }
 
-export async function generateXiaohongshuCopy(type: 'mental-age' | 'love-quiz' | 'does-he-like-me' | 'do-i-like-her', data: any): Promise<XiaohongshuResult> {
+export async function generateXiaohongshuCopy(type: 'mental-age' | 'love-quiz' | 'does-he-like-me' | 'do-i-like-her' | 'gay-test', data: any): Promise<XiaohongshuResult> {
     let prompt = "";
 
     if (type === 'mental-age') {
@@ -37,14 +37,48 @@ export async function generateXiaohongshuCopy(type: 'mental-age' | 'love-quiz' |
 
 请直接返回JSON格式，包含 title 和 content 两个字段。
 `;
+    } else if (type === 'gay-test') {
+        // 性取向测试专用prompt - 避免敏感词汇，确保平台合规
+        prompt = `
+你是一个擅长写唯美、有趣文案的小红书博主。请根据以下"心之所向"测试结果，写一篇吸引人的小红书笔记。
+
+**测试主题：** 探索内心深处的情感倾向
+
+**重要合规要求（必须严格遵守）：**
+- **绝对禁止**出现以下词汇：同性恋、异性恋、双性恋、gay、lesbian、LGBT、性取向、取向、彩虹旗
+- **绝对禁止**出现任何数字、百分比、分数
+- **绝对禁止**出现"TA"、"他"、"她"等人称代词
+- 使用**委婉、诗意的方式**表达情感倾向，例如"心之所向"、"灵魂的颜色"、"内心的风景"
+
+**要求：**
+1. **标题**：
+   - 要有诗意、神秘感，引发好奇心。
+   - 使用抽象的比喻，如"原来我的心是这个颜色的..."、"终于读懂了自己的心💫"
+   - 带有爱心或星星emoji，20字以内。
+   - 绝对不要出现敏感词汇！
+
+2. **正文**：
+   - 语气温柔、诗意，像是写给自己的心灵日记。
+   - 用比喻和意象来表达，例如"像是找到了灵魂深处那片隐秘的花园"。
+   - 不要提及任何具体的情感类型或取向。
+   - 可以表达自我发现的喜悦和接纳。
+   - 篇幅80-120字，短小精悍。
+   - 结尾引导互动："你是什么颜色？"或"你内心的风景是什么样的？"
+
+请直接返回JSON格式，包含 title 和 content 两个字段。
+`;
     } else {
-        // Love Quiz / Relationship types
+        // Love Quiz / Relationship types - 避免敏感词汇
         prompt = `
 你是一个擅长写唯美情感文案的诗人。请根据以下恋爱/情感测试结果，写一篇有诗意、触动人心的小红书笔记。
 
 **测试数据：**
 - 评价/结果：${data.resultTitle}
-- 对方名字/代号：${data.partnerName || "TA"}
+
+**重要合规要求（必须严格遵守）：**
+- **绝对禁止**出现任何数字、百分比、分数
+- **绝对禁止**出现"TA"、"他"、"她"、"男"、"女"等人称代词和性别词汇
+- 使用**委婉的表达**，如"那个人"、"心里的那个人"、"某个人"
 
 **要求：**
 1. **标题**：
@@ -56,7 +90,7 @@ export async function generateXiaohongshuCopy(type: 'mental-age' | 'love-quiz' |
 2. **正文**：
    - 语气温柔、细腻、富有诗意，像是写给自己的情书或日记。
    - 禁止出现任何具体分数、数字、百分比。
-   - 统一使用"TA"或"那个人"来指代对象，禁止使用性别词汇（他/她/男/女）。
+   - 使用"那个人"或"心里的某个人"来指代对象。
    - 篇幅80-120字，短小精悍。
 
 请直接返回JSON格式，包含 title 和 content 两个字段。

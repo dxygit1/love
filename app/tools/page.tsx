@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Brain, Heart, ArrowRight, Search, Sparkles } from "lucide-react";
+import { Brain, Heart, ArrowRight, Search, Sparkles, Flame, Users, HelpCircle, HeartHandshake } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
 import { AdUnit } from "@/components/AdUnit";
@@ -39,7 +39,7 @@ export default function ToolsPage() {
             titleZh: "他喜欢我吗生成器",
             descEn: "Mock the result of 'Does he like me' quiz.",
             descZh: "生成“他喜欢我吗”测试结果页，朋友圈文案神器。",
-            icon: Sparkles,
+            icon: HelpCircle,
             color: "from-indigo-500 to-violet-600",
             badge: "NEW"
         },
@@ -50,9 +50,31 @@ export default function ToolsPage() {
             titleZh: "我喜欢她吗生成器",
             descEn: "Visualize your feelings.",
             descZh: "生成“我喜欢她吗”测试结果，看清你的心意。",
-            icon: Heart,
+            icon: HeartHandshake,
             color: "from-sky-500 to-blue-600",
             badge: "TOOL"
+        },
+        {
+            id: "desire-test",
+            href: "/tools/desire-test",
+            titleEn: "Desire Chart Generator",
+            titleZh: "欲望组成图生成器",
+            descEn: "Generate your desire pie chart with custom percentages.",
+            descZh: "自定义生成你的欲望比重饼图，朋友圈分享神器。",
+            icon: Flame,
+            color: "from-amber-500 to-orange-600",
+            badge: "NEW"
+        },
+        {
+            id: "gay-test",
+            href: "/tools/gay-test",
+            titleEn: "Sexual Orientation Generator",
+            titleZh: "性取向测试生成器",
+            descEn: "Generate your sexual orientation pie chart instantly.",
+            descZh: "自定义生成性取向分布饼图，探索你的真实取向。",
+            icon: Users,
+            color: "from-pink-500 to-purple-600",
+            badge: "NEW"
         }
     ];
 
