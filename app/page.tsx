@@ -32,6 +32,18 @@ export default function PortalPage() {
       badge: "HOT"
     },
     {
+      id: "desire-test",
+      href: "/desire-test",
+      titleEn: "Your Desire Chart",
+      titleZh: "你的欲望组成图",
+      descEn: "What drives your heart? Discover your inner desires through 12 fun scenarios. Explore 8 desire dimensions and generate your unique desire pie chart!",
+      descZh: "你的欲望由什么组成？通过12道趣味情景题，测试你内心深处的真实渴望。探索八大欲望维度，生成专属于你的欲望比重饼图！",
+      icon: Sparkles,
+      color: "from-amber-500 to-orange-600",
+      stats: "Trending",
+      badge: "NEW"
+    },
+    {
       id: "does-he-like-me",
       href: "/does-he-like-me",
       titleEn: "Does He Like Me?",
