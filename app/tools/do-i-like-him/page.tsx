@@ -122,26 +122,50 @@ export default function DoILikeHimToolPage() {
                 </div>
             </div>
 
-            {/* Preview Section */}
-            <div className="flex-1 overflow-auto bg-gray-100 flex items-center justify-center p-4 md:p-8 min-h-[80vh]">
-                <div className="transform scale-[0.65] md:scale-90 origin-top shadow-2xl rounded-[2rem] overflow-hidden bg-white border-4 border-white ring-1 ring-gray-200">
-                    <ResultScreen
-                        score={score}
-                        result={{
-                            minScore: result.minScore,
-                            maxScore: result.maxScore,
-                            titleZh: result.titleZh,
-                            titleEn: result.titleEn,
-                            descriptionZh: result.descriptionZh,
-                            descriptionEn: result.descriptionEn,
-                            adviceZh: "", // Fallback handled in component
-                            adviceEn: ""  // Fallback handled in component
-                        }}
-                        onRestart={() => { }}
-                        personName={personName}
-                        gender={gender}
-                        quizType="do-i-like-him" // Specifically for "Do I Like Him"
-                    />
+            {/* Preview Area - Seamless Design */}
+            <div className="flex-1 relative flex flex-col md:h-full md:overflow-y-auto bg-gradient-to-br from-rose-50 via-white to-indigo-50">
+                <div className="w-full min-h-full flex justify-center items-start">
+                    {/* Desktop: Full-width seamless ResultScreen */}
+                    <div className="hidden md:block w-full">
+                        <ResultScreen
+                            score={score}
+                            result={{
+                                minScore: result.minScore,
+                                maxScore: result.maxScore,
+                                titleZh: result.titleZh,
+                                titleEn: result.titleEn,
+                                descriptionZh: result.descriptionZh,
+                                descriptionEn: result.descriptionEn,
+                                adviceZh: "",
+                                adviceEn: ""
+                            }}
+                            personName={personName}
+                            gender={gender}
+                            onRestart={() => { }}
+                            quizType="do-i-like-him"
+                        />
+                    </div>
+
+                    {/* Mobile: Show Full Screen directly */}
+                    <div className="md:hidden w-full">
+                        <ResultScreen
+                            score={score}
+                            result={{
+                                minScore: result.minScore,
+                                maxScore: result.maxScore,
+                                titleZh: result.titleZh,
+                                titleEn: result.titleEn,
+                                descriptionZh: result.descriptionZh,
+                                descriptionEn: result.descriptionEn,
+                                adviceZh: "",
+                                adviceEn: ""
+                            }}
+                            personName={personName}
+                            gender={gender}
+                            onRestart={() => { }}
+                            quizType="do-i-like-him"
+                        />
+                    </div>
                 </div>
             </div>
         </div>
