@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { ArrowLeft, RefreshCw, Camera } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -13,6 +13,15 @@ export default function GayTestToolPage() {
     const { t, language } = useLanguage();
     const resultRef = useRef<HTMLDivElement>(null);
     const [isPreviewMode, setIsPreviewMode] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
+
+    // 检测屏幕尺寸
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 640);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     // 三个维度的分数
     const [scores, setScores] = useState({
@@ -44,15 +53,15 @@ export default function GayTestToolPage() {
     // 自定义标签
     const renderLabel = ({ cx, cy, midAngle, outerRadius, percent, name, emoji }: any) => {
         const RADIAN = Math.PI / 180;
-        const LINE_LENGTH = 25;
-        const HOOK_LENGTH = 12;
+        const LINE_LENGTH = isMobile ? 15 : 25;
+        const HOOK_LENGTH = isMobile ? 8 : 12;
         const midRadius = outerRadius + LINE_LENGTH;
         const midX = cx + midRadius * Math.cos(-midAngle * RADIAN);
         const midY = cy + midRadius * Math.sin(-midAngle * RADIAN);
-        const labelX = midX > cx ? midX + HOOK_LENGTH + 4 : midX - HOOK_LENGTH - 4;
+        const labelX = midX > cx ? midX + HOOK_LENGTH + 2 : midX - HOOK_LENGTH - 2;
         const labelY = midY;
 
-        if (percent < 0.03) return null;
+        if (percent < 0.05) return null;
 
         return (
             <text
@@ -61,9 +70,9 @@ export default function GayTestToolPage() {
                 fill="#333"
                 textAnchor={midX > cx ? 'start' : 'end'}
                 dominantBaseline="central"
-                style={{ fontSize: '13px', fontWeight: 500 }}
+                style={{ fontSize: isMobile ? '10px' : '13px', fontWeight: 500 }}
             >
-                {emoji} {name}: {(percent * 100).toFixed(2)}%
+                {emoji} {name}: {(percent * 100).toFixed(0)}%
             </text>
         );
     };
@@ -72,8 +81,8 @@ export default function GayTestToolPage() {
     const renderLabelLine = (props: any) => {
         const { cx, cy, midAngle, outerRadius, stroke } = props;
         const RADIAN = Math.PI / 180;
-        const LINE_LENGTH = 25;
-        const HOOK_LENGTH = 12;
+        const LINE_LENGTH = isMobile ? 15 : 25;
+        const HOOK_LENGTH = isMobile ? 8 : 12;
 
         const startX = cx + outerRadius * Math.cos(-midAngle * RADIAN);
         const startY = cy + outerRadius * Math.sin(-midAngle * RADIAN);
@@ -236,7 +245,7 @@ export default function GayTestToolPage() {
                             {language === 'zh' ? '是这样的：' : 'is:'}
                         </div>
 
-                        <div className="w-full h-[400px]">
+                        <div className="w-full h-[300px] md:h-[400px]">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
                                     <Pie
@@ -247,7 +256,7 @@ export default function GayTestToolPage() {
                                         endAngle={-270}
                                         labelLine={renderLabelLine}
                                         label={renderLabel}
-                                        outerRadius={130}
+                                        outerRadius={isMobile ? 90 : 130}
                                         innerRadius={0}
                                         dataKey="value"
                                         animationBegin={0}
