@@ -10,7 +10,7 @@ export interface XiaohongshuResult {
     content: string;
 }
 
-export async function generateXiaohongshuCopy(type: 'mental-age' | 'love-quiz' | 'does-he-like-me' | 'do-i-like-her' | 'gay-test', data: any): Promise<XiaohongshuResult> {
+export async function generateXiaohongshuCopy(type: 'mental-age' | 'love-quiz' | 'does-he-like-me' | 'do-i-like-her' | 'gay-test' | 'do-i-like-him', data: any): Promise<XiaohongshuResult> {
     let prompt = "";
 
     if (type === 'mental-age') {
@@ -27,7 +27,7 @@ export async function generateXiaohongshuCopy(type: 'mental-age' | 'love-quiz' |
 1. **标题**：
    - 要有诗意、新意，像是从心底流淌出的话语。
    - 禁止出现任何具体数字（如年龄、分数）。
-   - 带有emoji，20字以内。
+   - 带有emoji，**至少8个汉字**，20字以内。
 
 2. **正文**：
    - 语气温柔、细腻、富有诗意，像是写给自己的日记。
@@ -54,7 +54,7 @@ export async function generateXiaohongshuCopy(type: 'mental-age' | 'love-quiz' |
 1. **标题**：
    - 要有诗意、神秘感，引发好奇心。
    - 使用抽象的比喻，如"原来我的心是这个颜色的..."、"终于读懂了自己的心💫"
-   - 带有爱心或星星emoji，20字以内。
+   - 带有爱心或星星emoji，**至少8个汉字**，20字以内。
    - 绝对不要出现敏感词汇！
 
 2. **正文**：
@@ -85,7 +85,7 @@ export async function generateXiaohongshuCopy(type: 'mental-age' | 'love-quiz' |
    - 要有诗意、新意，像是从心底流淌出的话语。
    - 可以是一句扎心的感慨、一个浪漫的比喻、或一个引人深思的问句。
    - 禁止出现任何数字或分数。
-   - 带有emoji，20字以内。
+   - 带有emoji，**至少8个汉字**，20字以内。
 
 2. **正文**：
    - 语气温柔、细腻、富有诗意，像是写给自己的情书或日记。

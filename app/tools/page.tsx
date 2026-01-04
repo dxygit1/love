@@ -75,6 +75,17 @@ export default function ToolsPage() {
             icon: Users,
             color: "from-pink-500 to-purple-600",
             badge: "NEW"
+        },
+        {
+            id: "do-i-like-him",
+            href: "/tools/do-i-like-him",
+            titleEn: "Do I Like Him Generator",
+            titleZh: "我喜欢他吗生成器",
+            descEn: "Generate 'Do I Like Him' quiz result card.",
+            descZh: "自定义生成“我喜欢他吗”测试结果卡片。",
+            icon: Sparkles,
+            color: "from-red-400 to-rose-500",
+            badge: "NEW"
         }
     ];
 

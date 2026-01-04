@@ -80,6 +80,18 @@ export default function PortalPage() {
       badge: "HOT"
     },
     {
+      id: "do-i-like-him",
+      href: "/do-i-like-him",
+      titleEn: "Do I Like Him?",
+      titleZh: "我喜欢他吗？",
+      descEn: "Is it just a spark or lasting fireworks? Answer 15 questions to reveal your true feelings for him.",
+      descZh: "到底是心动还是真爱？通过15道行为心理学问题，深度剖析你对他的真实感情，看清自己的心。",
+      icon: Heart,
+      color: "from-rose-400 to-pink-500",
+      stats: "Trending",
+      badge: "NEW"
+    },
+    {
       id: "mental-age",
       href: "/mental-age",
       titleEn: "Mental Age Test",

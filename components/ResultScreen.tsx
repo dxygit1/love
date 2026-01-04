@@ -13,17 +13,27 @@ interface ResultScreenProps {
     onRestart: () => void;
     personName?: string;
     gender?: "male" | "female";
-    quizType?: "love-quiz" | "does-he-like-me" | "do-i-like-her";
+    quizType?: "love-quiz" | "does-he-like-me" | "do-i-like-her" | "do-i-like-him";
 }
 
-// Result bar segments
-const segments = [
-    { label: "一时脑热", color: "bg-red-400", textColor: "text-red-500", hex: "#ef4444" },
-    { label: "云淡风轻", color: "bg-orange-300", textColor: "text-orange-500", hex: "#f97316" }, // Corrected to Orange
-    { label: "小鹿乱撞", color: "bg-gray-400", textColor: "text-gray-600", hex: "#4b5563" },
-    { label: "绝对理想型", color: "bg-blue-300", textColor: "text-blue-500", hex: "#3b82f6" },
-    { label: "永生挚爱", color: "bg-blue-600", textColor: "text-blue-700", hex: "#1d4ed8" },
+// Arealme.com score configuration - score ranges and colors
+const scoreConfig = [
+    { range: [90, 100], label: "永生挚爱", labelEn: "Love", color: "#6488C1" },
+    { range: [65, 90], label: "绝对理想型", labelEn: "Ideal", color: "#BCD4E6" },
+    { range: [40, 65], label: "小鹿乱撞", labelEn: "Crush", color: "#D0CBCB" },
+    { range: [18, 40], label: "云淡风轻", labelEn: "Friends", color: "#CD5C5D" },
+    { range: [0, 18], label: "一时脑热", labelEn: "Impulse", color: "#B33C3C" },
 ];
+
+// Get theme color based on score (arealme.com logic)
+const getScoreConfig = (score: number) => {
+    for (const config of scoreConfig) {
+        if (score >= config.range[0]) {
+            return config;
+        }
+    }
+    return scoreConfig[scoreConfig.length - 1]; // Default to lowest
+};
 
 export function ResultScreen({ score, result, onRestart, personName, gender = "male", quizType = "love-quiz" }: ResultScreenProps) {
     const resultRef = useRef<HTMLDivElement>(null);
@@ -37,14 +47,13 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
         window.scrollTo({ top: 0, behavior: "instant" });
     }, []);
 
-    // Get color based on score (0-100)
-    const getThemeColor = (s: number) => {
-        if (s < 20) return segments[0];
-        if (s < 40) return segments[1];
-        if (s < 60) return segments[2];
-        if (s < 80) return segments[3];
-        return segments[4];
-    };
+    const maxScore = 100;
+    const displayScore = Math.min(score, maxScore);
+    const percentage = Math.round((displayScore / maxScore) * 100);
+
+    // Get dynamic theme color based on score (arealme.com style)
+    const currentConfig = getScoreConfig(displayScore);
+    const themeColor = currentConfig.color; // Dynamic color based on score level
 
     // Dynamic text replacement
     const getFinalText = (text: string) => {
@@ -61,11 +70,6 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
 
         return newText;
     };
-
-    const maxScore = 100;
-    const displayScore = Math.min(score, maxScore);
-    const percentage = Math.round((displayScore / maxScore) * 100);
-    const theme = getThemeColor(displayScore);
 
     const handleEnterPreview = () => {
         setIsPreviewMode(true);
@@ -89,7 +93,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
         }
     };
 
-    const size = 140; // Adjusted to 140 per user request
+    const size = 140;
     const strokeWidth = 10;
     const radius = (size - strokeWidth) / 2;
     const circumference = 2 * Math.PI * radius;
@@ -110,7 +114,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className={`min-h-screen flex flex-col items-center pt-0 pb-8 md:pt-0 md:pb-16 px-4 md:px-6 bg-gradient-to-br from-rose-50 via-white to-indigo-50 ${isPreviewMode ? 'fixed inset-0 z-[60] overflow-y-auto cursor-pointer justify-start pt-0 !px-0 !bg-white' : ''}`}
+                className={`min-h-screen flex flex-col items-center pt-20 pb-8 md:pt-24 md:pb-16 px-4 md:px-6 bg-gradient-to-br from-rose-50 via-white to-indigo-50 ${isPreviewMode ? 'fixed inset-0 z-[60] overflow-y-auto cursor-pointer justify-start pt-0 !px-0 !bg-white' : ''}`}
                 onClick={isPreviewMode ? handleCaptureAndClose : undefined}
             >
                 <motion.div
@@ -153,15 +157,10 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             )}
                         </p>
 
-                        <div className="relative mx-auto mb-3" style={{ width: size, height: size }}>
+                        {/* Score Circle - Double Ring Style */}
+                        <div className="relative mx-auto mb-8" style={{ width: size, height: size }}>
+                            {/* Background Ring */}
                             <svg className="w-full h-full" style={{ transform: 'rotate(-90deg)' }}>
-                                <defs>
-                                    <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                        <stop offset="0%" stopColor="#93c5fd" />
-                                        <stop offset="50%" stopColor="#60a5fa" />
-                                        <stop offset="100%" stopColor="#3b82f6" />
-                                    </linearGradient>
-                                </defs>
                                 <circle
                                     cx={size / 2}
                                     cy={size / 2}
@@ -170,11 +169,12 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                                     strokeWidth={strokeWidth}
                                     fill="none"
                                 />
+                                {/* Progress Ring - Dynamic Color */}
                                 <motion.circle
                                     cx={size / 2}
                                     cy={size / 2}
                                     r={radius}
-                                    stroke="url(#scoreGradient)"
+                                    stroke={themeColor}
                                     strokeWidth={strokeWidth}
                                     fill="none"
                                     strokeLinecap="round"
@@ -184,13 +184,26 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                                     }}
                                     transition={{ duration: 1.5, ease: "easeOut", delay: 0.3 }}
                                 />
+                                {/* Inner Thin Border Ring (Cosmetic) */}
+                                <circle
+                                    cx={size / 2}
+                                    cy={size / 2}
+                                    r={radius - strokeWidth + 2}
+                                    stroke={themeColor}
+                                    strokeWidth="1"
+                                    fill="none"
+                                    opacity="0.5"
+                                />
                             </svg>
+                            {/* Score Text */}
                             <div className="absolute inset-0 flex flex-col items-center justify-center">
                                 <motion.span
-                                    className="text-5xl font-bold leading-none"
+                                    className="leading-none"
                                     style={{
-                                        color: "#3b82f6",
-                                        fontFamily: "ui-sans-serif, system-ui, sans-serif"
+                                        fontSize: "43px",
+                                        fontWeight: 400,
+                                        color: themeColor,
+                                        fontFamily: "system-ui, 'Helvetica Neue', Helvetica, arial, sans-serif"
                                     }}
                                     initial={{ opacity: 0, scale: 0.5 }}
                                     animate={{ opacity: 1, scale: 1 }}
@@ -198,72 +211,90 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                                 >
                                     {displayScore}
                                 </motion.span>
-                                <div className="w-10 h-[1.5px] bg-gray-400 my-0.5"></div>
-                                <span className="text-sm font-medium leading-none" style={{ color: "#9ca3af" }}>100</span>
+                                <div className="w-12 h-[1px] bg-blue-200 my-1"></div>
+                                <span style={{ fontSize: "14.4px", color: "#999999" }}>100</span>
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-5 text-xs md:text-base font-bold mb-1 px-0 tracking-tight whitespace-nowrap">
-                            <div className="text-left" style={{ color: "#e11d48" }}>{language === "zh" ? "一时脑热" : "Impulse"}</div>
-                            <div></div>
-                            <div className="text-center" style={{ color: "#9ca3af" }}>{language === "zh" ? "小鹿乱撞" : "Crush"}</div>
-                            <div></div>
-                            <div className="text-right" style={{ color: "#2563eb" }}>{language === "zh" ? "永生挚爱" : "Love"}</div>
-                        </div>
-
-                        <div className="relative mb-1">
-                            <div className="flex h-1.5 md:h-3 rounded-full overflow-hidden">
-                                {segments.map((seg, i) => {
-                                    let hexColor = "#d1d5db";
-                                    if (seg.color.includes("red-400")) hexColor = "#f87171";
-                                    if (seg.color.includes("orange-300")) hexColor = "#fdba74";
-                                    if (seg.color.includes("gray-300")) hexColor = "#d1d5db";
-                                    if (seg.color.includes("gray-400")) hexColor = "#9ca3af";
-                                    if (seg.color.includes("blue-300")) hexColor = "#93c5fd";
-                                    if (seg.color.includes("blue-500")) hexColor = "#3b82f6";
-                                    if (seg.color.includes("blue-600")) hexColor = "#2563eb";
-
-                                    return (
-                                        <div key={i} className="flex-1" style={{ backgroundColor: hexColor }} />
-                                    );
-                                })}
-                            </div>
-                            <motion.div
-                                className="absolute top-0 -mt-1.5 drop-shadow-md z-10"
-                                initial={{ left: "0%" }}
-                                animate={{ left: `${percentage}%` }}
-                                transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
-                                style={{ transform: "translateX(-50%)" }}
+                        {/* Result Scale Container - SVG Progress Bar (arealme.com style) */}
+                        <div className="relative w-full mb-6">
+                            <svg
+                                viewBox="-10 0 520 74"
+                                width="100%"
+                                preserveAspectRatio="none"
+                                style={{ overflow: 'visible' }}
                             >
-                                <div className="w-0 h-0 border-l-[6px] border-r-[6px] border-t-[10px] border-l-transparent border-r-transparent md:border-l-[12px] md:border-r-[12px] md:border-t-[18px]" style={{ borderTopColor: "#facc15" }} />
-                            </motion.div>
+                                {/* Bar segments with correct proportions based on score ranges */}
+                                {/* 永生挚爱 90-100: x=450, width=50 */}
+                                <rect x="450" y="31" width="50" height="10" fill="#6488C1" />
+                                {/* 绝对理想型 65-90: x=325, width=125 */}
+                                <rect x="325" y="31" width="125" height="10" fill="#BCD4E6" />
+                                {/* 小鹿乱撞 40-65: x=200, width=125 */}
+                                <rect x="200" y="31" width="125" height="10" fill="#D0CBCB" />
+                                {/* 云淡风轻 18-40: x=90, width=110 */}
+                                <rect x="90" y="31" width="110" height="10" fill="#CD5C5D" />
+                                {/* 一时脑热 0-18: x=0, width=90 */}
+                                <rect x="0" y="31" width="90" height="10" fill="#B33C3C" />
+
+                                {/* Labels - alternating top (y=15) and bottom (y=65) */}
+                                {/* 永生挚爱 - top right */}
+                                <text>
+                                    <tspan x="500" y="15" textAnchor="end" fontWeight="bold" fontSize="12" fill="#6488C1">
+                                        {language === "zh" ? "永生挚爱" : "Love"}
+                                    </tspan>
+                                </text>
+                                {/* 绝对理想型 - bottom center */}
+                                <text>
+                                    <tspan x="387.5" y="65" textAnchor="middle" fontWeight="bold" fontSize="12" fill="#BCD4E6">
+                                        {language === "zh" ? "绝对理想型" : "Ideal"}
+                                    </tspan>
+                                </text>
+                                {/* 小鹿乱撞 - top center */}
+                                <text>
+                                    <tspan x="262.5" y="15" textAnchor="middle" fontWeight="bold" fontSize="12" fill="#D0CBCB">
+                                        {language === "zh" ? "小鹿乱撞" : "Crush"}
+                                    </tspan>
+                                </text>
+                                {/* 云淡风轻 - bottom center */}
+                                <text>
+                                    <tspan x="145" y="65" textAnchor="middle" fontWeight="bold" fontSize="12" fill="#CD5C5D">
+                                        {language === "zh" ? "云淡风轻" : "Friends"}
+                                    </tspan>
+                                </text>
+                                {/* 一时脑热 - top left */}
+                                <text>
+                                    <tspan x="0" y="15" textAnchor="start" fontWeight="bold" fontSize="12" fill="#B33C3C">
+                                        {language === "zh" ? "一时脑热" : "Impulse"}
+                                    </tspan>
+                                </text>
+
+                                {/* Yellow Indicator Arrow - position based on score */}
+                                <g
+                                    id="indicator_mc"
+                                    transform={`translate(${displayScore * 5 - 4}, 31)`}
+                                >
+                                    <polygon
+                                        points="0,-2 8,-2 8,8 4,13 0,8"
+                                        fill="#FACC15"
+                                        stroke="#000"
+                                        strokeWidth="1.1"
+                                    />
+                                </g>
+                            </svg>
                         </div>
 
-                        <div className="grid grid-cols-5 text-xs md:text-base font-bold mb-3 px-0 mt-1 tracking-tight whitespace-nowrap">
-                            <div></div>
-                            <div className="text-center" style={{ color: "#ea580c" }}>{language === "zh" ? "云淡风轻" : "Friends"}</div>
-                            <div></div>
-                            <div className="text-center" style={{ color: "#60a5fa" }}>{language === "zh" ? "绝对理想型" : "Ideal"}</div>
-                            <div></div>
-                        </div>
-
-                        {/* Result Description - Tighter Vertical Spacing */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 1.2 }}
-                            className="mt-3 w-full mx-auto px-1 space-y-2"
-                        >
+                        <div className="w-full mx-auto space-y-2">
                             {/* Analysis Section - Minimalist */}
-                            <div className="mt-4 w-full mx-auto px-1">
+                            <div className="w-full mx-auto">
                                 <p
-                                    className="text-base md:text-lg font-bold leading-relaxed tracking-wider"
+                                    className="leading-relaxed text-left"
                                     style={{
-                                        fontFamily: "'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', sans-serif",
-                                        textAlign: 'justify',
-                                        textAlignLast: 'left',
-                                        textJustify: 'inter-ideograph' as any,
-                                        color: theme.hex
+                                        fontSize: "17.6px",
+                                        fontWeight: 700,
+                                        color: themeColor,
+                                        fontFamily: "system-ui, 'Helvetica Neue', Helvetica, arial, sans-serif",
+                                        paddingLeft: "1.92%",
+                                        paddingRight: "1.92%"
                                     }}
                                 >
                                     {getFinalText(language === "zh" ? result.descriptionZh : result.descriptionEn)}
@@ -329,7 +360,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                                     </motion.div>
                                 )}
                             </AnimatePresence>
-                        </motion.div>
+                        </div>
 
                         {!isPreviewMode && (
                             <div className="w-full max-w-5xl mx-auto px-1 mt-4">
