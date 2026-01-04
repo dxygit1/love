@@ -10,17 +10,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
         {
             url: baseUrl,
             lastModified: new Date(),
-            changeFrequency: 'daily', // Increased frequency for homepage
+            changeFrequency: 'daily',
             priority: 1,
         },
+        // 主要测试页面
         {
             url: `${baseUrl}/love-quiz`,
             lastModified: new Date(),
             changeFrequency: 'weekly',
-            priority: 0.9, // High priority for tools
+            priority: 0.9,
         },
         {
             url: `${baseUrl}/does-he-like-me`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
+        {
+            url: `${baseUrl}/does-she-like-me`,
             lastModified: new Date(),
             changeFrequency: 'weekly',
             priority: 0.9,
@@ -32,17 +39,85 @@ export default function sitemap(): MetadataRoute.Sitemap {
             priority: 0.9,
         },
         {
+            url: `${baseUrl}/do-i-like-him`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
+        {
             url: `${baseUrl}/mental-age`,
             lastModified: new Date(),
             changeFrequency: 'weekly',
             priority: 0.9,
         },
         {
+            url: `${baseUrl}/desire-test`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
+        {
+            url: `${baseUrl}/gay-test`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.9,
+        },
+        // 工具页面
+        {
             url: `${baseUrl}/tools`,
             lastModified: new Date(),
             changeFrequency: 'weekly',
             priority: 0.8,
         },
+        {
+            url: `${baseUrl}/tools/love-quiz`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/tools/mental-age`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/tools/desire-test`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/tools/gay-test`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/tools/do-i-like-him`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/tools/do-i-like-her`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/tools/does-he-like-me`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.7,
+        },
+        {
+            url: `${baseUrl}/tools/does-she-like-me`,
+            lastModified: new Date(),
+            changeFrequency: 'weekly',
+            priority: 0.7,
+        },
+        // 法律页面
         {
             url: `${baseUrl}/about`,
             lastModified: new Date(),

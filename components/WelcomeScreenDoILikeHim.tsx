@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Heart, Sparkles } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { doILikeHimResults } from '@/lib/quiz-data-do-i-like-him';
+import { TestPageContent } from '@/components/TestPageContent';
 
 interface WelcomeScreenDoILikeHimProps {
     onStart: () => void;
@@ -101,6 +102,9 @@ export default function WelcomeScreenDoILikeHim({ onStart }: WelcomeScreenDoILik
                     </ul>
                 </motion.div>
             </motion.div>
+
+            {/* FAQ and Psychology Content */}
+            <TestPageContent testType="do-i-like-him" />
         </div>
     );
 }

@@ -4,6 +4,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useState } from 'react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { TestPageContent } from '@/components/TestPageContent';
 
 interface WelcomeScreenProps {
     onStart: (age: number) => void;
@@ -182,6 +183,9 @@ export default function WelcomeScreenMentalAge({ onStart }: WelcomeScreenProps) 
                     </div>
                 </div>
             </motion.div>
+
+            {/* FAQ and Psychology Content */}
+            <TestPageContent testType="mental-age" />
         </div>
     );
 }

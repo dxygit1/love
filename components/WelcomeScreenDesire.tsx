@@ -5,6 +5,7 @@ import { ArrowRight, PieChart, Heart, Brain, Sparkles } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Link from 'next/link';
 import { dimensionInfos } from '@/lib/quiz-data-desire';
+import { TestPageContent } from '@/components/TestPageContent';
 
 interface WelcomeScreenDesireProps {
     onStart: () => void;
@@ -140,6 +141,9 @@ export default function WelcomeScreenDesire({ onStart }: WelcomeScreenDesireProp
                     </div>
                 </div>
             </motion.div>
+
+            {/* FAQ and Psychology Content */}
+            <TestPageContent testType="desire-test" />
         </div>
     );
 }

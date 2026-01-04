@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Heart } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { gayDimensions } from '@/lib/quiz-data-gay';
+import { TestPageContent } from '@/components/TestPageContent';
 
 interface WelcomeScreenGayProps {
     onStart: () => void;
@@ -117,6 +118,9 @@ export default function WelcomeScreenGay({ onStart }: WelcomeScreenGayProps) {
                     </div>
                 </motion.div>
             </motion.div>
+
+            {/* FAQ and Psychology Content */}
+            <TestPageContent testType="gay-test" />
         </div>
     );
 }
