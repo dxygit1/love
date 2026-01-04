@@ -47,15 +47,15 @@ export default function DesireTestToolPage() {
     // 自定义标签
     const renderLabel = ({ cx, cy, midAngle, outerRadius, percent, name, emoji }: any) => {
         const RADIAN = Math.PI / 180;
-        const LINE_LENGTH = 25;
-        const HOOK_LENGTH = 12;
+        const LINE_LENGTH = 15;
+        const HOOK_LENGTH = 8;
         const midRadius = outerRadius + LINE_LENGTH;
         const midX = cx + midRadius * Math.cos(-midAngle * RADIAN);
         const midY = cy + midRadius * Math.sin(-midAngle * RADIAN);
-        const labelX = midX > cx ? midX + HOOK_LENGTH + 4 : midX - HOOK_LENGTH - 4;
+        const labelX = midX > cx ? midX + HOOK_LENGTH + 2 : midX - HOOK_LENGTH - 2;
         const labelY = midY;
 
-        if (percent < 0.03) return null;
+        if (percent < 0.05) return null;
 
         return (
             <text
@@ -64,9 +64,9 @@ export default function DesireTestToolPage() {
                 fill="#333"
                 textAnchor={midX > cx ? 'start' : 'end'}
                 dominantBaseline="central"
-                style={{ fontSize: '13px', fontWeight: 500 }}
+                style={{ fontSize: '11px', fontWeight: 500 }}
             >
-                {emoji} {name}: {(percent * 100).toFixed(1)}%
+                {emoji} {name}: {(percent * 100).toFixed(0)}%
             </text>
         );
     };
@@ -75,8 +75,8 @@ export default function DesireTestToolPage() {
     const renderLabelLine = (props: any) => {
         const { cx, cy, midAngle, outerRadius, stroke } = props;
         const RADIAN = Math.PI / 180;
-        const LINE_LENGTH = 25;
-        const HOOK_LENGTH = 12;
+        const LINE_LENGTH = 15;
+        const HOOK_LENGTH = 8;
 
         const startX = cx + outerRadius * Math.cos(-midAngle * RADIAN);
         const startY = cy + outerRadius * Math.sin(-midAngle * RADIAN);
@@ -212,7 +212,7 @@ export default function DesireTestToolPage() {
                             {language === 'zh' ? '由以下元素构成：' : 'is made of:'}
                         </div>
 
-                        <div className="w-full h-[400px]">
+                        <div className="w-full h-[280px] sm:h-[350px] md:h-[400px]">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
                                     <Pie
@@ -223,7 +223,7 @@ export default function DesireTestToolPage() {
                                         endAngle={-270}
                                         labelLine={renderLabelLine}
                                         label={renderLabel}
-                                        outerRadius={130}
+                                        outerRadius={"28%"}
                                         innerRadius={0}
                                         dataKey="value"
                                         animationBegin={0}
