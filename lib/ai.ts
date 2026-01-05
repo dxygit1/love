@@ -2,7 +2,7 @@
 const AI_CONFIG = {
     apiKey: 'sk-f8828de5beb25a364ccd874866470543',
     baseUrl: 'https://apis.iflow.cn/v1',
-    model: 'tstars2.0'
+    model: 'deepseek-v3'
 };
 
 export interface XiaohongshuResult {
