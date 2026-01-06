@@ -217,7 +217,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                         </div>
 
                         {/* Result Scale Container - SVG Progress Bar (arealme.com style) */}
-                        <div className="relative w-full mb-6 scale-[0.55] sm:scale-75 md:scale-100 origin-top">
+                        <div className="relative w-full mb-6 scale-[0.99] sm:scale-75 md:scale-100 origin-top">
                             <svg
                                 viewBox="-10 0 520 74"
                                 width="100%"
@@ -283,7 +283,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                             </svg>
                         </div>
 
-                        <div className="w-full mx-auto space-y-2 scale-[0.55] sm:scale-75 md:scale-100 origin-top">
+                        <div className="w-full mx-auto space-y-2 scale-[0.99] sm:scale-75 md:scale-100 origin-top">
                             {/* Analysis Section - Minimalist */}
                             <div className="w-full mx-auto">
                                 <p
