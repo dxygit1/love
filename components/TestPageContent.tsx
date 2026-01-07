@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, ChevronUp, BookOpen, HelpCircle } from "lucide-react";
+import { ChevronDown, ChevronUp, BookOpen, HelpCircle, FileText, Lightbulb } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { testPageContents, type TestPageContentData } from "@/lib/test-page-content";
@@ -17,8 +17,41 @@ export function TestPageContent({ testType }: TestPageContentProps) {
     const content = testPageContents[testType];
     if (!content) return null;
 
+    const introduction = language === "zh" ? content.introduction : content.introductionEn;
+    const methodology = language === "zh" ? content.methodology : content.methodologyEn;
+
     return (
         <div className="w-full max-w-4xl mx-auto px-4 py-12 space-y-12">
+            {/* Introduction Section */}
+            {introduction && (
+                <section className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8">
+                    <div className="flex items-center gap-2 mb-4">
+                        <FileText className="w-6 h-6 text-rose-500" />
+                        <h2 className="text-xl font-bold text-gray-800">
+                            {language === "zh" ? "关于这个测试" : "About This Test"}
+                        </h2>
+                    </div>
+                    <div className="text-gray-600 leading-relaxed whitespace-pre-line">
+                        {introduction}
+                    </div>
+                </section>
+            )}
+
+            {/* Methodology Section */}
+            {methodology && (
+                <section className="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-6 md:p-8">
+                    <div className="flex items-center gap-2 mb-4">
+                        <Lightbulb className="w-6 h-6 text-amber-500" />
+                        <h2 className="text-xl font-bold text-gray-800">
+                            {language === "zh" ? "测试方法论" : "Test Methodology"}
+                        </h2>
+                    </div>
+                    <div className="text-gray-600 leading-relaxed whitespace-pre-line">
+                        {methodology}
+                    </div>
+                </section>
+            )}
+
             {/* FAQ Section */}
             <section>
                 <div className="flex items-center gap-2 mb-6">

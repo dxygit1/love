@@ -13,10 +13,36 @@ export interface TestPageContentData {
     psychologyTitleEn: string;
     psychologyContent: string;
     psychologyContentEn: string;
+    // 新增：测试介绍
+    introduction?: string;
+    introductionEn?: string;
+    // 新增：测试方法论
+    methodology?: string;
+    methodologyEn?: string;
 }
 
 export const testPageContents: Record<string, TestPageContentData> = {
     "love-quiz": {
+        introduction: `你是否曾在深夜辗转难眠，脑海中不断浮现他的身影？是否会因为他的一条消息而心跳加速，因为他的冷淡而失落不已？在这个信息爆炸的时代，我们每天都在接收大量的情感刺激，有时候连自己都分不清，这到底是真正的喜欢，还是仅仅是一时的心动。
+
+"测测你到底有多喜欢他"是一个基于心理学理论设计的情感测试工具。通过15道精心设计的题目，我们将帮助你从不同维度分析你对他的感情：包括情感依恋程度、浪漫幻想频率、互动期待值等多个方面。
+
+无论你是正处于暗恋的迷茫期，还是在一段关系中想要更清楚地认识自己的感受，这个测试都能为你提供一个参考视角。记住，测试结果只是一个起点——真正了解自己内心的人，永远是你自己。`,
+        introductionEn: `Have you ever lain awake at night, unable to stop thinking about him? Does your heart race at his messages, and does his silence leave you feeling lost? In this age of information overload, we receive countless emotional stimuli daily, and sometimes it's hard to tell if what we're feeling is genuine love or just a momentary flutter.
+
+"How Much Do You Like Him" is an emotional assessment tool designed based on psychological theory. Through 15 carefully crafted questions, we'll help you analyze your feelings from multiple dimensions: emotional attachment level, romantic fantasy frequency, interaction expectations, and more.
+
+Whether you're in the midst of a secret crush or want to better understand your feelings in an existing relationship, this test can offer you a reference perspective. Remember, the test result is just a starting point—the person who truly understands your heart is always you.`,
+        methodology: `本测试采用心理学家Robert Sternberg提出的爱情三角理论（Triangular Theory of Love）作为理论框架。该理论认为爱情由三个核心要素组成：亲密（Intimacy）、激情（Passion）和承诺（Commitment）。
+
+我们的题目设计覆盖了情感依恋、浪漫幻想、日常关注、互动期待等多个维度，通过你的回答来综合评估你对对方的喜欢程度。每道题目都经过精心设计，旨在捕捉你在无意识状态下的真实情感反应。
+
+评分系统会根据你的回答生成0-100的喜欢程度分数，并提供相应的结果解读和情感建议。`,
+        methodologyEn: `This test uses psychologist Robert Sternberg's Triangular Theory of Love as its theoretical framework. This theory suggests that love consists of three core elements: Intimacy, Passion, and Commitment.
+
+Our questions cover multiple dimensions including emotional attachment, romantic fantasies, daily attention, and interaction expectations, comprehensively evaluating your level of affection through your responses. Each question is carefully designed to capture your genuine emotional reactions.
+
+The scoring system generates a 0-100 affection score based on your answers, along with corresponding interpretations and emotional advice.`,
         faqs: [
             {
                 question: "这个测试准确吗？",
@@ -43,6 +69,22 @@ export const testPageContents: Record<string, TestPageContentData> = {
         psychologyContentEn: "Psychologist Robert Sternberg's Triangular Theory of Love suggests that complete love consists of three components: Intimacy (emotional closeness), Passion (romantic and physical attraction), and Commitment (the decision to maintain the relationship). Different types of love are different combinations of these elements."
     },
     "does-he-like-me": {
+        introduction: `"他到底喜不喜欢我？"——这可能是每个暗恋中的女孩问过自己无数次的问题。他的一个眼神、一句话、一条消息，都会让你反复揣摩其中的含义。
+
+这个测试将帮助你从客观的角度分析他对你的态度。通过15道情境题目，我们将评估他在日常互动中展现出的信号：包括主动程度、关注细节、肢体语言暗示等多个维度。
+
+无论结果如何，请记住：了解对方的感受只是第一步，真正的感情需要勇敢地迈出下一步。`,
+        introductionEn: `"Does he really like me?" - This is probably a question every girl with a crush has asked herself countless times. His glances, words, and messages can be endlessly analyzed for hidden meanings.
+
+This test will help you objectively analyze his attitude towards you. Through 15 situational questions, we'll evaluate the signals he displays in daily interactions: including initiative level, attention to detail, body language cues, and more.
+
+Whatever the result, remember: understanding someone's feelings is just the first step. Real relationships require the courage to take the next step.`,
+        methodology: `本测试基于非语言沟通研究和社会心理学的信号识别理论设计。研究表明，当一个人对另一个人有好感时，会表现出特定的行为模式：包括更多的眼神接触、身体靠近、主动沟通等。
+
+我们的题目涵盖了日常互动的多个场景，通过你对他行为的观察和描述，来综合判断他对你的好感程度。`,
+        methodologyEn: `This test is designed based on non-verbal communication research and signal recognition theory in social psychology. Studies show that when someone is attracted to another person, they exhibit specific behavioral patterns: including more eye contact, physical proximity, and proactive communication.
+
+Our questions cover multiple daily interaction scenarios, comprehensively assessing his level of interest based on your observations of his behavior.`,
         faqs: [
             {
                 question: "如何判断他是喜欢还是只是友好？",
@@ -69,6 +111,22 @@ export const testPageContents: Record<string, TestPageContentData> = {
         psychologyContentEn: "Research shows that non-verbal communication accounts for over 60% of human interaction. When someone likes you, they display specific micro-expressions: dilated pupils, body orientation towards you, frequent eye contact, unconscious smiling, and mirroring your actions. These signals are often more genuine than words."
     },
     "does-she-like-me": {
+        introduction: `女生的心思往往更加细腻，她们表达好感的方式也更加含蓄。一个关心的问候、一个不经意的微笑、一次主动的接近......这些信号你能读懂吗？
+
+"测测她有多喜欢你"帮助你解读她的情感信号。通过分析她在日常互动中的行为表现，我们将为你提供一个客观的参考。
+
+当然，每个人表达感情的方式不同，测试结果只是一个参考。如果你真的喜欢她，最好的方式还是真诚地去了解她、关心她。`,
+        introductionEn: `Girls' thoughts are often more subtle, and their ways of expressing affection are more reserved. A caring greeting, an unintentional smile, a proactive approach... Can you read these signals?
+
+"Does She Like Me" helps you decode her emotional signals. By analyzing her behavioral patterns in daily interactions, we'll provide you with an objective reference.
+
+Of course, everyone expresses feelings differently, and test results are just references. If you truly like her, the best approach is to genuinely understand and care for her.`,
+        methodology: `本测试参考了女性恋爱心理学研究和情感表达模式分析。女性在表达好感时往往更加间接，可能通过关心、倾听、分享等方式来传递情感信号。
+
+题目设计覆盖了语言交流、肢体语言、日常关注等多个维度，帮助你更全面地理解她的态度。`,
+        methodologyEn: `This test references female love psychology research and emotional expression pattern analysis. Women often express affection more indirectly, potentially conveying emotional signals through caring, listening, and sharing.
+
+The questions cover multiple dimensions including verbal communication, body language, and daily attention, helping you understand her attitude more comprehensively.`,
         faqs: [
             {
                 question: "女生喜欢一个人会有什么表现？",
@@ -95,6 +153,22 @@ export const testPageContents: Record<string, TestPageContentData> = {
         psychologyContentEn: "Women in love often prioritize emotional connection and security. Research shows women are better at reading emotional signals and prefer building intimacy through verbal and emotional communication. They may express interest indirectly through caring, helping, and sharing rather than direct confession."
     },
     "do-i-like-her": {
+        introduction: `你是否发现自己不自觉地关注着她的一举一动？是否会在看到她和别人说笑时感到一丝酸涩？是否会期待每一次和她相遇的机会？
+
+有时候，喜欢一个人的感觉来得太自然，以至于我们自己都没有意识到。"我喜欢她吗"帮助你审视自己的内心，通过15道问题来评估你对她的真实感受。
+
+无论结果是确认了你的感觉还是让你重新思考，这都是一次宝贵的自我探索之旅。`,
+        introductionEn: `Do you find yourself unconsciously paying attention to her every move? Do you feel a twinge of jealousy when you see her laughing with others? Do you look forward to every chance encounter?
+
+Sometimes, the feeling of liking someone comes so naturally that we don't even realize it ourselves. "Do I Like Her" helps you examine your heart, assessing your true feelings through 15 questions.
+
+Whether the result confirms your feelings or makes you reconsider, this is a valuable journey of self-exploration.`,
+        methodology: `本测试基于多巴胺反应理论和情感依恋研究设计。当我们喜欢一个人时，大脑会产生特定的化学反应，导致一系列生理和心理表现。
+
+题目设计关注你在日常生活中对她的注意力分配、情绪反应和行为倾向，帮助你判断这是真正的喜欢还是其他类型的好感。`,
+        methodologyEn: `This test is designed based on dopamine response theory and emotional attachment research. When we like someone, our brain produces specific chemical reactions, leading to a series of physiological and psychological manifestations.
+
+The questions focus on your attention distribution, emotional responses, and behavioral tendencies towards her in daily life, helping you determine if this is genuine romantic interest or other types of affection.`,
         faqs: [
             {
                 question: "怎么区分喜欢和习惯？",
@@ -121,6 +195,22 @@ export const testPageContents: Record<string, TestPageContentData> = {
         psychologyContentEn: "When we fall in love, our brain releases dopamine—this 'happiness hormone' makes us feel excited and joyful. This explains why early love brings rapid heartbeat, insomnia, and appetite changes. This chemical reaction is an evolutionary mechanism that helps us form intimate bonds."
     },
     "do-i-like-him": {
+        introduction: `每当他出现，你的心是否会不由自主地加速？是否会翻看他的社交动态，想象你们在一起的样子？是否会因为他的一句话而反复揣摩他的心意？
+
+这些可能都是喜欢的信号，但有时候我们也会把好感、崇拜甚至习惯性的依赖误认为是喜欢。"我喜欢他吗"将帮助你厘清这些复杂的情感。
+
+通过15道精心设计的问题，我们将从情感依恋、浪漫幻想、日常关注等多个角度分析你对他的真实感受。`,
+        introductionEn: `Does your heart race whenever he appears? Do you browse his social media, imagining what it would be like to be together? Do you analyze his every word, trying to understand his feelings?
+
+These could all be signs of liking someone, but sometimes we mistake fondness, admiration, or habitual dependence for romantic feelings. "Do I Like Him" will help you clarify these complex emotions.
+
+Through 15 carefully designed questions, we'll analyze your true feelings from multiple angles including emotional attachment, romantic fantasies, and daily attention.`,
+        methodology: `本测试采用依恋理论（Attachment Theory）和情感心理学研究作为理论基础。我们通过评估你对他的情感反应模式，来判断这种感觉是真正的浪漫喜欢，还是其他类型的情感。
+
+题目涵盖了日常生活中的各种场景，每道题目都旨在捕捉你最真实的内心反应。`,
+        methodologyEn: `This test uses Attachment Theory and emotional psychology research as its theoretical foundation. We assess your emotional response patterns towards him to determine if these feelings are genuine romantic interest or other types of emotions.
+
+The questions cover various scenarios in daily life, with each question designed to capture your most authentic inner reactions.`,
         faqs: [
             {
                 question: "心动的感觉是什么样的？",
@@ -147,6 +237,28 @@ export const testPageContents: Record<string, TestPageContentData> = {
         psychologyContentEn: "Psychologist John Bowlby's Attachment Theory suggests that our behavior in intimate relationships relates to childhood attachment experiences. There are three main types: secure (easily trusts others), anxious (fears abandonment), and avoidant (fears intimacy). Understanding your attachment style can help you navigate relationship challenges."
     },
     "mental-age": {
+        introduction: `你是否曾觉得自己的想法比同龄人更成熟？或者发现自己在某些方面还保持着孩子般的天真？心理年龄和实际年龄并不总是一致的，而了解自己的心理年龄可以帮助你更好地认识自己。
+
+这个测试将通过30道问题，从思维方式、情绪管理、社交适应和生活态度等多个维度来评估你的心理成熟度。
+
+请记住：心理年龄没有好坏之分，重要的是了解自己，在保持成熟智慧的同时，也不失对生活的热情。`,
+        introductionEn: `Have you ever felt that your thoughts are more mature than your peers? Or noticed that you still maintain childlike innocence in certain ways? Mental age and biological age don't always match, and understanding your mental age can help you know yourself better.
+
+This test will evaluate your psychological maturity through 30 questions, covering thinking patterns, emotional management, social adaptation, and life attitudes.
+
+Remember: there's no good or bad mental age. What matters is understanding yourself—maintaining mature wisdom while keeping your passion for life.`,
+        methodology: `本测试基于发展心理学研究，结合了皮亚杰的认知发展理论和埃里克森的心理社会发展理论。我们从以下几个维度评估心理年龄：
+
+• 思维抽象程度和问题解决能力
+• 情绪管理和自我调节能力
+• 社会关系处理和责任感
+• 价值观和生活态度`,
+        methodologyEn: `This test is based on developmental psychology research, combining Piaget's cognitive development theory and Erikson's psychosocial development theory. We evaluate mental age across several dimensions:
+
+• Level of abstract thinking and problem-solving ability
+• Emotional management and self-regulation skills
+• Social relationship handling and sense of responsibility
+• Values and life attitudes`,
         faqs: [
             {
                 question: "心理年龄和实际年龄差很多正常吗？",
@@ -173,6 +285,22 @@ export const testPageContents: Record<string, TestPageContentData> = {
         psychologyContentEn: "Psychological age refers to the age that corresponds to one's mental maturity level. Unlike biological age, it mainly reflects thinking patterns, emotional management, social skills, and life attitudes. It's influenced by genetics, environment, education, and personal experiences."
     },
     "desire-test": {
+        introduction: `你心中最渴望的是什么？是物质财富带来的安全感，还是权力地位带来的满足感？是浪漫爱情的甘蜜，还是自由不羁的生活？
+
+这个测试将帮助你探索内心深处的欲望组成。通过分析你在不同情境下的选择，我们将绘制出你独特的"欲望组成图"，展示你在某些追求、爱情、金钱、名望、权力、健康、自由、家庭等八大维度上的比例。
+
+了解自己的欲望，告诉自己什么才是你人生中最重要的东西。`,
+        introductionEn: `What do you desire most? Is it the security that material wealth brings, or the satisfaction of power and status? The sweetness of romantic love, or a life of freedom and independence?
+
+This test will help you explore the composition of desires deep within your heart. By analyzing your choices in different scenarios, we'll create your unique "Desire Composition Chart," showing your proportions across eight dimensions: pursuit, love, money, fame, power, health, freedom, and family.
+
+Understanding your desires tells you what matters most in your life.`,
+        methodology: `本测试基于心理学家Abraham Maslow的需求层次理论，并结合现代动机心理学研究。我们设计了八个欲望维度来全面覆盖人类的核心追求。
+
+通过各种情境化的题目，我们分析你在面对不同选择时的内心倾向，从而生成个性化的欲望分布图。`,
+        methodologyEn: `This test is based on psychologist Abraham Maslow's Hierarchy of Needs, combined with modern motivation psychology research. We designed eight desire dimensions to comprehensively cover core human pursuits.
+
+Through various scenario-based questions, we analyze your inner tendencies when facing different choices, generating a personalized desire distribution chart.`,
         faqs: [
             {
                 question: "欲望测试结果说明什么？",
@@ -199,6 +327,22 @@ export const testPageContents: Record<string, TestPageContentData> = {
         psychologyContentEn: "Psychologist Abraham Maslow's Hierarchy of Needs suggests human needs exist in five levels: physiological, safety, social, esteem, and self-actualization. People pursue higher needs only after lower ones are met. This test helps you understand your current most important needs."
     },
     "gay-test": {
+        introduction: `性取向是一个复杂且很私人的话题。许多人在成长过程中可能会对自己的性取向产生疑问，而这种探索是完全正常且健康的。
+
+这个测试基于性学先驱Alfred Kinsey提出的金赛量表设计，将性取向视为一个连续的光谱而非简单的二元对立。通过一系列情境题目，我们将帮助你更好地了解自己。
+
+请放心：所有测试数据都在你的设备本地处理，不会上传到任何服务器。无论你处于光谱的哪个位置，都是完全正常且值得被尊重的。`,
+        introductionEn: `Sexual orientation is a complex and deeply personal topic. Many people may question their sexual orientation during their journey of self-discovery, and this exploration is completely normal and healthy.
+
+This test is designed based on Alfred Kinsey's Kinsey Scale, viewing sexual orientation as a continuous spectrum rather than a simple binary. Through a series of situational questions, we'll help you better understand yourself.
+
+Rest assured: all test data is processed locally on your device and is never uploaded to any server. Wherever you are on the spectrum, you are completely normal and deserving of respect.`,
+        methodology: `本测试基于1948年性学研究先驱Alfred Kinsey提出的金赛量表。该量表将性取向分为0-6的连续光谱，打破了传统的二元对立观念。
+
+我们的题目涵盖了人际吸引、情感向往、性意念等多个维度，旨在帮助你全面地了解自己的取向側向。请注意，这只是自我探索的工具，不是定论。`,
+        methodologyEn: `This test is based on the Kinsey Scale proposed by sexology pioneer Alfred Kinsey in 1948. The scale divides sexual orientation into a 0-6 continuous spectrum, breaking traditional binary concepts.
+
+Our questions cover multiple dimensions including interpersonal attraction, emotional connection, and sexual ideation, designed to help you comprehensively understand your orientation tendencies. Please note: this is merely a tool for self-exploration, not a definitive conclusion.`,
         faqs: [
             {
                 question: "性取向可以通过测试确定吗？",
