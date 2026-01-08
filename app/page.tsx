@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Heart, Sparkles, ArrowRight, Search, Menu, Brain, HeartHandshake, Flame, Users, HelpCircle, Smile } from "lucide-react";
+import { Heart, Sparkles, ArrowRight, Search, Menu, Brain, HeartHandshake, Flame, Users, HelpCircle, Smile, Shield } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { AdUnit } from "@/components/AdUnit";
@@ -40,6 +40,18 @@ export default function PortalPage() {
       descZh: "你的欲望由什么组成？通过12道趣味情景题，测试你内心深处的真实渴望。探索八大欲望维度，生成专属于你的欲望比重饼图！",
       icon: Flame,  // 欲望测试 - 火焰
       color: "from-amber-500 to-orange-600",
+      stats: "Trending",
+      badge: "NEW"
+    },
+    {
+      id: "zhanan-test",
+      href: "/zhanan-test",
+      titleEn: "Toxic Partner Detection Test",
+      titleZh: "渣男辨别力测试",
+      descEn: "Can you spot the red flags? Through 20 scenario-based questions, discover your ability to identify toxic behaviors in relationships.",
+      descZh: "渣男像地雷，既要慧眼识别又要小心绕开！通过20道情境题，测测你识别渣男套路的能力有多强？",
+      icon: Shield,  // 渣男测试 - 盾牌
+      color: "from-purple-500 to-pink-600",
       stats: "Trending",
       badge: "NEW"
     },

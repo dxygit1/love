@@ -367,5 +367,58 @@ Our questions cover multiple dimensions including interpersonal attraction, emot
         psychologyTitleEn: "Kinsey Scale",
         psychologyContent: "1948年，性学研究先驱Alfred Kinsey提出了著名的金赛量表，将性取向分为0-6的连续光谱：0代表完全异性恋，6代表完全同性恋，中间数值代表不同程度的双性恋倾向。这一理论打破了性取向非此即彼的传统观念，强调了人类性取向的多样性和流动性。",
         psychologyContentEn: "In 1948, sexology pioneer Alfred Kinsey introduced the Kinsey Scale, representing sexual orientation on a 0-6 spectrum: 0 for exclusively heterosexual, 6 for exclusively homosexual, with middle values representing varying degrees of bisexuality. This theory broke the traditional binary view of sexuality, emphasizing diversity and fluidity in human sexual orientation."
+    },
+    "zhanan-test": {
+        introduction: `"渣男"是一个网络热词，用来形容在感情中不真诚、善于伪装、对伴侣不负责任的男性。渣男像地雷，既要慧眼识别又要小心绕开，但不是我们每个人都有排雷的能力，总有些傻白甜被渣男的重重套路攻陷。
+
+这个测试通过20道情境题，模拟一段完整的恋爱经历（从相识到分手），让你判断在各种场景下渣男最可能的行为模式。你需要从选项中选出渣男最有可能的做法，而不是你认为正确或合理的做法。
+
+通过这个测试，你可以了解自己识别渣男套路的能力有多强，同时也能学习到一些常见的渣男行为特征，帮助你在现实生活中更好地保护自己。`,
+        introductionEn: `"Toxic partner" refers to someone who is insincere in relationships, good at pretending, and irresponsible to their partner. Detecting toxic partners is like finding landmines—you need sharp eyes and careful steps.
+
+This test uses 20 scenario-based questions simulating a complete relationship journey (from meeting to breaking up), asking you to identify what a toxic partner would most likely do in various situations. You need to choose the most likely toxic behavior, not what you think is correct or reasonable.
+
+Through this test, you can understand how well you can identify toxic relationship patterns while also learning common red flag behaviors to better protect yourself in real life.`,
+        methodology: `本测试采用情境判断法（Situational Judgment Test）设计，通过模拟真实的恋爱场景来评估你的辨别能力。
+
+测试包含三种题型：
+• 单选题：选择渣男最可能的行为
+• 多选题：选出所有符合渣男特征的选项
+• 分支题：根据不同选择会进入不同的故事线
+
+评分标准：正确识别渣男行为得分，分数越高代表辨别力越强。满分约100分，根据最终得分将给出7个不同等级的评价。`,
+        methodologyEn: `This test uses the Situational Judgment Test methodology, evaluating your detection ability through simulated real relationship scenarios.
+
+The test includes three question types:
+• Single choice: Select the most likely toxic behavior
+• Multiple choice: Select all options matching toxic characteristics
+• Branching: Different choices lead to different storylines
+
+Scoring: Points are earned for correctly identifying toxic behaviors. Higher scores indicate stronger detection ability. Maximum score is around 100, with 7 different rating levels based on final score.`,
+        faqs: [
+            {
+                question: "这个测试准确吗？",
+                questionEn: "Is this test accurate?",
+                answer: "本测试基于常见的渣男行为模式设计，具有一定的参考价值。但每段感情都是独特的，测试结果仅供娱乐和自我反思，不能作为判断他人的依据。",
+                answerEn: "This test is designed based on common toxic behavior patterns and has reference value. However, every relationship is unique, and test results are for entertainment and self-reflection only, not for judging others."
+            },
+            {
+                question: "为什么要选渣男最可能的做法？",
+                questionEn: "Why should I choose what a toxic partner would likely do?",
+                answer: "这个测试测的是你识别渣男行为的能力，而不是你自己会怎么做。能够准确识别渣男的典型行为模式，说明你的辨别力更强，更能保护自己不受伤害。",
+                answerEn: "This test measures your ability to identify toxic behaviors, not what you would do. Accurately identifying typical toxic behavior patterns indicates stronger detection ability and better self-protection."
+            },
+            {
+                question: "多选题怎么算分？",
+                questionEn: "How are multiple choice questions scored?",
+                answer: "多选题中，每个正确选项（渣男典型行为）各得1分。只有选中的正确选项才计分，选错不扣分。所以要尽量选出所有你认为符合渣男特征的选项。",
+                answerEn: "In multiple choice questions, each correct option (typical toxic behavior) earns 1 point. Only selected correct options count, wrong selections don't deduct points. So try to select all options you think match toxic characteristics."
+            }
+        ],
+        psychologyTitle: "识别情感操控",
+        psychologyTitleEn: "Recognizing Emotional Manipulation",
+        psychologyContent: "渣男的典型行为模式往往涉及情感操控（Emotional Manipulation）和煤气灯效应（Gaslighting）。情感操控者善于利用甜言蜜语、制造焦虑、推卸责任等手段控制伴侣。了解这些心理学概念可以帮助你更好地识别和防范不健康的关系模式，保护自己的情感健康。",
+        psychologyContentEn: "Typical toxic behavior patterns often involve Emotional Manipulation and Gaslighting. Manipulators are skilled at using sweet words, creating anxiety, and shifting blame to control partners. Understanding these psychological concepts can help you better identify and guard against unhealthy relationship patterns, protecting your emotional wellbeing."
     }
 };
+

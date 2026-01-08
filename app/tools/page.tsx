@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Brain, Heart, ArrowRight, Search, Sparkles, Flame, Users, HelpCircle, HeartHandshake } from "lucide-react";
+import { Brain, Heart, ArrowRight, Search, Sparkles, Flame, Users, HelpCircle, HeartHandshake, Shield } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
 import { AdUnit } from "@/components/AdUnit";
@@ -86,6 +86,17 @@ export default function ToolsPage() {
             icon: Sparkles,
             color: "from-red-400 to-rose-500",
             badge: "NEW"
+        },
+        {
+            id: "zhanan-test",
+            href: "/tools/zhanan-test",
+            titleEn: "Toxic Partner Detection",
+            titleZh: "渣男辨别力测试",
+            descEn: "Test your ability to detect toxic partners.",
+            descZh: "测试你辨别渣男的能力，看看你的防渣能力有多强。",
+            icon: Shield,
+            color: "from-purple-500 to-pink-600",
+            badge: "HOT"
         }
     ];
 

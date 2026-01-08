@@ -10,7 +10,7 @@ export interface XiaohongshuResult {
     content: string;
 }
 
-export async function generateXiaohongshuCopy(type: 'mental-age' | 'love-quiz' | 'does-he-like-me' | 'do-i-like-her' | 'gay-test' | 'do-i-like-him', data: any): Promise<XiaohongshuResult> {
+export async function generateXiaohongshuCopy(type: 'mental-age' | 'love-quiz' | 'does-he-like-me' | 'do-i-like-her' | 'gay-test' | 'do-i-like-him' | 'zhanan-test', data: any): Promise<XiaohongshuResult> {
     let prompt = "";
 
     if (type === 'mental-age') {
@@ -27,7 +27,8 @@ export async function generateXiaohongshuCopy(type: 'mental-age' | 'love-quiz' |
 1. **标题**：
    - 要有诗意、新意，像是从心底流淌出的话语。
    - 禁止出现任何具体数字（如年龄、分数）。
-   - 带有emoji，**至少8个汉字**，20字以内。
+   - **禁止使用任何符号和emoji表情**，只用纯汉字。
+   - **至少8个汉字**，20字以内。
 
 2. **正文**：
    - 语气温柔、细腻、富有诗意，像是写给自己的日记。
@@ -53,8 +54,8 @@ export async function generateXiaohongshuCopy(type: 'mental-age' | 'love-quiz' |
 **要求：**
 1. **标题**：
    - 要有诗意、神秘感，引发好奇心。
-   - 使用抽象的比喻，如"原来我的心是这个颜色的..."、"终于读懂了自己的心💫"
-   - 带有爱心或星星emoji，**至少8个汉字**，20字以内。
+   - **禁止使用任何符号和emoji表情**，只用纯汉字。
+   - **至少8个汉字**，20字以内。
    - 绝对不要出现敏感词汇！
 
 2. **正文**：
@@ -64,6 +65,31 @@ export async function generateXiaohongshuCopy(type: 'mental-age' | 'love-quiz' |
    - 可以表达自我发现的喜悦和接纳。
    - 篇幅80-120字，短小精悍。
    - 结尾引导互动："你是什么颜色？"或"你内心的风景是什么样的？"
+
+请直接返回JSON格式，包含 title 和 content 两个字段。
+`;
+    } else if (type === 'zhanan-test') {
+        // 渣男辨别力测试专用prompt
+        prompt = `
+你是一个擅长写唯美、有趣文案的小红书博主。请根据以下"渣男辨别力测试"结果，写一篇吸引人的小红书笔记。
+
+**测试数据：**
+- 称号：${data.resultTitle}
+- 描述：${data.description}
+
+**要求：**
+1. **标题**：
+   - 要有趣、吸引人，能引发共鸣。
+   - **禁止使用任何符号和emoji表情**，只用纯汉字。
+   - **至少8个汉字**，20字以内。
+   - 禁止出现任何数字或分数。
+
+2. **正文**：
+   - 语气可以幽默、自嘲，也可以是有感悟的。
+   - 可以结合"渣男"的话题写一些有趣的感悟。
+   - 禁止出现任何具体分数、数字、百分比。
+   - 篇幅80-120字，短小精悍。
+   - 结尾引导互动：问问读者的辨别力如何。
 
 请直接返回JSON格式，包含 title 和 content 两个字段。
 `;
@@ -84,8 +110,8 @@ export async function generateXiaohongshuCopy(type: 'mental-age' | 'love-quiz' |
 1. **标题**：
    - 要有诗意、新意，像是从心底流淌出的话语。
    - 可以是一句扎心的感慨、一个浪漫的比喻、或一个引人深思的问句。
-   - 禁止出现任何数字或分数。
-   - 带有emoji，**至少8个汉字**，20字以内。
+   - **禁止使用任何符号和emoji表情**，只用纯汉字。
+   - **至少8个汉字**，20字以内。
 
 2. **正文**：
    - 语气温柔、细腻、富有诗意，像是写给自己的情书或日记。

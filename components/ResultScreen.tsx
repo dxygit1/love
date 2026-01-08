@@ -13,10 +13,10 @@ interface ResultScreenProps {
     onRestart: () => void;
     personName?: string;
     gender?: "male" | "female";
-    quizType?: "love-quiz" | "does-he-like-me" | "do-i-like-her" | "do-i-like-him";
+    quizType?: "love-quiz" | "does-he-like-me" | "do-i-like-her" | "do-i-like-him" | "zhanan-test";
 }
 
-// Arealme.com score configuration - score ranges and colors
+// Arealme.com score configuration - score ranges and colors (for love quizzes)
 const scoreConfig = [
     { range: [90, 100], label: "永生挚爱", labelEn: "Love", color: "#6488C1" },
     { range: [65, 90], label: "绝对理想型", labelEn: "Ideal", color: "#BCD4E6" },
@@ -25,14 +25,26 @@ const scoreConfig = [
     { range: [0, 18], label: "一时脑热", labelEn: "Impulse", color: "#B33C3C" },
 ];
 
+// Zhanan test score configuration - 7 levels (higher score = better detection ability)
+const zhananScoreConfig = [
+    { range: [100, 120], label: "渣男毁灭者", labelEn: "Destroyer", color: "#8B5CF6" },
+    { range: [90, 100], label: "渣男氪金眼", labelEn: "Expert Eye", color: "#A855F7" },
+    { range: [80, 90], label: "渣男躲避机", labelEn: "Dodger", color: "#D946EF" },
+    { range: [70, 80], label: "渣男摇摆人", labelEn: "Waverer", color: "#EC4899" },
+    { range: [60, 70], label: "清纯小可爱", labelEn: "Innocent", color: "#FB7185" },
+    { range: [50, 60], label: "渣男收割机", labelEn: "Victim", color: "#F97316" },
+    { range: [0, 50], label: "懵懂傻白甜", labelEn: "Naive", color: "#EF4444" },
+];
+
 // Get theme color based on score (arealme.com logic)
-const getScoreConfig = (score: number) => {
-    for (const config of scoreConfig) {
-        if (score >= config.range[0]) {
-            return config;
+const getScoreConfig = (score: number, quizType?: string) => {
+    const config = quizType === "zhanan-test" ? zhananScoreConfig : scoreConfig;
+    for (const c of config) {
+        if (score >= c.range[0]) {
+            return c;
         }
     }
-    return scoreConfig[scoreConfig.length - 1]; // Default to lowest
+    return config[config.length - 1]; // Default to lowest
 };
 
 export function ResultScreen({ score, result, onRestart, personName, gender = "male", quizType = "love-quiz" }: ResultScreenProps) {
@@ -52,7 +64,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
     const percentage = Math.round((displayScore / maxScore) * 100);
 
     // Get dynamic theme color based on score (arealme.com style)
-    const currentConfig = getScoreConfig(displayScore);
+    const currentConfig = getScoreConfig(displayScore, quizType);
     const themeColor = currentConfig.color; // Dynamic color based on score level
 
     // Dynamic text replacement
@@ -140,7 +152,14 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                         )}
 
                         <p className="mb-3 text-sm md:text-lg" style={{ color: "#6b7280" }}>
-                            {quizType === "does-he-like-me" ? (
+                            {quizType === "zhanan-test" ? (
+                                // Zhanan test - show detection ability
+                                language === "zh" ? (
+                                    <>我的 <span className="font-bold" style={{ color: "#1f2937" }}>渣男辨别力指数</span> 是：</>
+                                ) : (
+                                    <>My <span className="font-bold" style={{ color: "#1f2937" }}>Toxic Detection Score</span> is:</>
+                                )
+                            ) : quizType === "does-he-like-me" ? (
                                 // "Does He Like Me" quiz - show HIS feelings for YOU
                                 language === "zh" ? (
                                     <>经测试，<span className="font-bold" style={{ color: "#1f2937" }}>{personName || (gender === "female" ? "她" : "他")}对你的喜欢程度</span> 位于：</>
@@ -217,71 +236,86 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
                         </div>
 
                         {/* Result Scale Container - SVG Progress Bar (arealme.com style) */}
-                        <div className="relative w-full mb-6 scale-[0.99] sm:scale-75 md:scale-100 origin-top">
-                            <svg
-                                viewBox="-10 0 520 74"
-                                width="100%"
-                                preserveAspectRatio="none"
-                                style={{ overflow: 'visible' }}
-                            >
-                                {/* Bar segments with correct proportions based on score ranges */}
-                                {/* 永生挚爱 90-100: x=450, width=50 */}
-                                <rect x="450" y="31" width="50" height="10" fill="#6488C1" />
-                                {/* 绝对理想型 65-90: x=325, width=125 */}
-                                <rect x="325" y="31" width="125" height="10" fill="#BCD4E6" />
-                                {/* 小鹿乱撞 40-65: x=200, width=125 */}
-                                <rect x="200" y="31" width="125" height="10" fill="#D0CBCB" />
-                                {/* 云淡风轻 18-40: x=90, width=110 */}
-                                <rect x="90" y="31" width="110" height="10" fill="#CD5C5D" />
-                                {/* 一时脑热 0-18: x=0, width=90 */}
-                                <rect x="0" y="31" width="90" height="10" fill="#B33C3C" />
-
-                                {/* Labels - alternating top (y=15) and bottom (y=65) */}
-                                {/* 永生挚爱 - top right */}
-                                <text>
-                                    <tspan x="500" y="15" textAnchor="end" fontWeight="bold" fontSize="12" fill="#6488C1">
-                                        {language === "zh" ? "永生挚爱" : "Love"}
-                                    </tspan>
-                                </text>
-                                {/* 绝对理想型 - bottom center */}
-                                <text>
-                                    <tspan x="387.5" y="65" textAnchor="middle" fontWeight="bold" fontSize="12" fill="#BCD4E6">
-                                        {language === "zh" ? "绝对理想型" : "Ideal"}
-                                    </tspan>
-                                </text>
-                                {/* 小鹿乱撞 - top center */}
-                                <text>
-                                    <tspan x="262.5" y="15" textAnchor="middle" fontWeight="bold" fontSize="12" fill="#D0CBCB">
-                                        {language === "zh" ? "小鹿乱撞" : "Crush"}
-                                    </tspan>
-                                </text>
-                                {/* 云淡风轻 - bottom center */}
-                                <text>
-                                    <tspan x="145" y="65" textAnchor="middle" fontWeight="bold" fontSize="12" fill="#CD5C5D">
-                                        {language === "zh" ? "云淡风轻" : "Friends"}
-                                    </tspan>
-                                </text>
-                                {/* 一时脑热 - top left */}
-                                <text>
-                                    <tspan x="0" y="15" textAnchor="start" fontWeight="bold" fontSize="12" fill="#B33C3C">
-                                        {language === "zh" ? "一时脑热" : "Impulse"}
-                                    </tspan>
-                                </text>
-
-                                {/* Yellow Indicator Arrow - position based on score */}
-                                <g
-                                    id="indicator_mc"
-                                    transform={`translate(${displayScore * 5 - 4}, 31)`}
+                        {quizType === "zhanan-test" ? (
+                            /* Zhanan test - show simple result title */
+                            <div className="text-center mb-6">
+                                <h3
+                                    className="text-2xl font-bold mb-2"
+                                    style={{ color: themeColor }}
                                 >
-                                    <polygon
-                                        points="0,-2 8,-2 8,8 4,13 0,8"
-                                        fill="#FACC15"
-                                        stroke="#000"
-                                        strokeWidth="1.1"
-                                    />
-                                </g>
-                            </svg>
-                        </div>
+                                    {currentConfig.label}
+                                </h3>
+                                <p className="text-gray-600 text-sm">
+                                    {language === "zh" ? result.descriptionZh : result.descriptionEn}
+                                </p>
+                            </div>
+                        ) : (
+                            <div className="relative w-full mb-6 scale-[0.99] sm:scale-75 md:scale-100 origin-top">
+                                <svg
+                                    viewBox="-10 0 520 74"
+                                    width="100%"
+                                    preserveAspectRatio="none"
+                                    style={{ overflow: 'visible' }}
+                                >
+                                    {/* Bar segments with correct proportions based on score ranges */}
+                                    {/* 永生挚爱 90-100: x=450, width=50 */}
+                                    <rect x="450" y="31" width="50" height="10" fill="#6488C1" />
+                                    {/* 绝对理想型 65-90: x=325, width=125 */}
+                                    <rect x="325" y="31" width="125" height="10" fill="#BCD4E6" />
+                                    {/* 小鹿乱撞 40-65: x=200, width=125 */}
+                                    <rect x="200" y="31" width="125" height="10" fill="#D0CBCB" />
+                                    {/* 云淡风轻 18-40: x=90, width=110 */}
+                                    <rect x="90" y="31" width="110" height="10" fill="#CD5C5D" />
+                                    {/* 一时脑热 0-18: x=0, width=90 */}
+                                    <rect x="0" y="31" width="90" height="10" fill="#B33C3C" />
+
+                                    {/* Labels - alternating top (y=15) and bottom (y=65) */}
+                                    {/* 永生挚爱 - top right */}
+                                    <text>
+                                        <tspan x="500" y="15" textAnchor="end" fontWeight="bold" fontSize="12" fill="#6488C1">
+                                            {language === "zh" ? "永生挚爱" : "Love"}
+                                        </tspan>
+                                    </text>
+                                    {/* 绝对理想型 - bottom center */}
+                                    <text>
+                                        <tspan x="387.5" y="65" textAnchor="middle" fontWeight="bold" fontSize="12" fill="#BCD4E6">
+                                            {language === "zh" ? "绝对理想型" : "Ideal"}
+                                        </tspan>
+                                    </text>
+                                    {/* 小鹿乱撞 - top center */}
+                                    <text>
+                                        <tspan x="262.5" y="15" textAnchor="middle" fontWeight="bold" fontSize="12" fill="#D0CBCB">
+                                            {language === "zh" ? "小鹿乱撞" : "Crush"}
+                                        </tspan>
+                                    </text>
+                                    {/* 云淡风轻 - bottom center */}
+                                    <text>
+                                        <tspan x="145" y="65" textAnchor="middle" fontWeight="bold" fontSize="12" fill="#CD5C5D">
+                                            {language === "zh" ? "云淡风轻" : "Friends"}
+                                        </tspan>
+                                    </text>
+                                    {/* 一时脑热 - top left */}
+                                    <text>
+                                        <tspan x="0" y="15" textAnchor="start" fontWeight="bold" fontSize="12" fill="#B33C3C">
+                                            {language === "zh" ? "一时脑热" : "Impulse"}
+                                        </tspan>
+                                    </text>
+
+                                    {/* Yellow Indicator Arrow - position based on score */}
+                                    <g
+                                        id="indicator_mc"
+                                        transform={`translate(${displayScore * 5 - 4}, 31)`}
+                                    >
+                                        <polygon
+                                            points="0,-2 8,-2 8,8 4,13 0,8"
+                                            fill="#FACC15"
+                                            stroke="#000"
+                                            strokeWidth="1.1"
+                                        />
+                                    </g>
+                                </svg>
+                            </div>
+                        )}
 
                         <div className="w-full mx-auto space-y-2 scale-[0.99] sm:scale-75 md:scale-100 origin-top">
                             {/* Analysis Section - Minimalist */}
