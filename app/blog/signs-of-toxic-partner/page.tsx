@@ -14,6 +14,7 @@ export default function SignsOfToxicPartnerPage() {
                 titleEn="10 Signs of a Toxic Partner"
                 date="2025-01-10"
                 readTime="8"
+                coverImage="/blog-images/toxic-partner.png"
             >
                 <p>
                     Toxic partners are masters of disguise. In the beginning, they may seem like the perfect match—charming,
@@ -116,6 +117,7 @@ export default function SignsOfToxicPartnerPage() {
             titleEn="10 Signs of a Toxic Partner"
             date="2025-01-10"
             readTime="8"
+            coverImage="/blog-images/toxic-partner.png"
         >
             <p>
                 渣男往往善于伪装，刚开始的时候可能表现得像是梦中情人——温柔、体贴、浪漫。但随着时间推移，

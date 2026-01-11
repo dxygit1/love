@@ -14,6 +14,7 @@ export default function LoveLanguagesPage() {
                 titleEn="The 5 Love Languages: Discover How You Express Love"
                 date="2025-01-09"
                 readTime="7"
+                coverImage="/blog-images/love-languages.png"
             >
                 <p>
                     Why do some couples feel disconnected despite loving each other? Often, it's because
@@ -95,6 +96,7 @@ export default function LoveLanguagesPage() {
             titleEn="The 5 Love Languages: Discover How You Express Love"
             date="2025-01-09"
             readTime="7"
+            coverImage="/blog-images/love-languages.png"
         >
             <p>
                 为什么有些情侣明明相爱却总觉得不被理解？很可能是因为你们说着不同的"爱的语言"。

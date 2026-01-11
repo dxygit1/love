@@ -2,6 +2,7 @@
 
 import { useLanguage } from "@/contexts/LanguageContext";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft, Calendar, Clock, User } from "lucide-react";
 
 interface BlogLayoutProps {
@@ -11,9 +12,10 @@ interface BlogLayoutProps {
     date: string;
     readTime: string;
     author?: string;
+    coverImage?: string;
 }
 
-export function BlogLayout({ children, title, titleEn, date, readTime, author = "Love Quiz" }: BlogLayoutProps) {
+export function BlogLayout({ children, title, titleEn, date, readTime, author = "Love Quiz", coverImage }: BlogLayoutProps) {
     const { language } = useLanguage();
 
     return (
@@ -27,6 +29,20 @@ export function BlogLayout({ children, title, titleEn, date, readTime, author = 
                     <ArrowLeft className="w-4 h-4 mr-1" />
                     {language === "zh" ? "返回文章列表" : "Back to Articles"}
                 </Link>
+
+                {/* Cover Image */}
+                {coverImage && (
+                    <div className="mb-8 rounded-2xl overflow-hidden shadow-lg">
+                        <Image
+                            src={coverImage}
+                            alt={language === "zh" ? title : titleEn}
+                            width={800}
+                            height={400}
+                            className="w-full h-auto object-cover"
+                            priority
+                        />
+                    </div>
+                )}
 
                 {/* Article Header */}
                 <header className="mb-10">

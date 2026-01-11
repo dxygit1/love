@@ -14,6 +14,7 @@ export default function SignsOfToxicWomanPage() {
                 titleEn="8 Signs of a Toxic Girlfriend"
                 date="2025-01-11"
                 readTime="7"
+                coverImage="/blog-images/toxic-woman.png"
             >
                 <p>
                     Toxic behavior isn't exclusive to men. Women can be emotionally manipulative, dishonest,
@@ -91,6 +92,7 @@ export default function SignsOfToxicWomanPage() {
             titleEn="8 Signs of a Toxic Girlfriend"
             date="2025-01-11"
             readTime="7"
+            coverImage="/blog-images/toxic-woman.png"
         >
             <p>
                 渣不分男女。女生一样可能有情感操控、不诚实或利用对方的行为。

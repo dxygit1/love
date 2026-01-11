@@ -14,6 +14,7 @@ export default function RelationshipGridPage() {
                 titleEn="The 9 Types of Relationships: Which One Are You?"
                 date="2025-01-10"
                 readTime="8"
+                coverImage="/blog-images/relationship-grid.png"
             >
                 <p>
                     Based on psychology research, relationships can be categorized into nine distinct types
@@ -100,6 +101,7 @@ export default function RelationshipGridPage() {
             titleEn="The 9 Types of Relationships: Which One Are You?"
             date="2025-01-10"
             readTime="8"
+            coverImage="/blog-images/relationship-grid.png"
         >
             <p>
                 根据心理学家斯腾伯格的爱情三角理论，恋爱关系可以根据亲密感、激情和承诺三个维度，
