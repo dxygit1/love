@@ -1,4 +1,53 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* Blog article styles */
+.blog-content h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #111827;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.blog-content h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.blog-content p {
+  color: #374151;
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+
+.blog-content ul,
+.blog-content ol {
+  color: #374151;
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.blog-content li {
+  margin-bottom: 0.5rem;
+}
+
+.blog-content blockquote {
+  border-left: 4px solid #fb7185;
+  background-color: #fff1f2;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 0 0.5rem 0.5rem 0;
+  font-style: italic;
+}
+
+.blog-content strong {
+  color: #111827;
+  font-weight: 600;
+}
 
 :root {
   --background: 249 250 251;

@@ -50,15 +50,7 @@ export function BlogLayout({ children, title, titleEn, date, readTime, author = 
                 </header>
 
                 {/* Article Content */}
-                <div className="prose prose-lg prose-rose max-w-none
-                    prose-headings:font-bold prose-headings:text-gray-900
-                    prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
-                    prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3
-                    prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-4
-                    prose-li:text-gray-700
-                    prose-strong:text-gray-900
-                    prose-blockquote:border-l-rose-400 prose-blockquote:bg-rose-50 prose-blockquote:py-1 prose-blockquote:px-4 prose-blockquote:rounded-r-lg
-                ">
+                <div className="blog-content prose prose-lg prose-rose max-w-none">
                     {children}
                 </div>
 
