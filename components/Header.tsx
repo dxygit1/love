@@ -41,6 +41,15 @@ export function Header() {
                             {t("header.home")}
                         </Link>
                         <Link
+                            href="/blog"
+                            className={cn(
+                                "transition-colors hover:text-rose-500 whitespace-nowrap",
+                                pathname.startsWith("/blog") ? "text-rose-600" : "text-gray-600"
+                            )}
+                        >
+                            {t("header.blog")}
+                        </Link>
+                        <Link
                             href="/about"
                             className={cn(
                                 "transition-colors hover:text-rose-500 whitespace-nowrap",

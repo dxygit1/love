@@ -35,6 +35,7 @@ export const translations = {
             title: "Love Quiz",
             home: "首页",
             home_2: "他喜欢我吗？",
+            blog: "情感专栏",
             about: "关于我们",
             privacy: "隐私",
         },
@@ -181,6 +182,7 @@ export const translations = {
         header: {
             title: "Love Quiz",
             home: "Home",
+            blog: "Blog",
             about: "About",
             privacy: "Privacy",
         },
