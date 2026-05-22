@@ -10,6 +10,7 @@ import {
     type ZhananAnswer,
     type ZhananResult,
 } from "@/lib/zhanan-quiz-data";
+import { quizStart, quizComplete } from "@/lib/analytics";
 
 interface QuizState {
     started: boolean;
@@ -44,6 +45,7 @@ export function useQuizZhanan() {
 
     // 开始测试
     const startQuiz = useCallback(() => {
+        quizStart("zhanan-test");
         setState({
             started: true,
             finished: false,
@@ -90,6 +92,7 @@ export function useQuizZhanan() {
 
                 if (nextId === null) {
                     // 测试结束
+                    quizComplete("zhanan-test");
                     return {
                         ...prev,
                         answers: newAnswers,
@@ -165,6 +168,7 @@ export function useQuizZhanan() {
             const nextId = getNextQuestionId(prev.currentQuestionId);
 
             if (nextId === null) {
+                quizComplete("zhanan-test");
                 return {
                     ...prev,
                     totalScore: newScore,

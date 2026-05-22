@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { gayQuizQuestions, calculateGayScores, getDominantOrientation } from '@/lib/quiz-data-gay';
+import { quizStart, quizComplete } from '@/lib/analytics';
 
 export type GayQuizState = 'welcome' | 'quiz' | 'result';
 
@@ -15,6 +16,7 @@ export function useQuizGay() {
     const totalQuestions = gayQuizQuestions.length;
 
     const startQuiz = useCallback(() => {
+        quizStart("gay-test");
         setState('quiz');
         setCurrentQuestion(0);
         setAnswers([]);
@@ -31,6 +33,7 @@ export function useQuizGay() {
             // 计算最终分数
             const finalScores = calculateGayScores(newAnswers);
             setScores(finalScores);
+            quizComplete("gay-test");
             setState('result');
         }
     }, [answers, currentQuestion, totalQuestions]);

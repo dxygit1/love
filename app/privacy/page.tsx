@@ -172,7 +172,7 @@ export default function PrivacyPage() {
                                 如果您对本隐私政策有任何疑问或建议，请通过以下方式联系我们：
                             </p>
                             <p>
-                                <strong>Email:</strong> contact@lovequiz.app
+                                <strong>Email:</strong> dxysy1@gmail.com
                             </p>
                             <p>
                                 我们将在收到您的询问后尽快回复。

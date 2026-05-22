@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from "react";
 import { questions, results, type Question, type ResultCategory } from "@/lib/quiz-data";
+import { quizStart, quizComplete } from "@/lib/analytics";
 
 export type QuizStep = "welcome" | "quiz" | "personalization" | "result";
 
@@ -30,6 +31,7 @@ export function useQuiz() {
     });
 
     const startQuiz = useCallback(() => {
+        quizStart("love-quiz");
         setState({
             step: "quiz",
             currentQuestionIndex: 0,
@@ -99,6 +101,7 @@ export function useQuiz() {
 
             // Trigger analysis
             setTimeout(() => {
+                quizComplete("love-quiz");
                 setState((currentState) => ({
                     ...currentState,
                     isAnalyzing: false,

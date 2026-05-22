@@ -3,6 +3,7 @@
 import { useState, useCallback, useMemo } from 'react';
 import { questions, results, ResultCategory } from '@/lib/quiz-data-mental-age';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { quizStart, quizComplete } from '@/lib/analytics';
 
 export const useQuizMentalAge = () => {
     const { language } = useLanguage();
@@ -17,6 +18,7 @@ export const useQuizMentalAge = () => {
 
     const handleStart = useCallback((age: number) => {
         if (age > 0 && age < 150) {
+            quizStart("mental-age");
             setRealAge(age);
             setCurrentQuestionIndex(0);
             setAnswers({});
@@ -38,6 +40,7 @@ export const useQuizMentalAge = () => {
                 setCurrentQuestionIndex(prev => prev + 1);
             }, 300); // Small delay for visual feedback
         } else {
+            quizComplete("mental-age");
             setIsFinished(true);
         }
     }, [currentQuestionIndex]);

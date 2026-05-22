@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useMemo } from 'react';
 import { questions, DesireDimension, getDimensionInfo, DimensionInfo, DesireOption } from '@/lib/quiz-data-desire';
+import { quizStart, quizComplete } from '@/lib/analytics';
 
 export interface DimensionScore {
     dimension: DesireDimension;
@@ -28,6 +29,7 @@ export const useQuizDesire = () => {
     const [history, setHistory] = useState<number[]>([]);
 
     const handleStart = useCallback(() => {
+        quizStart("desire-test");
         setIsStarted(true);
         setCurrentQuestionIndex(0);
         setAnswers({});
@@ -62,6 +64,7 @@ export const useQuizDesire = () => {
                 setCurrentQuestionIndex(prev => prev + 1);
             }, 300);
         } else {
+            quizComplete("desire-test");
             setIsFinished(true);
         }
     }, [currentQuestionIndex]);

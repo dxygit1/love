@@ -22,8 +22,8 @@ export function Footer() {
                     <Link href="/terms" className="hover:text-rose-500 transition-colors">
                         用户协议
                     </Link>
-                    <a href="mailto:contact@lovequiz.app" className="hover:text-rose-500 transition-colors">
-                        联系我们
+                    <a href="mailto:dxysy1@gmail.com" className="hover:text-rose-500 transition-colors">
+                        dxysy1@gmail.com
                     </a>
                     <Link href="/tools" className="hover:text-rose-500 transition-colors">
                         Tools

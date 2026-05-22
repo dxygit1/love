@@ -106,7 +106,7 @@ export default function AboutPage() {
                                 如果您有任何建议、反馈或合作意向，欢迎随时通过以下方式联系我们。我们非常重视用户的反馈，您的每一条建议都可能会帮助我们改进产品。
                             </p>
                             <p>
-                                <strong>Email:</strong> contact@lovequiz.app
+                                <strong>Email:</strong> dxysy1@gmail.com
                             </p>
                             <p>
                                 我们通常会在1-2个工作日内回复您的邮件。感谢您对我们的支持与信任！

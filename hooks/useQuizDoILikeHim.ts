@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { doILikeHimQuestions, calculateDoILikeHimScore, getDoILikeHimResult } from "@/lib/quiz-data-do-i-like-him";
+import { quizStart, quizComplete } from "@/lib/analytics";
 
 export function useQuizDoILikeHim() {
     const [started, setStarted] = useState(false);
@@ -13,6 +14,7 @@ export function useQuizDoILikeHim() {
     const totalQuestions = doILikeHimQuestions.length;
 
     const startQuiz = () => {
+        quizStart("do-i-like-him");
         setStarted(true);
         setCurrentQuestion(0);
         setAnswers([]);
@@ -46,6 +48,7 @@ export function useQuizDoILikeHim() {
         } else if (currentQuestion < totalQuestions - 1) {
             setCurrentQuestion(currentQuestion + 1);
         } else {
+            quizComplete("do-i-like-him");
             setFinished(true);
         }
     };

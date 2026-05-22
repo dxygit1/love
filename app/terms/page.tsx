@@ -180,7 +180,7 @@ export default function TermsPage() {
                                 如果您对本用户协议有任何疑问，请通过以下方式联系我们：
                             </p>
                             <p>
-                                <strong>Email:</strong> contact@lovequiz.app
+                                <strong>Email:</strong> dxysy1@gmail.com
                             </p>
                         </div>
                     </section>
