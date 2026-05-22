@@ -15,31 +15,59 @@ export function AdUnit({ slot, format = "auto", className = "" }: AdUnitProps) {
     const PUBLISHER_ID = "ca-pub-2863794754217950";
 
     useEffect(() => {
-        if (!PUBLISHER_ID || !slot) return;
+        if (!PUBLISHER_ID || !slot || !adRef.current) return;
 
-        // Prevent double push in strict mode by checking if we already have ads in this slot?
-        // AdSense is tricky with this. We just try/catch.
+        const el = adRef.current;
+        let pushed = false;
 
-        try {
-            if (typeof window !== 'undefined') {
+        const pushAd = () => {
+            if (pushed) return;
+            pushed = true;
+            try {
                 // @ts-ignore
                 const adsbygoogle = (window.adsbygoogle = window.adsbygoogle || []);
-                // Simple safeguard: don't push if the element looks filled? 
-                // Hard to check on the 'ins' element ref from here easily without potentially breaking it.
-                // We rely on catch.
                 adsbygoogle.push({});
+            } catch (err: any) {
+                if (err?.message?.includes('already have ads')) {
+                    // Ignore in React Strict Mode
+                } else {
+                    console.error("AdSense error:", err);
+                }
             }
-        } catch (err: any) {
-            // Suppress the specific "availableWidth=0" error to avoid log spam, 
-            // but still useful to know during dev.
-            if (err?.message?.includes('availableWidth=0')) {
-                console.warn(`AdSense Warning (Slot ${slot}): Container has 0 width. Ensure parent has explicit width.`);
-            } else if (err?.message?.includes('already have ads')) {
-                // Ignore "already have ads" error which happens in React Strict Mode
-            } else {
-                console.error("AdSense error:", err);
+        };
+
+        // Wait until the container has a meaningful width (>50px) before pushing the ad
+        const tryPush = () => {
+            if (el.offsetWidth > 50) {
+                pushAd();
+                return true;
             }
-        }
+            return false;
+        };
+
+        if (tryPush()) return;
+
+        // Use ResizeObserver to detect when the container gets real dimensions
+        const resizeObserver = new ResizeObserver(() => {
+            tryPush() && resizeObserver.disconnect();
+        });
+        resizeObserver.observe(el);
+
+        // Also observe intersection in case the element is off-screen
+        const intersectionObserver = new IntersectionObserver(
+            (entries) => {
+                if (entries.some((e) => e.isIntersecting)) {
+                    tryPush() && resizeObserver.disconnect();
+                }
+            },
+            { threshold: 0 }
+        );
+        intersectionObserver.observe(el);
+
+        return () => {
+            resizeObserver.disconnect();
+            intersectionObserver.disconnect();
+        };
     }, [slot, PUBLISHER_ID]);
 
     if (!PUBLISHER_ID) {
@@ -48,12 +76,7 @@ export function AdUnit({ slot, format = "auto", className = "" }: AdUnitProps) {
     }
 
     return (
-        <div className={`text-center my-4 overflow-hidden ${className}`}>
-            {/* 
-            data-ad-slot: 您的广告单元 ID
-            data-ad-format: auto 让广告自适应宽度
-            data-full-width-responsive: true 让广告在手机上撑满
-        */}
+        <div ref={adRef} className={`text-center my-4 overflow-hidden ${className}`}>
             <ins
                 className="adsbygoogle"
                 style={{ display: "block" }}

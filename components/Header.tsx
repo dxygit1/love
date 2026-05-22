@@ -1,21 +1,25 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { Heart, Languages } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { ContactModal } from "./ContactModal";
 
 export function Header() {
     const pathname = usePathname();
     const isHome = pathname === "/";
     const { t, language, setLanguage } = useLanguage();
+    const [contactOpen, setContactOpen] = useState(false);
 
     const toggleLanguage = () => {
         setLanguage(language === "zh" ? "en" : "zh");
     };
 
     return (
+        <>
         <header className="fixed top-0 left-0 right-0 z-50 bg-white/60 backdrop-blur-md border-b border-white/50 transition-all duration-300">
             <div className="w-full mx-auto px-4 md:px-8 lg:px-16 h-14 md:h-16 flex items-center justify-between">
                 {/* Logo + Nav - Left */}
@@ -58,6 +62,12 @@ export function Header() {
                         >
                             {t("header.about")}
                         </Link>
+                        <button
+                            onClick={() => setContactOpen(true)}
+                            className="transition-colors hover:text-rose-500 whitespace-nowrap text-gray-600"
+                        >
+                            {t("header.contact")}
+                        </button>
                     </nav>
                 </div>
 
@@ -70,5 +80,7 @@ export function Header() {
                 </button>
             </div>
         </header>
+        <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
+        </>
     );
 }

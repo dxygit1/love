@@ -38,6 +38,10 @@ export const translations = {
             blog: "情感专栏",
             about: "关于我们",
             privacy: "隐私",
+            contact: "联系我们",
+            email_label: "邮箱地址",
+            copy_email: "复制邮箱",
+            email_copied: "已复制！",
         },
         welcome_does_he_like_me: {
             title_1: "他到底",
@@ -185,6 +189,10 @@ export const translations = {
             blog: "Blog",
             about: "About",
             privacy: "Privacy",
+            contact: "Contact Us",
+            email_label: "Email",
+            copy_email: "Copy",
+            email_copied: "Copied!",
         },
         welcome_does_he_like_me: {
             title_1: "Does He",

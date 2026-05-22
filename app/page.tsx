@@ -1,19 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Heart, Sparkles, ArrowRight, Search, Menu, Brain, HeartHandshake, Flame, Users, HelpCircle, Smile, Shield } from "lucide-react";
+import { Heart, Sparkles, ArrowRight, Search, Brain, HeartHandshake, Flame, Users, HelpCircle, Shield } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { AdUnit } from "@/components/AdUnit";
-
-/*
- * Portal Homepage replicating arealme.com style
- * Features:
- * 1. Clean Header
- * 2. Hero Section with Search
- * 3. Category Grid (Simplified for now)
- * 4. Main Quiz Grid (2 cols mobile, 3 cols desktop)
- */
 
 export default function PortalPage() {
   const { t, language } = useLanguage();
@@ -26,7 +16,7 @@ export default function PortalPage() {
       titleZh: "你到底有多喜欢他？",
       descEn: "Is it just a crush or true love? Based on Sternberg's Triangular Theory of Love, this deep psychological analysis reveals the true nature of your feelings.",
       descZh: "到底是心动还是真爱？基于斯腾伯格爱情三角理论，通过多维度分析深度剖析你的真实心意，助你看清这段关系的本质。",
-      icon: Heart,  // 恋爱测试 - 爱心
+      icon: Heart,
       color: "from-rose-500 to-pink-600",
       stats: "2.3M+ Tested",
       badge: "HOT"
@@ -38,7 +28,7 @@ export default function PortalPage() {
       titleZh: "你的欲望组成图",
       descEn: "What drives your heart? Discover your inner desires through 12 fun scenarios. Explore 8 desire dimensions and generate your unique desire pie chart!",
       descZh: "你的欲望由什么组成？通过12道趣味情景题，测试你内心深处的真实渴望。探索八大欲望维度，生成专属于你的欲望比重饼图！",
-      icon: Flame,  // 欲望测试 - 火焰
+      icon: Flame,
       color: "from-amber-500 to-orange-600",
       stats: "Trending",
       badge: "NEW"
@@ -50,7 +40,7 @@ export default function PortalPage() {
       titleZh: "渣男辨别力测试",
       descEn: "Can you spot the red flags? Through 20 scenario-based questions, discover your ability to identify toxic behaviors in relationships.",
       descZh: "渣男像地雷，既要慧眼识别又要小心绕开！通过20道情境题，测测你识别渣男套路的能力有多强？",
-      icon: Shield,  // 渣男测试 - 盾牌
+      icon: Shield,
       color: "from-purple-500 to-pink-600",
       stats: "Trending",
       badge: "NEW"
@@ -62,7 +52,7 @@ export default function PortalPage() {
       titleZh: "性取向测试",
       descEn: "Explore your true orientation! Through 10 carefully designed scenarios, discover whether you lean more towards heterosexual, homosexual, or bisexual.",
       descZh: "探索你的真实取向！通过10道精心设计的情境问题，发现你究竟更偏向异性恋、同性恋还是双性恋。结果以饼图形式呈现！",
-      icon: Users,  // 性取向测试 - 人群
+      icon: Users,
       color: "from-pink-500 to-purple-600",
       stats: "Trending",
       badge: "NEW"
@@ -74,7 +64,7 @@ export default function PortalPage() {
       titleZh: "他喜欢我吗？",
       descEn: "Decode his mixed signals! We analyze 20 subconscious behavioral details to reveal if he's truly interested in you or just being friendly.",
       descZh: "那个他到底怎么想的？通过20个潜意识行为细节与非语言信号，我们帮你揭秘他对你的真实感觉，不再猜来猜去。",
-      icon: HelpCircle,  // 他喜欢我吗 - 问号
+      icon: HelpCircle,
       color: "from-indigo-500 to-violet-600",
       stats: "New Arrival",
       badge: "NEW"
@@ -86,7 +76,7 @@ export default function PortalPage() {
       titleZh: "我喜欢她吗？",
       descEn: "Just a friend or something more? Based on the Laws of Attraction, calculate your true affection level and understand your own heart.",
       descZh: "只是朋友还是心动？基于人际吸引力法则，通过心理投射测试解析你对她的真实感觉，帮你理清心中迷雾。",
-      icon: HeartHandshake,  // 我喜欢她吗 - 握手爱心
+      icon: HeartHandshake,
       color: "from-sky-500 to-blue-600",
       stats: "Trending",
       badge: "HOT"
@@ -132,8 +122,6 @@ export default function PortalPage() {
               : "Professional psychological models to help you find answers in the complex world of emotions. No registration required."}
           </p>
 
-
-
           {/* Search Bar (Visual only for now) */}
           <div className="relative max-w-md mx-auto group">
             <input
@@ -167,10 +155,7 @@ export default function PortalPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {quizzes.map((quiz) => (
             <Link key={quiz.id} href={quiz.href} className="group block">
-              <motion.div
-                whileHover={{ y: -4 }}
-                className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 h-full flex flex-col"
-              >
+              <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-gray-100 h-full flex flex-col">
                 {/* Thumbnail Area */}
                 <div className={`h-48 relative bg-gradient-to-br ${quiz.color} flex items-center justify-center overflow-hidden`}>
                   {/* Decorative Circles */}
@@ -207,7 +192,7 @@ export default function PortalPage() {
                     </span>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             </Link>
           ))}
         </div>
@@ -307,7 +292,7 @@ export default function PortalPage() {
             <div className="space-y-6 text-gray-600 leading-relaxed text-sm md:text-base">
               <p>
                 {language === "zh"
-                  ? "在这个快节奏的现代社会，我们常常被各种复杂的情绪所困扰。当你问自己“我到底有多喜欢他？”或者“这仅仅是一时的冲动吗？”时，你其实正在寻求一种确定的答案。我们的 **Love Quiz 情感测试平台**正是为此而生。不同于市面上娱乐性质的星座占卜，我们致力于将严肃的心理学理论转化为直观、易懂的在线测试工具。"
+                  ? '在这个快节奏的现代社会，我们常常被各种复杂的情绪所困扰。当你问自己"我到底有多喜欢他？"或者"这仅仅是一时的冲动吗？"时，你其实正在寻求一种确定的答案。我们的 Love Quiz 情感测试平台正是为此而生。不同于市面上娱乐性质的星座占卜，我们致力于将严肃的心理学理论转化为直观、易懂的在线测试工具。'
                   : "In our fast-paced modern society, we are often overwhelmed by complex emotions. When you ask yourself 'How much do I really love him?' or 'Is this just a fleeting crush?', you are seeking certainty. **Love Quiz** was created for this purpose. Unlike entertainment-focused horoscopes, we bridge the gap between serious psychological theory and accessible online tools."}
               </p>
 
@@ -316,7 +301,7 @@ export default function PortalPage() {
               </h3>
               <p>
                 {language === "zh"
-                  ? "美国心理学家罗伯特·斯腾伯格（Robert Sternberg）提出的爱情三角理论是现代亲密关系研究的基石。该理论认为，完美的爱情由三个核心元素组成：**亲密（Intimacy）**、**激情（Passion）**和**承诺（Commitment）**。我们的“深度情感测试”正是基于这一模型设计的。通过分析你在面对特定情境时的潜意识反应（例如：你会多频繁地想到他？你是否愿意为了他牺牲个人利益？），我们能够量化这三个维度的强度，从而判断你当前的情感类型——是注定短暂的“迷恋”，还是细水长流的“伴侣之爱”，亦或是人人向往的“完美之爱”。"
+                  ? '美国心理学家罗伯特·斯腾伯格（Robert Sternberg）提出的爱情三角理论是现代亲密关系研究的基石。该理论认为，完美的爱情由三个核心元素组成：**亲密（Intimacy）**、**激情（Passion）**和**承诺（Commitment）**。我们的"深度情感测试"正是基于这一模型设计的。通过分析你在面对特定情境时的潜意识反应（例如：你会多频繁地想到他？你是否愿意为了他牺牲个人利益？），我们能够量化这三个维度的强度，从而判断你当前的情感类型——是注定短暂的"迷恋"，还是细水长流的"伴侣之爱"，亦或是人人向往的"完美之爱"。'
                   : "Proposed by psychologist Robert Sternberg, the Triangular Theory of Love is a cornerstone of relationship science. It posits that love consists of three components: **Intimacy**, **Passion**, and **Commitment**. Our deep analysis quiz measures the strength of these dimensions through your subconscious reactions to specific scenarios, helping you identify if you are experiencing a fleeting **Infatuation**, stable **Compassionate Love**, or the ideal **Consummate Love**."}
               </p>
 
@@ -325,7 +310,7 @@ export default function PortalPage() {
               </h3>
               <p>
                 {language === "zh"
-                  ? "许多人在感情中容易“当局者迷”。自我认知偏差（Self-serving Bias）往往让我们高估或低估对方在自己心中的地位。通过标准化的问卷（Standardized Questionnaire），我们能像照镜子一样客观地审视这段关系。**“他喜欢我吗？”**测试则运用了非语言沟通（Non-verbal Communication）和行为心理学原理，帮助你捕捉那些被忽略的微表情和肢体语言信号。这些科学的分析维度，能通过数据化的形式呈现，为你下一步的感情决策（表白、分手或继续相处）提供理性的参考依据。"
+                  ? '许多人在感情中容易"当局者迷"。自我认知偏差（Self-serving Bias）往往让我们高估或低估对方在自己心中的地位。通过标准化的问卷（Standardized Questionnaire），我们能像照镜子一样客观地审视这段关系。**"他喜欢我吗？"**测试则运用了非语言沟通（Non-verbal Communication）和行为心理学原理，帮助你捕捉那些被忽略的微表情和肢体语言信号。这些科学的分析维度，能通过数据化的形式呈现，为你下一步的感情决策（表白、分手或继续相处）提供理性的参考依据。'
                   : "We are often blinded by our own biases in relationships. Self-serving bias can make us overestimate or underestimate a partner's importance. Standardized questionnaires act as a mirror, offering an objective view. Our **'Does He Like Me?'** quiz utilizes principles of non-verbal communication and behavioral psychology to decode signals you might miss. These scientific insights provide a rational basis for your next move—whether to confess, move on, or deepen the bond."}
               </p>
 
