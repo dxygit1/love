@@ -1,0 +1,21 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - img [ref=e5]
+    - heading "服务器维护公告" [level=1] [ref=e7]
+    - paragraph [ref=e8]: 由于最近访问流量激增，服务器资源暂时无法承载，我们正在进行优化调整。请您先通过以下临时地址访问使用：
+    - link "访问临时地址" [ref=e9] [cursor=pointer]:
+      - /url: http://47.104.247.159/
+    - generic [ref=e10]:
+      - paragraph [ref=e11]: 如有问题或建议，欢迎联系我们：
+      - generic [ref=e12]:
+        - paragraph [ref=e13]:
+          - text: 邮箱：
+          - link "dxysy1@gmail.com" [ref=e14] [cursor=pointer]:
+            - /url: mailto:dxysy1@gmail.com
+        - paragraph [ref=e15]: QQ：960896265
+        - paragraph [ref=e16]:
+          - text: QQ邮箱：
+          - link "960896265@qq.com" [ref=e17] [cursor=pointer]:
+            - /url: mailto:960896265@qq.com
+    - paragraph [ref=e18]: 感谢您的支持
+  - alert [ref=e19]
