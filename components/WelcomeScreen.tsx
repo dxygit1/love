@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Heart, ArrowRight, Sparkles, Clock } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { AdUnit } from "@/components/AdUnit";
+import { AdsterraNativeBanner } from "@/components/AdsterraNativeBanner";
 import Link from "next/link";
 
 interface WelcomeScreenProps {
@@ -206,7 +206,7 @@ export function WelcomeScreen({ onStart }: WelcomeScreenProps) {
 
                         {/* Bottom Ad Slot - Positioned safely after legitimate content */}
                         <div className="w-full mt-8 min-h-[100px]">
-                            <AdUnit slot="HOME_TOP_SLOT" />
+                            <AdsterraNativeBanner />
                         </div>
                     </motion.div>
                 </motion.div>

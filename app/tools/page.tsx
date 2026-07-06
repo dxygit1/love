@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Brain, Heart, ArrowRight, Search, Sparkles, Flame, Users, HelpCircle, HeartHandshake, Shield } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { motion } from "framer-motion";
-import { AdUnit } from "@/components/AdUnit";
+import { AdsterraNativeBanner } from "@/components/AdsterraNativeBanner";
 
 export default function ToolsPage() {
     const { t, language } = useLanguage();
@@ -110,7 +110,7 @@ export default function ToolsPage() {
 
                 {/* AdUnit - Interstitial */}
                 <div className="w-full flex justify-center mb-8">
-                    <AdUnit slot="HOME_TOP_SLOT" />
+                    <AdsterraNativeBanner />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

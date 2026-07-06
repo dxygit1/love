@@ -5,7 +5,7 @@ import { RefreshCw, Camera, Link2, Share2 } from "lucide-react";
 import type { ResultCategory } from "@/lib/quiz-data-mental-age";
 import { useRef, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { AdUnit } from "@/components/AdUnit";
+import { AdsterraNativeBanner } from "@/components/AdsterraNativeBanner";
 import { translations } from "@/lib/translations";
 
 interface ResultScreenMentalAgeProps {
@@ -134,7 +134,7 @@ export function ResultScreenMentalAge({ mentalAge, realAge, result, onRestart }:
 
                         {!isPreviewMode && (
                             <div className="w-full mb-8">
-                                <AdUnit slot="RESULT_TOP_SLOT" />
+                                <AdsterraNativeBanner />
                             </div>
                         )}
 

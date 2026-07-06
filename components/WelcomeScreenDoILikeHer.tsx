@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Heart, ArrowRight, Sparkles, Clock, RefreshCcw } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { AdUnit } from "@/components/AdUnit";
+import { AdsterraNativeBanner } from "@/components/AdsterraNativeBanner";
 import Link from "next/link";
 
 interface WelcomeScreenDoILikeHerProps {
@@ -204,7 +204,7 @@ export function WelcomeScreenDoILikeHer({ onStart }: WelcomeScreenDoILikeHerProp
 
                         {/* Bottom Ad Slot */}
                         <div className="w-full flex justify-center">
-                            <AdUnit slot="HOME_TOP_SLOT" />
+                            <AdsterraNativeBanner />
                         </div>
                     </motion.div>
                 </motion.div>

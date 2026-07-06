@@ -5,7 +5,7 @@ import { RefreshCw, Camera, Link2, Sparkles, ChevronDown, ChevronUp } from "luci
 import type { ResultCategory } from "@/lib/quiz-data";
 import { useRef, useState, useEffect } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { AdUnit } from "@/components/AdUnit";
+import { AdsterraNativeBanner } from "@/components/AdsterraNativeBanner";
 
 interface ResultScreenProps {
     score: number;
@@ -337,7 +337,7 @@ export function ResultScreen({ score, result, onRestart, personName, gender = "m
 
                             {!isPreviewMode && (
                                 <div className="w-full mt-4">
-                                    <AdUnit slot="RESULT_TOP_SLOT" />
+                                    <AdsterraNativeBanner />
                                 </div>
                             )}
 
