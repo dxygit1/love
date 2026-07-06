@@ -3,7 +3,7 @@
 import { Heart, Sparkles, ArrowRight, Search, Brain, HeartHandshake, Flame, Users, HelpCircle, Shield } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { AdUnit } from "@/components/AdUnit";
+import { AdsterraNativeBanner } from "@/components/AdsterraNativeBanner";
 
 export default function PortalPage() {
   const { t, language } = useLanguage();
@@ -148,7 +148,7 @@ export default function PortalPage() {
 
         {/* AdUnit - Interstitial */}
         <div className="w-full flex justify-center">
-          <AdUnit slot="HOME_TOP_SLOT" />
+          <AdsterraNativeBanner />
         </div>
 
         {/* Quiz Grid */}

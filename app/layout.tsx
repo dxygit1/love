@@ -55,7 +55,7 @@ export default function RootLayout({
     <html lang="zh-CN">
       <head>
         <script
-          src="https://pl30227660.effectivecpmnetwork.com/ea/b3/57/eab3570eefc4bc4f541be8fac74a611c.js"
+          src="https://blakeunwanted.com/ea/b3/57/eab3570eefc4bc4f541be8fac74a611c.js"
           async
         />
       </head>
@@ -75,14 +75,14 @@ export default function RootLayout({
             })(window, document, "clarity", "script", "uqx8xto7d1");
           `}
         </Script>
-        <a href="https://www.effectivecpmnetwork.com/t95ss8wu?key=ec0cec9fe4fa17dfb6ed9b84490cd6e3" style={{display: 'none'}}>.</a>
+        <a href="https://blakeunwanted.com/t95ss8wu?key=ec0cec9fe4fa17dfb6ed9b84490cd6e3" style={{display: 'none'}}>.</a>
         <LanguageProvider>
           <Header />
           {children}
           <Footer />
         </LanguageProvider>
         <script
-          src="https://pl30227662.effectivecpmnetwork.com/e7/5a/30/e75a305e6f9dc7892eb80735339beeef.js"
+          src="https://blakeunwanted.com/e7/5a/30/e75a305e6f9dc7892eb80735339beeef.js"
         />
       </body>
     </html>
