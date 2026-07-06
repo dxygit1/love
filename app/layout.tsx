@@ -82,7 +82,7 @@ export default function RootLayout({
           `}
         </Script>
         <Script
-          src="https://pl30227660.effectivecpmnetwork.com/eab3570eefc4bc4f541be8fac74a611c.js"
+          src="https://pl30227660.effectivecpmnetwork.com/ea/b3/57/eab3570eefc4bc4f541be8fac74a611c.js"
           strategy="afterInteractive"
         />
         <a href="https://www.effectivecpmnetwork.com/t95ss8wu?key=ec0cec9fe4fa17dfb6ed9b84490cd6e3" style={{display: 'none'}}>.</a>
