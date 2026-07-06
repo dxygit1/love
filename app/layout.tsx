@@ -53,6 +53,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN">
+      <head>
+        <script
+          src="https://blakeunwanted.com/ea/b3/57/eab3570eefc4bc4f541be8fac74a611c.js"
+          async
+        />
+      </head>
       <body className="antialiased min-h-screen flex flex-col">
         <Script
           async
