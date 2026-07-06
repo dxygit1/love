@@ -15,7 +15,7 @@ export default function MaintenancePage() {
         </p>
 
         <a
-          href="http://47.104.247.159/"
+          href="https://love.teasytools.com/"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block w-full py-3 bg-rose-500 hover:bg-rose-600 text-white font-medium rounded-lg transition-colors mb-6"
