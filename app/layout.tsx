@@ -80,9 +80,9 @@ export default function RootLayout({
           {children}
           <Footer />
         </LanguageProvider>
-        <script
+        {/* <script
           src="https://blakeunwanted.com/e7/5a/30/e75a305e6f9dc7892eb80735339beeef.js"
-        />
+        /> */}
       </body>
     </html>
   );
